@@ -1,0 +1,137 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/cave/cave1.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "220",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Rocks seem to have fallen from the ceiling. ",
+      "x": "245",
+      "y": "135",
+      "l": "60",
+      "h": "130"
+    },
+    {
+      "flavor": "There is an empty beer glass here. ",
+      "x": "395",
+      "y": "145",
+      "l": "35",
+      "h": "30"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "220",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "470",
+      "y": "0",
+      "l": "220",
+      "h": "320"
+    },
+    {
+      "id": "top wall left side",
+      "x": "220",
+      "y": "0",
+      "l": "100",
+      "h": "20"
+    },
+    {
+      "id": "top wall right side",
+      "x": "375",
+      "y": "0",
+      "l": "100",
+      "h": "20"
+    },
+    {
+      "id": "rock 1 left",
+      "x": "250",
+      "y": "70",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "rock 2 left",
+      "x": "285",
+      "y": "160",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "rock 3 left",
+      "x": "255",
+      "y": "240",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "rock 1 right ",
+      "x": "370",
+      "y": "50",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "rock 2 right ",
+      "x": "400",
+      "y": "150",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "rock 3 right",
+      "x": "380",
+      "y": "235",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "rock 4 right",
+      "x": "425",
+      "y": "280",
+      "l": "25",
+      "h": "10"
+    }
+  ],
+  "redirects": [
+      {
+        "url": "/game/level/stage/cave/cave2.html",
+        "timeout": "0",
+        "deny": "Can't pass yet. ",
+        "entered": false,
+        "x": "305",
+        "y": "290",
+        "l": "30",
+        "h": "30"
+      },
+      {
+        "url": "/game/level/stage/cavelab/cavelab9.html?x=305&y=205",
+        "timeout": "0",
+        "deny": "",
+        "x": "310",
+        "y": "0",
+        "l": "30",
+        "h": "30"
+      }
+    ],
+  "spawn": {
+    "x": 325,
+    "y": 10
+  }
+}

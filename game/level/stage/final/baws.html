@@ -1,0 +1,947 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Jonathan Lin, Preston Lai, Alex Chen">
+  <title>BAWS</title>
+ </head>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/canvasfx.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <script src="/js/easystar/easystar-0.3.0.min.js"></script>
+ <script src="/js/phaser.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+
+   if(window.parent.currentKey != "BAWS" || !window.parent.bgMusicPlaying) {
+     window.parent.stopBGMusic();
+     window.parent.playBGMusic("BAWS");
+   }
+
+  redirected = false;
+  leftStart = false;
+  disableMove = false;
+
+  var dialogIndex = 0;
+  var willDialog = [
+    "",
+    "[You managed to kill it, didn't you?]",
+    "[I felt that explosion from up here!]",
+    "[Come on, keep going!]",
+    "[I - we're so close, now!]"
+  ];
+
+  currentType = 0;
+  typeArray = ["crowbar", "watergun", "blowtorch", "pickaxe"];
+  bossDeaths = 0;
+  timesAttacked = 0;
+
+  aiMap = [[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0]];
+  pcoords = { x: 0, y: 0 };
+  easystar = new EasyStar.js();
+  easystar.setGrid(aiMap);
+  easystar.setAcceptableTiles([0]);
+
+	// Initialize canvas values and functions
+  var game = new Phaser.Game(640, 320, Phaser.AUTO, "", { preload: preload, create: create, update: update }, false, false);
+
+  function preload() {
+
+    window.parent.soundfx = new Howl({
+      urls: ['/game/assets/sound/107145__bubaproducer__button-26.wav']
+    });
+
+    window.parent.crowbar = new Howl({
+      urls: ['/game/assets/sound/351372__wilhellboy__lightringingclang.wav']
+    });
+
+    window.parent.damage = new Howl({
+      urls: ['/game/assets/sound/211634__qubodup__damage.wav']
+    });
+
+    window.parent.watergun = new Howl({
+      urls: ['/game/assets/sound/238864__freakinbehemoth__squirt.wav']
+    });
+
+    window.parent.pickaxe = new Howl({
+      urls: ['/game/assets/sound/233628__agaxly__pickaxe-4.wav']
+    });
+
+    window.parent.blowtorch = new Howl({
+      urls: ['/game/assets/sound/71023__timbre__cooking-with-gas-like-a-rocket.wav']
+    });
+
+    window.parent.noweapon = new Howl({
+      urls: ['/game/assets/sound/60019__qubodup__quadruple-whoosh.wav']
+    });
+
+    window.parent.explosion = new Howl({
+      urls: ['/game/assets/sound/235968__tommccann__explosion-01.wav']
+    });
+
+    window.parent.regen = new Howl({
+      urls: ['/game/assets/sound/194176__theatomicbrain__high-score-fill-ascending-slow.wav']
+    });
+
+    window.parent.charging = new Howl({
+      urls: ['/game/assets/sound/246332__kwahmah-02__five-beeps.wav']
+    });
+
+    window.parent.missileFire = new Howl({
+      urls: ['/game/assets/sound/200459__wubitog__missile-rocket-firing.wav']
+    });
+
+    window.parent.roar = new Howl({
+      urls: ['/game/assets/sound/345735__noahpardo__deep-roar-echo-2.wav']
+    });
+
+    window.parent.gears = new Howl({
+      urls: ['/game/assets/sound/315753__vurca__running-gear.wav']
+    });
+
+    window.parent.radio = new Howl({
+      urls: ['/game/assets/sound/27878__inequation__walkietalkie-eot.wav']
+    });
+
+    game.load.json("entitymap", getJSONPath(window.location.href));
+    game.load.bitmapFont("VT323", "/game/assets/font/VT323-Regular_0.png", "/game/assets/font/VT323-Regular.xml");
+    game.load.image("black", "/game/assets/img/black.png");
+    game.load.image("background", "/game/assets/img/dirt_fill.png");
+    game.load.image("level", "/game/assets/map/stage/radio/Boss/bossroom.png");
+    game.load.image("level_2", "/game/assets/map/stage/radio/Boss/bossroomlayer.png");
+    game.load.image("invisible", "/game/assets/img/fill.png");
+    game.load.image("debug", "/game/assets/img/fill_debug.png");
+    game.load.image("dialog", "/game/assets/img/dialog.png");
+    game.load.image("map", "/game/assets/img/mapoverlay.png");
+    game.load.image("marker", "/game/assets/img/map-marker.png");
+    game.load.image("healthbar", "/game/assets/img/healthbar.png");
+    game.load.image("health", "/game/assets/img/health.png");
+    game.load.image("blowtorch", "/game/assets/img/blowtorch.png");
+    game.load.image("crowbar", "/game/assets/img/crowbar.png");
+    game.load.image("pickaxe", "/game/assets/img/pickaxe.png");
+    game.load.image("watergun", "/game/assets/img/watergun.png");
+    game.load.image("bossbar", "/game/assets/img/bossbar.png");
+    game.load.image("bossbarback", "/game/assets/img/bossbarback.png");
+    game.load.image("missile", "/game/assets/sprites/rocket.png");
+    game.load.spritesheet("player", "/game/assets/sprites/sprite-sheet-player.png", 32, 42);
+    game.load.spritesheet("datboi", "/game/assets/sprites/datboi/datboi-sprites.png", 96, 121);
+
+    game.stage.smoothed = false;
+
+  }
+
+  function create() {
+
+    window.parent.hasTorch = true;
+    window.parent.hasPick = true;
+
+    game.world.setBounds(0, 0, 1280, 640);
+
+    boxMode = "invisible";
+
+    entitymap = game.cache.getJSON("entitymap");
+
+    game.stage.backgroundColor = "#111111";
+
+    idle = 8;
+
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    black = game.add.sprite(0, 0, "black");
+    black.scale.setTo(1280, 640);
+
+    dirtBG = game.add.tileSprite(0, 0, 640, 320, "background");
+
+    background = game.add.sprite(0, 0, "level");
+
+    if(!hasPlayerSpawn(window.location)) {
+      player = game.add.sprite(entitymap.spawn.x, entitymap.spawn.y, "player");
+    } else {
+      var spawnObj = getPlayerSpawn(window.location);
+      player = game.add.sprite(spawnObj.x, spawnObj.y, "player");
+    }
+
+    game.camera.follow(player);
+
+    game.physics.enable(player, Phaser.Physics.ARCADE);
+
+    player.body.collideWorldBounds = true;
+
+    player.animations.add("right", [0, 1, 2, 3], 10, true);
+    player.animations.add("left", [4, 5, 6, 7], 10, true);
+    player.animations.add("down", [8, 9, 10], 10, true);
+    player.animations.add("up", [12, 13, 14], 10, true);
+    player.animations.add("attack_right", [16, 17], 10, false);
+    player.animations.add("attack_left", [19, 18], 10, false);
+
+    player.useWeapon = true;
+
+    window.parent.playerHealth = 6;
+
+    setInterval(function() {
+      if(window.parent.playerHealth < 6) window.parent.playerHealth++;
+    }, 35000);
+
+    if(!window.parent.cleared) window.parent.cleared = [];
+
+    mobs = game.add.group();
+
+    if(!window.parent.cleared[location.pathname]) {
+
+      var pgcoords = getGridCoordinates(player.x, player.y);
+
+      pcoords.x = pgcoords.x;
+      pcoords.y = pgcoords.y;
+
+      bossbar = game.add.sprite(0.01, 1, "bossbar");
+      bossbar.scale.setTo(0.98, 0.6);
+
+      bossbarback = game.add.sprite(-51, -71, "bossbarback");
+      bossbarback.scale.setTo(102, 1.4);
+
+      bossbarback.addChild(bossbar);
+
+      attackIndicator = game.add.sprite(-3, -92, "blowtorch");
+      attackIndicator.anchor.setTo(0.5, 0.5);
+
+      mob = mobs.create(570, 290, "datboi");
+      mob.anchor.setTo(0.5, 0.5);
+      mob.health = 20;
+      mob.maxHealth = 20;
+      mob.range = Infinity;
+      mob.speed = 3;
+      mob.regen = false;
+      mob.animations.add("move", [0, 1, 2, 3], 5, true);
+      game.physics.arcade.enableBody(mob);
+      mob.body.collideWorldBounds = true;
+
+      missile = game.add.sprite(640, 320, "missile");
+      missile.anchor.setTo(0.5, 0.5);
+      missile.scale.setTo(-1, 1);
+      missile.speed = 200;
+      missile.followBoss = true;
+      missile.animations.add("move", [0, 1, 2, 3], 5, true);
+      game.physics.arcade.enableBody(missile);
+
+      // Tick-based changes
+
+      setInterval(function() {
+        if(leftStart && !mob.regen && mob.alive && !game.paused) {
+          missile.x = mob.x;
+          missile.y = mob.y;
+          var px = player.x;
+          var py = player.y;
+          window.parent.charging.play();
+          setTimeout(function() {
+            window.parent.missileFire.play();
+            missile.followBoss = false;
+            missile.rotation = game.physics.arcade.moveToXY(missile, px + (player.width / 2), py + (player.height / 2), 460);
+          }, 537);
+        }
+      }, 5100);
+
+      mob.addChild(bossbarback);
+      mob.addChild(attackIndicator);
+
+      updateAttackType();
+
+    }
+
+    background_2 = game.add.sprite(0, 0, "level_2");
+
+    health_overlay = game.add.group();
+
+    healthbar = health_overlay.create(15, 15, "healthbar");
+
+    health_1 = health_overlay.create(16, 16, "health");
+    health_2 = health_overlay.create(27, 16, "health");
+    health_3 = health_overlay.create(38, 16, "health");
+    health_4 = health_overlay.create(49, 16, "health");
+    health_5 = health_overlay.create(60, 16, "health");
+    health_6 = health_overlay.create(71, 16, "health");
+
+    health_overlay.x = -20;
+    health_overlay.y = -20;
+    health_overlay.scale.setTo(2, 2);
+    health_overlay.bars = [health_1, health_2, health_3, health_4, health_5, health_6];
+    health_overlay.fixedToCamera = true;
+
+    attackKey = game.input.keyboard.addKey(Phaser.Keyboard.X);
+
+    if(entitymap.hitboxes.length > 0) {
+
+      hitboxes = game.add.group();
+      hitboxes.enableBody = true;
+
+      for(var i = 0; i < entitymap.hitboxes.length; i++) {
+
+        var hitboxData = entitymap.hitboxes[i];
+
+        var box = hitboxes.create(Number(hitboxData.x), Number(hitboxData.y), boxMode);
+        box.id = hitboxData.id;
+        box.scale.setTo(Number(hitboxData.l), Number(hitboxData.h));
+        box.body.immovable = true;
+
+      }
+
+    }
+
+    if(entitymap.flavors.length > 0) {
+
+      flavors = game.add.group();
+
+      for(var i = 0; i < entitymap.flavors.length; i++) {
+
+        var flavorData = entitymap.flavors[i];
+
+        var flavor = flavors.create(Number(flavorData.x), Number(flavorData.y), boxMode);
+        flavor.scale.setTo(Number(flavorData.l), Number(flavorData.h));
+        flavor.flavor = flavorData.flavor;
+
+      }
+
+      popup = game.add.group();
+
+      dialog = popup.create(170, 10, "dialog");
+      dialog.scale.setTo(0.5, 0.6);
+
+      nametag = popup.create(182, 4, "dialog");
+      nametag.scale.setTo(0.06, 0.19);
+      nametag.visible = false;
+
+      text = game.add.bitmapText(185, 20, "VT323", "", 15, popup);
+
+      nametext = game.add.bitmapText(185, 5, "VT323", "Will", 12, popup);
+      nametext.visible = false;
+
+      popup.x = -180;
+      popup.scale.setTo(1.5, 1.5);
+      popup.visible = false;
+      popup.fixedToCamera = true;
+      popup.cameraOffset.setTo(-180, 0);
+
+    }
+
+    if(entitymap.redirects.length > 0) {
+
+      redirects = game.add.group();
+
+      for(var i = 0; i < entitymap.redirects.length; i++) {
+
+        var redirectData = entitymap.redirects[i];
+
+        var redirect = redirects.create(Number(redirectData.x), Number(redirectData.y), boxMode);
+        redirect.scale.setTo(Number(redirectData.l), Number(redirectData.h));
+        redirect.url = redirectData.url;
+        redirect.timeout = redirectData.timeout;
+        redirect.deny = redirectData.deny;
+        redirect.entered = redirectData.entered;
+
+      }
+
+      if(window.parent.cleared[location.pathname]) {
+        redirects.forEachExists(function(childRedirect) {
+          childRedirect.timeout = 0;
+          childRedirect.entered = false;
+        });
+      }
+
+    }
+
+    inv_overlay = game.add.group();
+
+    inv = inv_overlay.create(17, 55, "dialog");
+    inv.scale.setTo(1, 2.5);
+
+    inv_text_1 = game.add.bitmapText(45, 80, "VT323", "-> Crowbar", 25, inv_overlay);
+
+    inv_text_2 = game.add.bitmapText(45, 120, "VT323", "Watergun", 25, inv_overlay);
+
+    inv_text_3 = game.add.bitmapText(45, 160, "VT323", "", 25, inv_overlay);
+
+    inv_text_4 = game.add.bitmapText(45, 200, "VT323", "", 25, inv_overlay);
+
+    inv_overlay.visible = false;
+    inv_overlay.fixedToCamera = true;
+
+    invKey = game.input.keyboard.addKey(Phaser.Keyboard.I);
+
+    map_overlay = game.add.group();
+
+    map = map_overlay.create(105, 15, "map");
+    map.scale.setTo(2.3, 2.3);
+
+    marker = map_overlay.create(433, 127, "marker");
+
+    map_overlay.visible = false;
+    map_overlay.fixedToCamera = true;
+
+    black.bringToTop();
+    if(!window.parent.messaged) window.parent.messaged = [];
+    game.add.tween(black).to({ alpha: 0 }, 2300).start();
+
+    cursors = game.input.keyboard.createCursorKeys();
+    enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+    mapKey = game.input.keyboard.addKey(Phaser.Keyboard.M);
+
+  }
+
+  function update() {
+
+    dirtBG.tilePosition.x = 0.5;
+
+    game.physics.arcade.collide(player, hitboxes);
+
+    if(!player.damaged) {
+      player.body.velocity.x = 0;
+      player.body.velocity.y = 0;
+    }
+
+    var enterDowned = enterKey.justDown;
+    var attackDowned = attackKey.justDown;
+
+    setTimeout(function() {
+      if(!hasIntersection(player, redirects)) {
+        leftStart = true;
+      }
+    }, 10);
+
+    if(!window.parent.messaged[location.pathname] && noLivingMobs()) {
+      window.parent.messaged[location.pathname] = true;
+      setTimeout(function() {
+        setDialogMessage("[Wow!]");
+        disableMove = true;
+        popup.visible = false;
+        player.animations.stop();
+        player.frame = 0;
+        window.parent.radio.play();
+        showPhaserDialog();
+      }, 500);
+    }
+
+    if(enterDowned && disableMove) {
+      player.animations.stop();
+      dialogIndex++;
+      window.parent.radio.play();
+      if(dialogIndex < willDialog.length) {
+        setDialogMessage(willDialog[dialogIndex]);
+      } else {
+        disableMove = false;
+        hidePhaserDialog();
+      }
+      return;
+    }
+
+    if(!window.parent.cleared[location.pathname]) {
+
+      // Missile handler
+
+      var missileIntersects = Phaser.Rectangle.intersects(player.getBounds(), missile.getBounds().scale(0.5, 0.5));
+
+      if(missile.x < -29 || missile.x > 1309 || missile.y < -19 || missile.y > 659 || missileIntersects) {
+        if(missileIntersects && !player.damaged && missile.alpha > 0) {
+          game.camera.flash(0xffffff, 100);
+          game.camera.shake(0.01, 200);
+          window.parent.damage.play();
+          damagePlayer(1);
+        }
+        missile.body.velocity.x = 0;
+        missile.body.velocity.y = 0;
+        missile.followBoss = true;
+      }
+
+      if(missile.followBoss) {
+        missile.x = mob.x;
+        missile.y = mob.y;
+        missile.alpha = 0;
+      } else {
+        missile.alpha = 1;
+      }
+
+      // Boss health bar update
+
+      if(!mob.regen) bossbar.scale.x = (mob.health / mob.maxHealth) * 0.98;
+
+    }
+
+    // Hide inventory on ENTER
+
+    if(enterDowned && inv_overlay.visible) {
+      window.parent.soundfx.play();
+      inv_overlay.visible = false;
+      return;
+    }
+
+    // Mob update function
+
+    updateMobs();
+
+    easystar.calculate();
+
+    // Attack handler
+
+    if(hasIntersection(player, mobs) && getIntersection(player, mobs).alive) {
+      if(!player.damaged) {
+        player.damaged = true;
+        damagePlayer(1);
+        game.camera.shake(0.008, 100);
+        window.parent.damage.play();
+        setTimeout(function() {
+          player.damaged = false;
+        }, 800);
+      }
+      player.body.velocity.x = 0;
+      player.body.velocity.y = 0;
+
+      var playerLeft = mob.x > player.x;
+      var playerAbove = mob.y > player.y;
+      var damageX = 0;
+      var damageY = 0;
+
+      if(playerLeft) {
+        damageX = -400;
+      } else {
+        damageX = 400;
+      }
+      damageY = (playerAbove) ? -400 : 400;
+      player.body.velocity.x = damageX;
+      player.body.velocity.y = damageY;
+    } else {
+      player.damaged = false;
+    }
+
+    if(attackDowned) {
+      var attackRange = 0;
+      var deltaX = 0;
+      var deltaY = 0;
+      switch(player.animations.currentAnim.name) {
+        case "right":
+          deltaX = 400;
+          attackRange = 110;
+          break;
+        case "left":
+          deltaX = -400;
+          attackRange = 81;
+          break;
+        case "down":
+          deltaY = 400;
+          attackRange = 92;
+          break;
+        case "up":
+          deltaY = -400;
+          attackRange = 73;
+          break;
+      }
+
+      if(game.physics.arcade.distanceBetween(player, mob) <= attackRange && !mob.regen) {
+        if(currentType == window.parent.invIndex) {
+          switch(window.parent.invIndex) {
+            case 0:
+              window.parent.crowbar.play();
+              break;
+            case 1:
+              window.parent.watergun.play();
+              break;
+            case 2:
+              window.parent.blowtorch.play();
+              break;
+            case 3:
+              window.parent.pickaxe.play();
+              break;
+          }
+          mob.damaged = true;
+          setTimeout(function() {
+            mob.damaged = false;
+            if(mob.health - 1 <= 0) {
+              bossDeaths++;
+              if(bossDeaths < 3) {
+                regenBossHealth();
+                timesAttacked = 0;
+                updateAttackType();
+              } else {
+                blowRobot();
+              }
+            } else {
+              mob.damage(1);
+              timesAttacked++;
+              if(timesAttacked >= 10) {
+                updateAttackType();
+                timesAttacked = 0;
+              }
+            }
+          }, 50);
+          mob.body.velocity.x = deltaX;
+          mob.body.velocity.y = deltaY;
+        } else {
+          if(window.parent.invIndex != 1) window.parent.noweapon.play();
+          else window.parent.watergun.play();
+        }
+      } else {
+        if(window.parent.invIndex != 1) window.parent.noweapon.play();
+        else window.parent.watergun.play();
+      }
+    }
+
+    // Health bar update
+
+    health_1.visible = false;
+    health_2.visible = false;
+    health_3.visible = false;
+    health_4.visible = false;
+    health_5.visible = false;
+    health_6.visible = false;
+
+    for(var i = (window.parent.playerHealth - 1); i >= 0; i--) {
+      health_overlay.bars[i].visible = true;
+    }
+
+    if(window.parent.playerHealth <= 0 && !redirected) {
+      redirected = true;
+      var red = game.add.sprite(0, 0, "debug");
+      red.scale.setTo(1280, 640);
+      red.alpha = 0;
+      black.bringToTop();
+      game.add.tween(red).to({ alpha: 1 }, 500).start();
+      game.add.tween(black).to({ alpha: 1 }, 1000).start();
+      setTimeout(function() {
+        location.reload();
+      }, 1050);
+    }
+
+    // Redirects update
+
+    if(typeof popup != "undefined") {
+      if(hasIntersection(player, redirects) && leftStart && noLivingMobs()) {
+        window.parent.cleared[location.pathname] = true;
+        var intersection = getIntersection(player, redirects);
+        if((enterDowned && intersection.entered) || !intersection.entered) {
+          var elapsed = game.time.now;
+          if(elapsed >= intersection.timeout) {
+            if(popup.visible) {
+              window.parent.soundfx.play();
+              popup.visible = false;
+            }
+
+            if(!redirected) {
+              redirected = true;
+              game.add.tween(black).to({ alpha: 1 }).start();
+              setTimeout(function() {
+                window.location = intersection.url;
+              }, 1000);
+            }
+          } else {
+            if(enterDowned) {
+              window.parent.soundfx.play();
+              text.text = intersection.deny;
+              popup.visible = (popup.visible) ? false : true;
+            }
+          }
+        }
+      }
+
+      if(hasIntersection(player, flavors) && enterDowned) {
+        window.parent.soundfx.play();
+        var currentFloat = getIntersection(player, flavors);
+        text.text = currentFloat.flavor;
+        popup.visible = (popup.visible) ? false : true;
+      }
+
+      if(!hasIntersection(player, flavors) && !hasIntersection(player, redirects) && !enterDowned && !disableMove) {
+          popup.visible = false;
+      }
+    }
+
+    if(mapKey.justDown) {
+      window.parent.soundfx.play();
+      map_overlay.visible = (map_overlay.visible) ? false : true;
+    }
+
+    if(isNaN(window.parent.invIndex)) window.parent.invIndex = 0;
+
+    resetInv();
+
+    if(invKey.justDown) {
+      window.parent.soundfx.play();
+      inv_overlay.visible = (inv_overlay.visible) ? false : true;
+      cursors.up.reset();
+      cursors.down.reset();
+    }
+
+    switch(window.parent.invIndex) {
+      case 0:
+        if(!inv_text_1.text.startsWith("-> ")) inv_text_1.text = "-> " + inv_text_1.text;
+        break;
+      case 1:
+        if(!inv_text_2.text.startsWith("-> ")) inv_text_2.text = "-> " + inv_text_2.text;
+        break;
+      case 2:
+        if(!inv_text_3.text.startsWith("-> ")) inv_text_3.text = "-> " + inv_text_3.text;
+        break;
+      case 3:
+        if(!inv_text_4.text.startsWith("-> ")) inv_text_4.text = "-> " + inv_text_4.text;
+        break;
+      default:
+        if(!inv_text_1.text.startsWith("-> ")) inv_text_1.text = "-> " + inv_text_1.text;
+        break;
+    }
+
+    if(!inv_overlay.visible && (typeof disableMove == "undefined" || !disableMove)) {
+      if(!attackDowned && !player.attackAnimation) {
+        if(cursors.left.isDown) {
+          idle = 7;
+          player.body.velocity.x = -150;
+          player.animations.play("left");
+        }
+
+        else if(cursors.right.isDown) {
+          idle = 0;
+          player.body.velocity.x = 150;
+          player.animations.play("right");
+        }
+
+        else if(cursors.up.isDown) {
+          idle = 12;
+          player.body.velocity.y = -150;
+          player.animations.play("up");
+        }
+
+        else if(cursors.down.isDown) {
+          idle = 8;
+          player.body.velocity.y = 150;
+          player.animations.play("down");
+        }
+
+        else if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown) {
+          player.animations.stop();
+
+          player.frame = idle;
+        }
+      } else {
+        if(!cursors.up.isDown && !cursors.down.isDown && player.frame != 8 && player.frame != 12) {
+          if(cursors.left.timeDown > cursors.right.timeDown) player.animations.play("attack_left");
+          else player.animations.play("attack_right");
+        }
+      }
+    } else {
+      if(cursors.down.justDown) {
+        window.parent.invIndex = (window.parent.invIndex + 1 > 3) ? 0 : window.parent.invIndex + 1;
+      }
+
+      if(cursors.up.justDown) {
+        window.parent.invIndex = (window.parent.invIndex - 1 < 0) ? 3 : window.parent.invIndex - 1;
+      }
+    }
+
+  }
+
+  function blowRobot() {
+    window.parent.explosion.play();
+    game.camera.shake(0.01, 1000);
+    game.camera.flash(0xffffff, 1000);
+    setTimeout(function() {
+      mob.destroy();
+    }, 10);
+
+    redirects.forEachExists(function(childRedirect) {
+      childRedirect.timeout = 0;
+      childRedirect.entered = false;
+    });
+  }
+
+  function regenBossHealth() {
+    window.parent.roar.play();
+    mob.regen = true;
+    var newPercentage = (3 - bossDeaths) / 3;
+    var newHealth = newPercentage * mob.maxHealth;
+    var newScale = (newHealth / mob.maxHealth) * 0.98;
+    setTimeout(function() {
+      window.parent.regen.play();
+      var regenTween = game.add.tween(bossbar.scale).to({ x: newScale }, 3000);
+      regenTween.onComplete.add(function() {
+        mob.health = newHealth;
+        mob.regen = false;
+        window.parent.regen.stop();
+      });
+      regenTween.start();
+    }, 1000);
+  }
+
+  function resetInv() {
+    inv_text_1.text = inv_text_1.text.replace("-> ", "");
+    inv_text_2.text = inv_text_2.text.replace("-> ", "");
+    inv_text_3.text = (!window.parent.hasTorch) ? "?????????" : "Blowtorch";
+    inv_text_4.text = (!window.parent.hasPick) ? "???????" : "Pickaxe";
+  }
+
+  function getIntersection(sprite, group) {
+    if(group.children.length == 0) return null;
+    for(var i = 0; i < group.children.length; i++) {
+      if(sprite.getBounds().intersects(group.children[i].getBounds())) {
+        return group.children[i];
+      }
+    }
+    return null;
+  }
+
+  function hasIntersection(sprite, group) {
+    return getIntersection(sprite, group) != null;
+  }
+
+  function updateMobs() {
+    if(typeof mobs != "undefined") {
+        mobs.forEachAlive(function(childMob) {
+          var distPlayer = game.physics.arcade.distanceBetween(childMob, player);
+          if((childMob.key != missile || !childMob.visible) && !childMob.damaged) {
+            childMob.body.velocity.x = 0;
+            childMob.body.velocity.y = 0;
+            childMob.tint = 0xFFFFFF;
+          } else {
+            game.tweens.removeFrom(childMob);
+            childMob.tint = 0xE50000;
+          }
+        });
+
+      if(playerMoved(1)) {
+        mobs.forEachAlive(function(childMob) {
+          if(!childMob.disableAI && !childMob.regen) {
+            var distPlayer = game.physics.arcade.distanceBetween(childMob, player);
+            if(distPlayer < childMob.range) {
+              queueUpdate(childMob, player);
+            }
+
+            if(game.tweens.isTweening(childMob)) {
+              if(childMob.key == "datboi") {
+                if(player.x < childMob.x) {
+                  childMob.scale.setTo(-1, 1);
+                }
+                if(player.x > childMob.x) {
+                  childMob.scale.setTo(1, 1);
+                }
+              }
+              childMob.animations.play("move");
+              if(distPlayer < 64) {
+                if(!childMob.approachingPlayer) {
+                  game.tweens.removeFrom(childMob);
+                  game.add.tween(childMob).to({ x: player.x + 8, y: player.y + 8 }, 950).start();
+                  childMob.approachingPlayer = true;
+                }
+              } else {
+                childMob.approachingPlayer = false;
+              }
+            }
+          } else {
+            game.tweens.removeFrom(childMob);
+          }
+        });
+      }
+      }
+  }
+
+  function animateMob(sprite, path) {
+    // if(false) {
+      if(game.tweens.isTweening(sprite)) game.tweens.removeFrom(sprite);
+      // pathdebug.removeAll(true);
+      var tween = game.add.tween(sprite);
+      for(var i = 1; i < path.length; i++) {
+        var toCenter = (i == path.length - 1);
+        var nextX = path[i].x * 16 + ((toCenter) ? 8 : 0);
+        var nextY = path[i].y * 16 + ((toCenter) ? 8 : 0);
+        /*square = pathdebug.create(nextX, nextY, "debug");
+        square.scale.setTo(16, 16);*/
+        if(game.physics.arcade.distanceToXY(sprite, nextX, nextY) > 8) {
+          tween.to({ x: nextX, y: nextY });
+        }
+      }
+      tween.timeScale = sprite.speed;
+      tween.start();
+    //}
+  }
+
+  function queueUpdate(sprite, target) {
+    var spritecoords = getGridCoordinates(sprite.x, sprite.y);
+    var targetcoords = getGridCoordinates(target.x + 16, target.y + 22);
+
+    easystar.findPath(spritecoords.x, spritecoords.y, targetcoords.x, targetcoords.y, function(path) {
+      if(path != null && path.length > 0) {
+        animateMob(sprite, path);
+      }
+    });
+  }
+
+  function damagePlayer(amount) {
+    window.parent.playerHealth = (window.parent.playerHealth - amount < 0) ? 0 : window.parent.playerHealth - amount;
+  }
+
+  function playerMoved(tolerance) {
+    var pgc = getGridCoordinates(player.x, player.y);
+    if(Math.abs(pgc.x - pcoords.x) >= tolerance || Math.abs(pgc.y - pcoords.y) >= tolerance) {
+      pcoords.x = pgc.x;
+      pcoords.y = pgc.y;
+      return true;
+    }
+    return false;
+  }
+
+  function noLivingMobs() {
+    if(mobs.children.length > 0) {
+      for(var i = 0; i < mobs.children.length; i++) {
+        if(mobs.children[i].alive) return false;
+      }
+    }
+    return true;
+  }
+
+  function getNumberInRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function updateAttackType() {
+    newType = getNumberInRange(0, 3);
+    if(newType != currentType) {
+      window.parent.gears.play();
+      game.add.tween(attackIndicator.scale)
+        .to({ x: 1.8, y: 1.8 }, 200)
+        .to({ x: 1, y: 1}, 400)
+        .to({ x: 1.8, y: 1.8 }, 200)
+        .to({ x: 1, y: 1}, 400)
+        .to({ x: 1.8, y: 1.8 }, 200)
+        .to({ x: 1, y: 1}, 400)
+        .to({ x: 1.8, y: 1.8 }, 200)
+        .to({ x: 1, y: 1}, 400)
+        .start();
+      currentType = newType;
+      attackIndicator.loadTexture(typeArray[currentType]);
+    } else {
+      updateAttackType();
+    }
+  }
+
+ //-->
+ </script>
+ <body onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

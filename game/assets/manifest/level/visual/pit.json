@@ -1,0 +1,19 @@
+{
+	"path": "/game/assets/",
+	"manifest": [{
+    "src": "img/bg/excavationsite.png",
+    "id": "EXCAVATION"
+  }, {
+		"src": "img/doctor.png",
+		"id": "DOCTOR"
+	}, {
+		"src": "img/dialog.png",
+		"id": "DIALOG"
+	}, {
+		"src": "img/radio.png",
+		"id": "RADIO"
+	}, {
+		"src": "sound/249637__viertelnachvier__factory2.wav",
+		"id": "BG_MUSIC"
+	}]
+}

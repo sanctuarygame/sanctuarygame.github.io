@@ -1,0 +1,410 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="Author" content="Bridgeram, Lucer, LexLuther">
+  <meta name="Description" content="A game created for the 2016 National Stem Video Game Challenge.">
+  <title>Sanctuary</title>
+</head>
+<script src="/js/jquery/jquery-2.2.4.min.js"></script>
+<script>
+  WebFontConfig = {
+    google: { families: [ 'VT323::latin' ] }
+  };
+
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+
+  $(function() {
+    $("#about").css("opacity", 0);
+    $("#play").css("opacity", 0);
+    $("#about").css("left", $(window).width());
+    $("#play").css("left", -($(window).width() / 2) - 40);
+  });
+
+  function toggleLeaf(side, visible) {
+    if(side == "right") {
+      $("#about").animate({
+        opacity: (visible) ? 1 : 0,
+        left: ($("#about").css("left").replace("px", "") == ($(window).width() / 2) - 40) ? $(window).width() : ($(window).width() / 2) - 40
+      }, 800);
+    } else {
+      $("#play").animate({
+        opacity: (visible) ? 1 : 0,
+        left: ($("#play").css("left").replace("px", "") == 0) ? -($(window).width() / 2) - 40 : 0
+      }, 800);
+    }
+  }
+</script>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    overflow: hidden;
+    background-color: black;
+    background-image: url("/game/assets/img/landing-background.png");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: auto 100%;
+    height: 100vh;
+  }
+
+  div#content {
+    text-align: center;
+  }
+
+  h1#gamename {
+    font-size: 65pt;
+    position: relative;
+    top: 1em;
+    text-shadow: 2px 2px black;
+  }
+
+  #buttons {
+    position: relative;
+    top: 12em;
+  }
+
+  #buttons a {
+    user-select: none;
+    text-decoration: none;
+    text-shadow: 2px 2px black;
+    display: inline-block;
+    margin: 30px 0px 0px 0px;
+    font-size: 20pt;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 3px dashed white;
+    border-radius: 2px;
+    padding: 15px 30px;
+  }
+
+  #buttons a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  #buttons a:active {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .gamefont {
+    font-family: "VT323", "Courier New", serif;
+    color: white;
+    font-variant: small-caps;
+  }
+
+  .contentpage {
+    overflow-y: scroll;
+    position: absolute;
+    background-color: white;
+    height: 100vh;
+    width: 50vw;
+    top: 0px;
+    text-align: center;
+    font-family: "VT323", serif;
+    padding: 20px;
+    box-shadow: 0px 0px 10px black;
+  }
+
+  a.togglebutton {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    background-color: #222;
+    height: 25px;
+    width: 25px;
+    font-family: "Trebuchet MS";
+    line-height: 20px;
+    border-radius: 50%;
+    margin: 20px;
+  }
+
+  a.togglebutton:hover {
+    background-color: #444;
+  }
+
+  a.togglebutton:active {
+    background-color: #000;
+  }
+
+  .contentpage h1 {
+    font-variant: small-caps;
+    font-size: 35pt;
+  }
+
+  blockquote {
+    margin-top: 10px;
+  }
+
+  h2 {
+    font-size: 30pt;
+    margin: 10px 0px;
+  }
+
+  .contentpage p {
+    text-align: left;
+    text-indent: 50px;
+  }
+
+  hr {
+    border: 1px dashed #111;
+    margin: 20px 0px;
+    width: 90%;
+    display: inline-block;
+  }
+
+  span.memberbox {
+    float: left;
+    border-right: 1px solid #222;
+    width: 29%;
+    padding: 2%;
+  }
+
+  span.memberbox h1 {
+    font-size: 25pt;
+    font-variant: small-caps;
+  }
+
+  ul {
+    padding: 10px 0px;
+    list-style: none;
+  }
+
+  .logo {
+    display: inline-block;
+    height: 128px;
+    width: 128px;
+    margin: 20px 10px;
+    background-repeat: no-repeat;
+  }
+
+  .logo .caption {
+    position: relative;
+    font-size: 20px;
+    top: 130px;
+    padding-top: 2px;
+  }
+
+  .caption a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .caption a:hover {
+    color: #b30000;
+    text-decoration: underline;
+  }
+
+  .caption a:active {
+    color: black;
+    text-decoration: none;
+  }
+
+  ul.spaced li {
+    margin: 20px 0px;
+  }
+
+  a#startbutton {
+    display: inline-block;
+    margin: 20px 0px;
+    text-decoration: none;
+    font-weight: bold;
+    text-indent: 0px;
+    background-color: #40416b;
+    color: white;
+    padding: 10px 15px;
+    text-shadow: 2px 2px #30315a;
+    box-shadow: 1px 1px 2px black, inset 0px 1px #6d70c4;
+    border-radius: 2px;
+    border-bottom: 2px solid #212246;
+    user-select: none;
+  }
+
+  a#startbutton:hover {
+    background-color: #595a97;
+    box-shadow: 1px 1px 2px black, inset 0px 1px #7c7ed3;
+  }
+
+  a#startbutton:active {
+    background-color: #3e4079;
+    box-shadow: 1px 0px 2px black, inset 0px 0px 3px black;
+  }
+</style>
+<body>
+  <div id="content">
+    <h1 id="gamename" class="gamefont">Sanctuary</h1>
+    <div id="buttons">
+      <a href="#" onclick="toggleLeaf('left', true)" class="gamefont" style="margin-right: 30vw;">Play</a>
+      <a href="#" onclick="toggleLeaf('right', true)" class="gamefont">About</a>
+    </div>
+    <div id="play" class="contentpage">
+      <a href="#" onclick="toggleLeaf('left', false)" class="togglebutton">&larr;</a>
+      <h1>Before You Play...</h1>
+      <hr />
+      <ul>
+        <li>
+          <h2>1. Check your browser.</h2>
+          <p>
+            This game was programmed and tested with Google Chrome in mind. We recommend that you use <a target="_blank" href="https://www.google.com/chrome/browser/desktop/">the latest version of Chrome</a> to play Sanctuary, for the best results.
+          </p>
+          <p>
+            The game is also built for a desktop computer, or laptop, as it relies heavily on keyboard controls. Please do not use a phone to view this game!
+          </p>
+        </li>
+        <li>
+          <h2>2. Set up for speed.</h2>
+          <p>
+            Sanctuary is hosted entirely on an Internet server&#8212;which means that all of its assets (files, images, sound) will have to be loaded from that server, onto your computer. It&#0146;d be a good idea to make sure that your Internet connection is as strong as possible, to make sure that these assets can be loaded quickly.
+          </p>
+        </li>
+        <li>
+          <h2>3. Some things to keep in mind.</h2>
+          <p>
+            Hosting Sanctuary on an Internet server comes with many benefits&#8212;immediate access from anywhere being one of them&#8212;but also caveats we can't do anything about programmatically. These are some things to remember:
+            <ul style="list-style: square; list-style-position: inside; text-align: left;" class="spaced">
+              <li>Keep &#8220;focus&#8221; on the game. If your keyboard controls stop working, try clicking once or twice in the window.</li>
+              <li>We can&#0146;t save your progress. There is a popup that&#0146;ll keep you from accidentally exiting the game, though.</li>
+              <li>It&#0146;s possible&#8212;especially if you have a weak Internet connection&#8212;for some files to load incompletely. If the screen appears to go dark for more than 30 seconds, it&#0146;s likely that something of this nature happened. This isn&#0146;t something we can fix, as it's a server-side issue, but you can get around it by pressing the &#8220;Back&#8221; button and letting the game try to load the assets again.</li>
+            </ul>
+          </p>
+        </li>
+        <li>
+          <h2>4. Thanks for playing.</h2>
+          <p style="text-align: center">
+            Ready to start, after all that text?<br />
+            <a href="game.html" id="startbutton">Click here.</a>
+          </p>
+        </li>
+      </ul>
+      <br /><br />
+      <hr />
+      <a href="#" onclick="toggleLeaf('left', false)" class="togglebutton">&larr;</a>
+      <br /><br /><br />
+    </div>
+    <div id="about" class="contentpage">
+      <a href="#" onclick="toggleLeaf('right', false)" class="togglebutton">&rarr;</a>
+      <h1>Credits and Description</h1>
+      <hr />
+      <h2>The Team</h2>
+      <div id="members" style="overflow: auto">
+        <span class="memberbox">
+          <h1>Jonathan Lin (&#8220;Bridgeram&#8221;)</h1>
+          <blockquote>&#8220;I managed many of the technical and artistic aspects of the game, including programming its mechanics, finding a host for the site, selecting music and sound effects, and plotting the game’s story. I was also responsible for drawing many parts of the game’s graphics, such as the cutscene graphics (menu background, all backgrounds for dialogue, and character art) and most of the tiles that make up the map the player explores. I also made this page, which may or may not be why I’m listed first.&#8221;</blockquote>
+        </span>
+        <span class="memberbox">
+          <h1>Preston Lai (&#8220;Lucer&#8221;)</h1>
+          <blockquote>&#8220;I managed a large portion of the artistic aspects of the game. All of the creatures that you see in-game are my brainchildren—I hope you liked them. I also built the majority of the in-game levels, props included, and wrote the text for all the project binders. When the game was done, I playtested it.&#8221;</blockquote>
+        </span>
+        <span class="memberbox">
+          <h1>Alex Chen (&#8220;LexLuther&#8221;)</h1>
+          <blockquote>&#8220;I helped with the exploration aspect of the game. After Lucer and Bridgeram finished creating the levels’ backgrounds, I was the person who defined boundaries for players and mobs.&#8221;</blockquote>
+        </span>
+      </div>
+      <h2>The Game</h2>
+        <p>
+          The main word when we first discussed this game was “story”. We really wanted to make a game that had atmosphere, told a story, and let the player explore another world for the duration of the game. To this end we utilized a mixture of the “visual novel” format—cutscenes, where characters spoke to the player and higher-quality graphics could be used—and the top-down platformer, where the player battled enemies and found out more about the environment around them.
+Because Bridgeram was most familiar with web development, we chose to base the game on Javascript and HTML only, using the HTML5 Canvas API and some libraries based on it.</p>
+        <p>As for what our story is? Well, we'll leave you to find that out.</p>
+      <h2>Graphics</h2>
+      <p>Everything you see on screen is <b>completely original work</b>, aside from the font (“VT323”, created by Peter Hull and licensed under the SFL Open Font License, 1.1). We wanted a game that we could be proud of, and one of the first steps was to be sure that we could look at any image in the game and say, “Yes, that’s ours.”</p>
+      <h2>Music</h2>
+      <p>
+        Music is one of the most important parts of a game’s atmosphere, and we didn’t want our game to be lacking in it—though our skillsets were much better suited to visual arts rather than music. Fortunately we were able to find http://www.incompetech.com/, a site that offers “royalty free” music. This music is licensed under the Creative Commons License, a license that allows the use of selected tracks for any purpose as long as their origins are credited. Here is a full list of the tracks used:
+        <ul>
+          <li>&#8220;Blue Feather&#8221;</li>
+          <li>&#8220;Chee Zee Lab&#8221;</li>
+          <li>&#8220;Dama-May&#8221;</li>
+          <li>&#8220;Exit the Premises&#8221;</li>
+          <li>&#8220;Gathering Darkness&#8221;</li>
+          <li>&#8220;Immersed&#8221;</li>
+          <li>&#8220;Lightless Dawn&#8221;</li>
+          <li>&#8220;Local Forecast - Elevator&#8221;</li>
+          <li>&#8220;Sleep and Then&#8221;</li>
+          <li>&#8220;The Lift&#8221;</li>
+        </ul>
+        <i>
+        Kevin MacLeod (incompetech.com)<br />
+        Licensed under Creative Commons: By Attribution 3.0 License<br />
+        <a href="http://creativecommons.org/licenses/by/3.0/">http://creativecommons.org/licenses/by/3.0/</a><br />
+        </i>
+      </p>
+      <h2>Sound Effects</h2>
+      <p>
+        As was the case with music, we are more visual artists than sound engineers. However, we found yet another site—http://www.freesound.org—which offered more uncopyrighted royalty-free assets. The following sounds were used:
+        <ul>
+          <li>&#8220;elevator bell doors&#8221; &#8212; cognito perceptu</li>
+          <li>&#8220;walkietalkie_eot&#8221; &#8212; InEquation</li>
+          <li>&#8220;Quadruple Whoosh!!!&#8221; &#8212; qubodup</li>
+          <li>&#8220;Cooking with Gas (Like a Rocket)&#8221; &#8212; Timbre</li>
+          <li>&#8220;button 26&#8221; &#8212; bubaproducer</li>
+          <li>&#8220;ELECTRIC_ZAP_001&#8221; &#8212; JoelAudio</li>
+          <li>&#8220;vault&#8221; &#8212; franzzle</li>
+          <li>&#8220;High Score Fill - Ascending Slow&#8221; &#8212; TheAtomicBrain</li>
+          <li>&#8220;Missile / Rocket firing&#8221; &#8212; wubitog</li>
+          <li>&#8220;Damage&#8221; &#8212; qubodup</li>
+          <li>&#8220;Pickaxe #4&#8221; &#8212; Agaxly</li>
+          <li>&#8220;Explosion_01&#8221; &#8212; tommccann</li>
+          <li>&#8220;squirt&#8221; &#8212; freakinbehemoth</li>
+          <li>&#8220;five_beeps&#8221; &#8212; kwahmah_02</li>
+          <li>&#8220;factory2&#8221; &#8212; viertelnachvier</li>
+          <li>&#8220;Running Gear&#8221; &#8212; vurca</li>
+          <li>&#8220;Deep Roar Echo 2&#8221; &#8212; noahpardo</li>
+          <li>&#8220;LightRingingClang&#8221; &#8212; wilhellboy</li>
+        </ul>
+        <i>
+        Freesound (freesound.org)<br />
+        Licensed under Creative Commons: By Attribution 3.0 License and CC0 (Public Domain Dedication)<br />
+        <a href="http://creativecommons.org/licenses/by/3.0/">http://creativecommons.org/licenses/by/3.0/</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/">https://creativecommons.org/publicdomain/zero/1.0/</a><br />
+        </i>
+      </p>
+      <h2>Tools and Programs</h2>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/atom.png');">
+        <span class="caption"><a target="_blank" href="https://atom.io/">Atom</a></span>
+      </div>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/audacity.png');">
+        <span class="caption"><a target="_blank" href="http://www.audacityteam.org/">Audacity</a></span>
+      </div>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/gimp.png');">
+        <span class="caption"><a target="_blank" href="http://www.gimp.org/">GIMP</a></span>
+      </div>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/mspaint.png');">
+        <span class="caption"><a target="_blank" href="https://support.microsoft.com/en-us/instantanswers/8a779cf7-3362-4948-a65e-e3a78c86f9a8/download-paint">Microsoft Paint</a></span>
+      </div>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/photoshop.png');">
+        <span class="caption"><a target="_blank" href="https://creative.adobe.com/products/download/photoshop">Adobe Photoshop CC 2014 (Trial)</a></span>
+      </div>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/wacom.png');">
+        <span class="caption"><a target="_blank" href="http://www.wacom.com">Wacom Intuos Draw</a></span>
+      </div>
+      <br /><br /><br />
+      <h2>Code Libraries</h2>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/createjs.png');">
+        <span class="caption"><a target="_blank" href="http://www.createjs.com/">CreateJS</a></span>
+      </div>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/easystar.png');">
+        <span class="caption"><a target="_blank" href="http://www.easystarjs.com/">EasyStar.js</a></span>
+      </div>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/howler.png');">
+        <span class="caption"><a target="_blank" href="http://goldfirestudios.com/blog/104/howler.js-Modern-Web-Audio-Javascript-Library">Howler.js</a></span>
+      </div>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/jquery.png');">
+        <span class="caption"><a target="_blank" href="http://jquery.com/">jQuery</a></span>
+      </div>
+      <div class="logo" style="background-image: url('/game/assets/img/landing/phaser.png');">
+        <span class="caption"><a target="_blank" href="http://phaser.io/">Phaser</a></span>
+      </div>
+      <br /><br />
+      <hr />
+      <a href="#" onclick="toggleLeaf('right', false)" class="togglebutton">&rarr;</a>
+      <br /><br /><br />
+    </div>
+  </div>
+</body>
+</html>

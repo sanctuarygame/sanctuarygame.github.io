@@ -1,0 +1,24 @@
+0:
+  type: VISUAL
+  entry: 0
+  exit: 1500
+  trans_entry: FADE
+  trans_exit: FADE
+  data: "/game/assets/img/bg/snowopening.png"
+  fx: NULL
+1:
+  type: VISUAL
+  entry: 2500
+  exit: 4800
+  trans_entry: FADE
+  trans_exit: FADE
+  data: "/game/assets/img/bg/faceopening.png"
+  fx: FLICKER
+2:
+  type: DIALOG
+  entry: 2600
+  exit: 4600
+  trans_entry: SLIDE_IN
+  trans_exit: SLIDE_OUT
+  data: “???|Hey. Hey! I think this one's awake!"
+  fx: NULL

@@ -1,0 +1,82 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/corridor/corridor1.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "160",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "What a funny place.",
+      "x": "160",
+      "y": "0",
+      "l": "320",
+      "h": "320"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "160",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "480",
+      "y": "0",
+      "l": "160",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "10"
+    },
+    {
+      "id": "middle median",
+      "x": "265",
+      "y": "90",
+      "l": "120",
+      "h": "230"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab13.html?x=243&y=30",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "190",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/cavelab/cavelab1.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "425",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 190,
+    "y": 280
+  }
+}

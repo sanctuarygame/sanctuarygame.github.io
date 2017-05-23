@@ -1,0 +1,194 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/cave/Cave3.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "120",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Stop checking out this wall. ",
+      "x": "120",
+      "y": "0",
+      "l": "5",
+      "h": "320"
+    },
+    {
+      "flavor": "This wall is no different than the other one. ",
+      "x": "515",
+      "y": "0",
+      "l": "5",
+      "h": "320"
+    },
+    {
+      "flavor": "Looks very rocky. ",
+      "x": "120",
+      "y": "0",
+      "l": "85",
+      "h": "25"
+    },
+    {
+      "flavor": "Ew. There are so many bugs crawling around. ",
+      "x": "265",
+      "y": "0",
+      "l": "255",
+      "h": "25"
+    },
+    {
+      "flavor": "Looks deeper than it is. ",
+      "x": "295",
+      "y": "145",
+      "l": "30",
+      "h": "35"
+    },
+    {
+      "flavor": "There are sunken billiard balls...",
+      "x": "325",
+      "y": "145",
+      "l": "30",
+      "h": "35"
+    },
+    {
+      "flavor": "Looks like it was carved into a chair. ",
+      "x": "155",
+      "y": "60",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "flavor": "A nest of cockroaches live here. ",
+      "x": "205",
+      "y": "275",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "flavor": "B.O.B. is carved into the side...",
+      "x": "445",
+      "y": "185",
+      "l": "35",
+      "h": "35"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "Wall Left",
+      "x": "0",
+      "y": "0",
+      "l": "120",
+      "h": "320"
+    },
+    {
+      "id": "Wall Right ",
+      "x": "520",
+      "y": "0",
+      "l": "120",
+      "h": "320"
+    },
+    {
+      "id": "Top Rock Wall left",
+      "x": "120",
+      "y": "0",
+      "l": "80",
+      "h": "20"
+    },
+    {
+      "id": "Top Rock Wall Right",
+      "x": "270",
+      "y": "0",
+      "l": "260",
+      "h": "20"
+    },
+    {
+      "id": "Top left rock",
+      "x": "160",
+      "y": "65",
+      "l": "20",
+      "h": "20"
+    },
+    {
+      "id": "Middle left rock",
+      "x": "190",
+      "y": "185",
+      "l": "25",
+      "h": "25"
+    },
+    {
+      "id": "bottom right tock",
+      "x": "210",
+      "y": "280",
+      "l": "20",
+      "h": "20"
+    },
+    {
+      "id": "top right rock",
+      "x": "485",
+      "y": "35",
+      "l": "25",
+      "h": "15"
+    },
+    {
+      "id": "second top rock right",
+      "x": "430",
+      "y": "115",
+      "l": "25",
+      "h": "25"
+    },
+    {
+      "id": "third top rock right",
+      "x": "450",
+      "y": "190",
+      "l": "25",
+      "h": "25"
+    },
+    {
+      "id": "bottom right rock",
+      "x": "400",
+      "y": "280",
+      "l": "20",
+      "h": "20"
+    },
+    {
+      "id": "pool",
+      "x": "300",
+      "y": "150",
+      "l": "50",
+      "h": "25"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cave/cave2.html?x=298&y=277",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "210",
+      "y": "0",
+      "l": "50",
+      "h": "20"
+    },
+    {
+      "url": "/game/level/stage/cave/cave4.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "500",
+      "y": "143",
+      "l": "20",
+      "h": "50"
+    }
+  ],
+  "spawn": {
+    "x": 220,
+    "y": 0
+  }
+}

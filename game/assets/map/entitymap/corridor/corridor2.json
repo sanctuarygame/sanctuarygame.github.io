@@ -1,0 +1,68 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/corridor/corridor2.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "0",
+      "y": "80"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "What a smelly place. ",
+      "x": "0",
+      "y": "80",
+      "l": "640",
+      "h": "160"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "90"
+    },
+    {
+      "id": "bottom wall",
+      "x": "0",
+      "y": "220",
+      "l": "640",
+      "h": "100"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cavelab/cavelab12.html?x=581&y=34",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "0",
+      "y": "145",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/radio/radio1.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "615",
+      "y": "145",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 0,
+    "y": 140
+  }
+}

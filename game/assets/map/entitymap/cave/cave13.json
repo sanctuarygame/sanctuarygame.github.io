@@ -1,0 +1,117 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/cave/cave13.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "175",
+      "y": "30"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "This room must be bad for your health. ",
+      "x": "240",
+      "y": "90",
+      "l": "160",
+      "h": "160"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "175",
+      "h": "320"
+    },
+    {
+      "id": "top wall middle",
+      "x": "285",
+      "y": "0",
+      "l": "100",
+      "h": "30"
+    },
+    {
+      "id": "right wall",
+      "x": "465",
+      "y": "0",
+      "l": "175",
+      "h": "320"
+    },
+    {
+      "id": "top wall left side",
+      "x": "175",
+      "y": "0",
+      "l": "110",
+      "h": "45"
+    },
+    {
+      "id": "top wall right side",
+      "x": "355",
+      "y": "0",
+      "l": "110",
+      "h": "45"
+    },
+    {
+      "id": "bottom wall",
+      "x": "175",
+      "y": "290",
+      "l": "320",
+      "h": "30"
+    },
+    {
+      "id": "big mossy rock center",
+      "x": "305",
+      "y": "155",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "id": "bottom right rock",
+      "x": "425",
+      "y": "250",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "id": "top right rock",
+      "x": "420",
+      "y": "70",
+      "l": "25",
+      "h": "10"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cave/cave14.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "30",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/cave/cave12.html?x=400&y=140",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "175",
+      "y": "145",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 175,
+    "y": 145
+  }
+}

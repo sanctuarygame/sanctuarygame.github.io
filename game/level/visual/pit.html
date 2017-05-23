@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Jonathan Lin, Preston Lai, Eric Yan, Alex Chen">
+  <title>PIT</title>
+ </head>
+ <script src="/js/easel/lib/easeljs-0.8.2.min.js"></script>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/GameDialogue.js"></script>
+ <script src="/js/tween/lib/tweenjs-0.6.2.min.js"></script>
+ <script src="/js/canvasfx.js"></script>
+ <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	// Initialize canvas values and functions
+
+	var stage;
+	var keys = [];
+  var interactionTrack;
+
+	document.onkeydown = function(event) {
+		keys[event.keyCode] = true;
+	};
+	document.onkeyup = function(event) {
+		keys[event.keyCode] = false;
+	};
+
+	function draw() {
+    window.parent.stopBGMusic();
+    window.parent.playBGMusic();
+
+    // Loading and drawing
+
+		stage = new createjs.Stage("gameboard");
+
+    var radioCrackle = new Howl({
+      urls: ["/game/assets/sound/27878__inequation__walkietalkie-eot.wav"],
+      volume: 0.9
+    });
+
+    // Backgrounds
+
+    var excavation = new createjs.Bitmap(window.parent.fileQueue.getResult("EXCAVATION"));
+    excavation.x = 0;
+    excavation.y = 0;
+    excavation.alpha = 0;
+
+    // Characters
+
+    var doctor = new createjs.Bitmap(window.parent.fileQueue.getResult("DOCTOR"));
+    doctor.x = 365;
+    doctor.y = 1000;
+    doctor.alpha = 1;
+
+    var radio = new createjs.Bitmap(window.parent.fileQueue.getResult("RADIO"));
+    radio.x = 50;
+    radio.y = 500;
+    radio.scaleX = 0.41;
+    radio.scaleY = 0.41;
+    radio.alpha = 1;
+
+    // Dialog objects
+
+    var dialog = new createjs.Bitmap(window.parent.fileQueue.getResult("DIALOG"));
+    dialog.x = 20;
+    dialog.y = 228;
+    dialog.alpha = 0;
+
+    var nametag = new createjs.Bitmap(window.parent.fileQueue.getResult("DIALOG"));
+    nametag.x = 40;
+    nametag.y = 215;
+    nametag.scaleX = 0.2;
+    nametag.scaleY = 0.4;
+    nametag.alpha = 0;
+
+    // Text
+
+    var textshadow = new createjs.Shadow("#000000", 2, 2, 1);
+
+    var nameText = new createjs.Text("Will", "23px VT323", "white");
+    nameText.x = 50;
+    nameText.y = 230;
+    nameText.alpha = 0;
+    nameText.textAlign = "left";
+    nameText.textBaseline = "middle";
+    nameText.shadow = textshadow;
+
+    var dialogue = new createjs.Text(" ", "20px VT323", "white");
+    dialogue.x = 47;
+    dialogue.y = 262;
+    dialogue.alpha = 0;
+    dialogue.textAlign = "left";
+    dialogue.textBaseline = "middle";
+    dialogue.lineWidth = 550;
+    dialogue.lineHeight = 20;
+    dialogue.shadow = textshadow;
+
+    // Adding elements to stage
+
+    stage.addChild(excavation, doctor, radio, dialog, nametag, nameText, dialogue);
+
+    // Actual animation
+
+    setTimeout(function() {
+      GameGraphics.fade(excavation, 1, 2500);
+    }, 500); // 3000
+
+    setTimeout(function() {
+      setTimeout(function() {
+        dialog.alpha = 1;
+        dialogue.alpha = 1;
+        nametag.alpha = 1;
+        GameGraphics.show(nameText, 50);
+        GameGraphics.typeText(dialogue, "Oh, over here!", 30, "CHAR", "/game/assets/sound/text_type.wav", function() { ; });
+      }, 700);
+      setTimeout(function() {
+        GameGraphics.slideTo(doctor, doctor.x, MIDDLE_Y / 3.15, 570);
+        interactionTrack.start();
+      }, 750);
+    }, 6070); // 7440
+
+    // Track objects
+
+    var doctor_speaker = new DialogueSpeaker("Will");
+
+    var doctor_track_1 = new DialogueTrack([
+      "We wanted to make you an offer.",
+      "Sorry, by the way—I wanted to have everyone here in person, but the day’s already started.",
+      "Most of us are already working.",
+      "Oh, speaking of which.",
+      "You’re wondering what all that noise is, aren’t you? Well...",
+      "That down there is our key to life. Our get-out-of-jail-free card.",
+      "[What you’re trying to say is that we find it, or we’re screwed.]",
+      "Very...eloquent, Nick! Tell you what, guys. You can get back to work. I'll talk to our new friend alone, for now.",
+      "[Sure, sure.]",
+      "Sorry about that...but I can’t deny what Nick just said.",
+      "That was actually what I wanted to talk about, but I might’ve used a bit more—well—delicacy.",
+      "We've got a better place to talk about this, though. Why don't you come with me?",
+    ]);
+
+    var doctor_dialogue_1 = new DialogueManager(doctor_speaker, doctor_track_1, nameText, dialogue);
+
+    doctor_dialogue_1.bindValue(6, "targetName", "????");
+    doctor_dialogue_1.bindFunction(6, function() {
+      GameGraphics.slideTo(arguments[0], 50, -5, 370);
+      arguments[1].play();
+    }, [radio, radioCrackle]);
+
+    doctor_dialogue_1.bindValue(7, "targetName", "Will");
+
+    doctor_dialogue_1.bindValue(8, "targetName", "Nick");
+    doctor_dialogue_1.bindFunction(8, function() {
+      arguments[0].play();
+    }, [radioCrackle]);
+
+    doctor_dialogue_1.bindValue(9, "targetName", "Will");
+    doctor_dialogue_1.bindFunction(9, function() {
+      GameGraphics.slideTo(arguments[0], 50, 320, 300);
+    }, [radio]);
+
+    dialogue_end = new DialogueEnd(doctor, dialog, nametag, nameText, dialogue);
+
+    dialogue_advance_stage = new DialogueAdvanceStage(500, false);
+
+    interactionTrack = new InteractionTrack(doctor_dialogue_1, dialogue_end, dialogue_advance_stage);
+
+    // Update ticks
+
+		createjs.Ticker.setFPS(60);
+		createjs.Ticker.addEventListener("tick", tick);
+	}
+
+	function tick() {
+		stage.update();
+    if(keys[13]) {
+      keys[13] = false;
+      if(interactionTrack.hasNext()) {
+        interactionTrack.next();
+      }
+    }
+  }
+
+ //-->
+ </script>
+ <body onload="setTimeout(function() { draw(); }, 1000)" onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

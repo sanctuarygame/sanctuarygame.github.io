@@ -1,0 +1,10 @@
+{
+	"path": "/game/assets/",
+	"manifest": [{
+		"src": "sound/Lightless_Dawn.mp3",
+		"id": "BG_MUSIC"
+	}, {
+		"src": "img/bg/menu.png",
+		"id": "BG_IMG"
+	}]
+}

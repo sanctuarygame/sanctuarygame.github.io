@@ -1,0 +1,541 @@
+<html>
+  <head>
+    <title>Tilemap Editor</title>
+    <meta name="Author" content="Jonathan Lin" />
+  </head>
+  <script src="/js/phaser.min.js"></script>
+  <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+  <script>
+
+    window.onbeforeunload = function (e) {
+      var message = "You're about to leave the page! Are you really done?",
+      e = e || window.event;
+
+      if (e) {
+        e.returnValue = message;
+      }
+
+      return message;
+    };
+
+    // Canvas drawing functions
+    var game = new Phaser.Game(1280, 640, Phaser.AUTO, "editor", { preload: preload, create: create, update: update }, false, false);
+
+    function preload() {
+      game.load.image("invisible", "/game/assets/img/fill.png");
+      game.load.image("debug", "/game/assets/img/fill_debug.png");
+      game.load.image("flavor", "/game/assets/img/fill_flavor.png");
+      game.load.image("redirect", "/game/assets/img/fill_redirect.png");
+      game.load.image("grid", "/game/assets/img/grid-overlay.png")
+      game.load.spritesheet("player", "/game/assets/sprites/sprite-sheet-player.png", 32, 42);
+
+      game.stage.smoothed = false;
+    }
+
+    function create() {
+      shiftKey = game.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
+
+      backgrounds = game.add.group();
+      flavors = game.add.group();
+      hitboxes = game.add.group();
+      redirects = game.add.group();
+
+      selectionbg = game.add.group();
+
+      grid = game.add.group();
+      for(var x = 0; x <= 1264; x += 16) {
+        for(var y = 0; y <= 624; y += 16) {
+          square = grid.create(x, y, "grid");
+          square.inputEnabled = true;
+          square.events.onInputDown.add(function() {
+            if(grid.visible && !shiftKey.isDown) {
+              var gridCoords = getGridCoordinates(game.input.mousePointer.x, game.input.mousePointer.y);
+              if(!hasChildAtCoords(selectionbg, gridCoords.x * 16, gridCoords.y * 16)) {
+                squareBG = selectionbg.create(gridCoords.x * 16, gridCoords.y * 16, "debug");
+                squareBG.scale.setTo(16, 16);
+              } else {
+                selectionbg.remove(getChildAtCoords(selectionbg, gridCoords.x * 16, gridCoords.y * 16));
+              }
+            }
+          }, this, 10);
+        }
+      }
+
+      selectionbg.visible = false; grid.visible = false;
+
+      player = game.add.sprite(0, 0, "player");
+      player.frame = 8;
+      player.visible = false;
+    }
+
+    function update() {
+      if(!grid.visible) {
+        if(game.input.mousePointer.justPressed()) {
+          alert("X: " + Math.ceil(game.input.mousePointer.x) + "\n" + "Y: " + Math.ceil(game.input.mousePointer.y));
+        }
+      } else {
+        if(game.input.mousePointer.isDown && shiftKey.isDown) {
+          var gridCoords = getGridCoordinates(game.input.mousePointer.x, game.input.mousePointer.y);
+          if(!hasChildAtCoords(selectionbg, gridCoords.x * 16, gridCoords.y * 16)) {
+            squareBG = selectionbg.create(gridCoords.x * 16, gridCoords.y * 16, "debug");
+            squareBG.scale.setTo(16, 16);
+          }
+        }
+      }
+    }
+
+    // Utility functions
+
+    var removeButton = "<button onclick='removeParent(this);'>Remove</button>";
+    var flavorField = "<li>Text: <input type='text' class='flavor' /><br />X:<input type='number' class='x'><br />Y:<input type='number' class='y'><br />H:<input type='number' class='l'><br />W:<input type='number' class='w'><br /><button onclick='loadFlavor(this);'>Update</button>" + removeButton + "</li>";
+    var layerField = "<li>URL: <input type='text' class='url' size='100' /> <button onclick='formatAddress(this)'>(Format Address)</button><br />X:<input type='number' class='x'><br />Y:<input type='number' class='y'><br /><button onclick='loadLayer(this);'>Load</button></li>";
+    var hitboxField = "<li>ID: <input type='text' class='id' /><br />X:<input type='number' class='x'><br />Y:<input type='number' class='y'><br />H:<input type='number' class='l'><br />W:<input type='number' class='w'><br /><button onclick='loadHitbox(this);'>Update</button>" + removeButton + "</li>";
+    var redirectField = "<li>URL: <input type='text' class='url'> <button onclick='formatAddress(this)'>(Format Address)</button><br />Timeout: <input type='number' class='timeout'><br />Deny: <input type='text' class='deny'><br />X:<input type='number' class='x'><br />Y:<input type='number' class='y'><br />H:<input type='number' class='l'><br />W:<input type='number' class='w'><br />Entered? <input type='checkbox' class='entered' /><br /><button onclick='loadRedirect(this)'>Update</button>" + removeButton + "</li>";
+
+    function addField(type, before) {
+      var toInsert = "";
+
+      switch(type) {
+        case "flavor":
+          toInsert = flavorField;
+          break;
+        case "layer":
+          toInsert = layerField;
+          break;
+        case "hitbox":
+          toInsert = hitboxField;
+          break;
+        case "redirects":
+          toInsert = redirectField;
+          break;
+      }
+
+      $(before).before(toInsert);
+
+    }
+
+    function formatAddress(button) {
+      var siblingURL = $(button).siblings(".url");
+      var address = siblingURL.val();
+      siblingURL.val("http://" + address.substring(15).replace("public_html/",""));
+    }
+
+    function loadFlavor(loadButton) {
+      var parentLi = $(loadButton).parent("li");
+      var flavor = $(parentLi).find("input.flavor").val();
+      var x = $(parentLi).find("input.x").val();
+      var y = $(parentLi).find("input.y").val();
+      var l = $(parentLi).find("input.l").val();
+      var w = $(parentLi).find("input.w").val();
+      if(l > 0 && w > 0 && x >= 0 && y >= 0) {
+        var parentIndex = parentLi.index();
+        var matchedChild = flavors.children[parentIndex];
+
+        if(matchedChild == null) {
+          var flavorBox = game.add.sprite(x, y, "flavor");
+          flavorBox.flavor = flavor;
+          flavorBox.scale.setTo(w, l);
+          flavors.addAt(flavorBox, parentIndex);
+        } else {
+          matchedChild.flavor = flavor;
+          matchedChild.scale.setTo(w, l);
+          matchedChild.x = x;
+          matchedChild.y = y;
+        }
+      } else {
+        alert("Make sure your length and width are greater than zero, and that your x and y are positive.");
+      }
+    }
+
+    function loadHitbox(loadButton) {
+      var parentLi = $(loadButton).parent("li");
+      var identifier = $(parentLi).find("input.id").val();
+      var x = $(parentLi).find("input.x").val();
+      var y = $(parentLi).find("input.y").val();
+      var l = $(parentLi).find("input.l").val();
+      var w = $(parentLi).find("input.w").val();
+      if(l > 0 && w > 0 && x >= 0 && y >= 0) {
+        var parentIndex = parentLi.index();
+        var matchedChild = hitboxes.children[parentIndex];
+
+        if(matchedChild == null) {
+          var hitbox = game.add.sprite(x, y, "debug");
+          hitbox.id = identifier;
+          hitbox.scale.setTo(w, l);
+          hitboxes.addAt(hitbox, parentIndex);
+        } else {
+          matchedChild.id = identifier;
+          matchedChild.scale.setTo(w, l);
+          matchedChild.x = x;
+          matchedChild.y = y;
+        }
+      } else {
+        alert("Make sure your length and width are greater than zero, and that your x and y are positive.");
+      }
+    }
+
+    function loadLayer(loadButton) {
+      var parentLi = $(loadButton).parent("li");
+      var url = $(parentLi).find("input.url").val();
+      var layerX = $(parentLi).find("input.x").val();
+      var layerY = $(parentLi).find("input.y").val();
+      if(layerX >= 0 && layerY >= 0) {
+        var parentIndex = parentLi.index();
+        var loadedKey = "layer" + parentIndex;
+        console.log("Loading asset at key " + loadedKey);
+        var matchedChild = backgrounds.children[parentIndex];
+        if(matchedChild != null) backgrounds.remove(matchedChild);
+        else $(loadButton).after(removeButton);
+        game.load.image(loadedKey, url);
+        game.load.start();
+        var layer = game.add.sprite(layerX, layerY, loadedKey);
+        backgrounds.addAt(layer, parentIndex);
+        $(loadButton).text("Reload");
+      } else {
+        alert("One of your inputs is invalid. Please check them and then click the 'Load' button again.");
+      }
+    }
+
+    function loadRedirect(loadButton) {
+      var parentLi = $(loadButton).parent("li");
+      var redirect = $(parentLi).find("input.url").val();
+      var timeout = $(parentLi).find("input.timeout").val();
+      var deny = $(parentLi).find("input.deny").val();
+      var entered = ($(parentLi).find("input.entered")[0].checked);
+      console.log(entered);
+      var x = $(parentLi).find("input.x").val();
+      var y = $(parentLi).find("input.y").val();
+      var l = $(parentLi).find("input.l").val();
+      var w = $(parentLi).find("input.w").val();
+      if(l > 0 && w > 0 && x >= 0 && y >= 0 && timeout >= 0) {
+        var parentIndex = parentLi.index();
+        var matchedChild = redirects.children[parentIndex];
+
+        if(matchedChild == null) {
+          var redirectBox = game.add.sprite(x, y, "redirect");
+          redirectBox.url = redirect;
+          redirectBox.timeout = timeout;
+          redirectBox.deny = deny;
+          redirectBox.entered = entered;
+          redirectBox.scale.setTo(w, l);
+          redirects.addAt(redirectBox, parentIndex);
+        } else {
+          matchedChild.url = redirect;
+          matchedChild.timeout = timeout;
+          matchedChild.deny = deny;
+          matchedChild.entered = entered;
+          matchedChild.scale.setTo(w, l);
+          matchedChild.x = x;
+          matchedChild.y = y;
+        }
+      } else {
+        alert("Make sure your length and width are greater than zero, and that your x and y are positive.");
+      }
+    }
+
+    function isValidImage(url) {
+      var image = new Image();
+      image.src = url;
+      return image.width > 0;
+    }
+
+    function removeParent(button) {
+      var parentOl = $(button).closest("ol");
+      var parentLi = $(button).closest("li");
+      var parentIndex = parentLi.index();
+      var parentType = parentOl.attr("id");
+      if(parentType == "layers") {
+        backgrounds.removeChildAt(parentIndex);
+      } else if(parentType == "flavors") {
+        flavors.removeChildAt(parentIndex);
+      } else if(parentType == "hitboxes") {
+        hitboxes.removeChildAt(parentIndex);
+      } else if(parentType == "redirects") {
+        redirects.removeChildAt(parentIndex);
+      }
+      $(parentLi).remove();
+    }
+
+    function setSpawn() {
+      player.x = $("#spawn-x").val();
+      player.y = $("#spawn-y").val();
+    }
+
+    function hidePlayer() {
+      player.visible = false;
+    }
+
+    function showPlayer() {
+      player.bringToTop();
+      player.visible = true;
+    }
+
+    // Math utils
+
+    function getGridCoordinates(canvasX, canvasY) {
+      var dividedX = Math.floor(canvasX / 16);
+      var dividedY = Math.floor(canvasY / 16 );
+      return { x: (dividedX < 1264) ? dividedX : 1264, y: (dividedY < 624) ? dividedY : 624 };
+    }
+
+    function getChildAtCoords(group, x, y) {
+      if(group.children.length > 0) {
+        for(var i = 0; i < group.children.length; i++) {
+          var child = group.children[i];
+          if(child.x == x && child.y == y) return child;
+        }
+      }
+      return null;
+    }
+
+    function hasChildAtCoords(group, x, y) {
+      return getChildAtCoords(group, x, y) != null;
+    }
+
+    // Stringify classes
+
+    function getGameGrid() {
+      var gamegrid = [];
+      for(var i = 0; i <= 39; i++) {
+        gamegrid.push(new Array(80).fill(0));
+      }
+
+      if(selectionbg.children.length > 0) {
+        for(var i = 0; i < selectionbg.children.length; i++) {
+          var selection = selectionbg.children[i];
+          var selectionCoords = getGridCoordinates(selection.x, selection.y);
+          gamegrid[selectionCoords.y][selectionCoords.x] = 1;
+          // gamegrid[selectionCoords.y] = gamegrid[selectionCoords.y].slice(0, 80);
+        }
+      }
+
+      $("textarea#aimap").text(JSON.stringify({ "aiMap": gamegrid }));
+
+      return gamegrid;
+    }
+
+    function exportObjects() {
+      assetsArray = {
+        keys: [],
+        urls: []
+      };
+
+      backgroundsArray = [];
+      flavorsArray = [];
+      hitboxesArray = [];
+      redirectsArray = [];
+
+      spawnData = { x: Number($("#spawn-x").val()), y: Number($("#spawn-y").val()) };
+
+      if($("ol#layers li").length > 0) {
+        $("ol#layers li").each(function(index, elem) {
+          assetsArray.keys[index] = "layer" + index;
+          assetsArray.urls[index] = $(elem).find("input.url").val();
+        });
+      }
+
+      if(backgrounds.children.length > 0) {
+        for(var i = 0; i < backgrounds.children.length; i++) {
+          var currentChild = backgrounds.children[i];
+          var childX = currentChild.x;
+          var childY = currentChild.y;
+          var childKey = currentChild.key;
+
+          backgroundsArray.push({ key: childKey, x: childX, y: childY });
+        }
+      }
+
+      if(flavors.children.length > 0) {
+        for(var i = 0; i < flavors.children.length; i++) {
+          var currentChild = flavors.children[i];
+          var childText = currentChild.flavor;
+          var childX = currentChild.x;
+          var childY = currentChild.y;
+          var childL = currentChild.scale.x;
+          var childH = currentChild.scale.y;
+
+          flavorsArray.push({ "flavor": childText, x: childX, y: childY, l: childL, h: childH });
+        }
+      }
+
+      if(hitboxes.children.length > 0) {
+        for(var i = 0; i < hitboxes.children.length; i++) {
+          var currentChild = hitboxes.children[i];
+          var childX = currentChild.x;
+          var childY = currentChild.y;
+          var childL = currentChild.scale.x;
+          var childH = currentChild.scale.y;
+          var childId = currentChild.id;
+
+          hitboxesArray.push({ id: childId, x: childX, y: childY, l: childL, h: childH });
+        }
+      }
+
+      if(redirects.children.length > 0) {
+        for(var i = 0; i < redirects.children.length; i++) {
+          var currentChild = redirects.children[i];
+          var childX = currentChild.x;
+          var childY = currentChild.y;
+          var childL = currentChild.scale.x;
+          var childH = currentChild.scale.y;
+          var childURL = currentChild.url;
+          var childTimeout = currentChild.timeout;
+          var childDeny = currentChild.deny;
+          var childEntered = currentChild.entered;
+
+          redirectsArray.push({ url: childURL, timeout: childTimeout, deny: childDeny, entered: childEntered, x: childX, y: childY, l: childL, h: childH });
+        }
+      }
+
+      $("textarea#entitymap").text(JSON.stringify({
+        "assets": assetsArray,
+        "backgrounds": backgroundsArray,
+        "flavors": flavorsArray,
+        "hitboxes": hitboxesArray,
+        "redirects": redirectsArray,
+        "spawn": spawnData
+      }, null, 2));
+    }
+
+  </script>
+  <style>
+    body {
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      font-family: "Consolas", "Courier New", serif;
+    }
+
+    input {
+      border: 1px solid #888;
+      margin-right: 15px;
+      padding: 7px 10px;
+      font-family: "Consolas", "Courier New", serif;
+      font-size: 8pt;
+    }
+
+    h6 {
+      font-style: italic;
+    }
+
+    canvas {
+      display: block;
+      border: 1px solid #666;
+      margin: 20 auto;
+      height: 320px;
+      width: 640px;
+    }
+
+    img#loaded_bg {
+      display: block;
+      margin: 0 auto;
+    }
+
+    div#controls {
+      text-align: left;
+    }
+
+    ol li {
+      width: 200px;
+      font-size: 8px;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #111;
+      padding-bottom: 10px;
+    }
+
+    li input {
+      margin-bottom: 4px;
+    }
+
+    li button {
+      font-size: 8px;
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    small {
+      font-style: italic;
+      font-size: 10px;
+    }
+
+    textarea {
+      border: 1px solid #444;
+      padding: 10px;
+      box-shadow: inset 0px 0px 10px #666;
+      border-radius: 2px;
+      outline: 0;
+    }
+
+    section {
+      margin-bottom: 10px;
+    }
+  </style>
+  <body onload="">
+    <h1>Map Editor</h1>
+    <h6>Not pretty, but it works.</h6>
+    <hr />
+    <div id="content_first">
+      <div id="editor"></div>
+      (resolution: 1280x640)
+      <hr />
+      <div id="controls">
+        <section>
+          1. Background - Layers
+          <br /><small>Always click the 'Load' button at least twice. It can get confused sometimes.</small>
+          <ol id="layers">
+            <button onclick="addField('layer', this)" id="add-layer">Add Layer</button>
+          </ol>
+        </section>
+        <section>
+          2. Hitboxes
+          <ol id="hitboxes">
+            <button onclick="addField('hitbox', this)" id="add-hitbox">Add Hitbox</button>
+          </ol>
+        </section>
+        <section>
+          3. Flavor Text?
+          <ol id="flavors">
+            <button onclick="addField('flavor', this)" id="add-flavor">Add Text</button>
+          </ol>
+        </section>
+        <section>
+          4. Redirects
+          <ol id="redirects">
+            <button onclick="addField('redirects', this)" id="add-redirect">Add Redirect</button>
+          </ol>
+        <section>
+          5. Set Spawn
+          <ol id="set-spawn">
+            <li style="display: block">
+              X: <input type="number" id="spawn-x" value="0" /><br />
+              Y: <input type="number" id="spawn-y" value="0" />
+            </li>
+            <button onclick="setSpawn(); showPlayer();" id="set-spawn">Set</button>
+          </ol>
+        </section>
+        <section>
+          6. Copy & paste, give to Jonathan <b>after clicking update button <i>(preferably at least twice)</i></b>:<br />
+          <button onclick="exportObjects()" style="margin: 10px 0px">Update</button><br />
+          <textarea id="entitymap" rows="40" cols="80">[click update]</textarea>
+        </section>
+      </div>
+    </div>
+    <hr />
+    <h1>AI</h1>
+    <div id="content_second" style="text-align: left;">
+      <section>
+        1. Load Background Image
+      </section>
+      <section>
+        2. <button onclick="selectionbg.visible = true; grid.visible = true;">Show Grid</button><br />
+      </section>
+      <section>
+        3. Fill in the things<br />
+      </section>
+      <section>
+        4. <button onclick="getGameGrid()">Update</button><br /><br />
+        <textarea id="aimap" rows="40" cols="80">[click update]</textarea>
+      </section>
+    </div>
+  </body>
+</html>

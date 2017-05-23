@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Jonathan Lin, Preston Lai, Eric Yan, Alex Chen">
+  <title>ELEVATORROOM</title>
+ </head>
+ <script src="/js/easel/lib/easeljs-0.8.2.min.js"></script>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/GameDialogue.js"></script>
+ <script src="/js/tween/lib/tweenjs-0.6.2.min.js"></script>
+ <script src="/js/canvasfx.js"></script>
+ <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	// Initialize canvas values and functions
+
+	var stage;
+	var keys = [];
+  var interactionTrack, dialog, dialogue, nameText, flickerID;
+
+	document.onkeydown = function(event) {
+		keys[event.keyCode] = true;
+	};
+	document.onkeyup = function(event) {
+		keys[event.keyCode] = false;
+	};
+
+	function draw() {
+    window.parent.stopBGMusic();
+    window.parent.playBGMusic("FINAL");
+
+    radioCrackle = new Howl({
+      urls: ["/game/assets/sound/27878__inequation__walkietalkie-eot.wav"],
+      volume: 0.9
+    });
+
+    // Loading and drawing
+
+		stage = new createjs.Stage("gameboard");
+
+    // Backgrounds
+
+    var bunkerview = new createjs.Bitmap(window.parent.fileQueue.getResult("BUNKERVIEW"));
+    bunkerview.x = 0;
+    bunkerview.y = 0;
+    bunkerview.alpha = 0;
+
+    // Dialog objects
+
+    dialog = new createjs.Bitmap(window.parent.fileQueue.getResult("DIALOG"));
+    dialog.x = 20;
+    dialog.y = 228;
+    dialog.alpha = 0;
+
+    nametag = new createjs.Bitmap(window.parent.fileQueue.getResult("DIALOG"));
+    nametag.x = 40;
+    nametag.y = 215;
+    nametag.scaleX = 0.2;
+    nametag.scaleY = 0.4;
+    nametag.alpha = 0;
+
+    // Text
+
+    textshadow = new createjs.Shadow("#000000", 2, 2, 1);
+
+    nameText = new createjs.Text("?????", "23px VT323", "white");
+    nameText.x = 50;
+    nameText.y = 230;
+    nameText.alpha = 0;
+    nameText.textAlign = "left";
+    nameText.textBaseline = "middle";
+    nameText.shadow = textshadow;
+
+    dialogue = new createjs.Text(" ", "20px VT323", "white");
+    dialogue.x = 47;
+    dialogue.y = 262;
+    dialogue.alpha = 0;
+    dialogue.textAlign = "left";
+    dialogue.textBaseline = "middle";
+    dialogue.lineWidth = 550;
+    dialogue.lineHeight = 20;
+    dialogue.shadow = textshadow;
+
+    // Adding elements to stage
+
+    stage.addChild(bunkerview, dialog, nametag, nameText, dialogue);
+
+    // Actual animation
+
+    setTimeout(function() {
+      GameGraphics.fade(bunkerview, 1, 1000);
+    })
+
+    setTimeout(function() {
+      setTimeout(function() {
+        dialog.alpha = 1;
+        dialogue.alpha = 1;
+        nametag.alpha = 1;
+        GameGraphics.show(nameText, 50);
+        GameGraphics.typeText(dialogue, "Pretty, isn't it?", 30, "CHAR", "/game/assets/sound/text_type.wav", function() { ; });
+      }, 700);
+      setTimeout(function() {
+        interactionTrack.start();
+      }, 750);
+    }, 2000); // 7440
+
+    // Track objects
+
+    var doctor_speaker = new DialogueSpeaker("Will");
+
+    var doctor_track_1 = new DialogueTrack([
+      "Of course, it probably looks way prettier to you.",
+      "You being the one who actually needs it.",
+      "My instructions for this place were to keep it safe.",
+      "They weren't too specific, as you see.",
+      "Even so, I think that you fit the parameters my creators had in mind.",
+      "And even if I'm not keeping this place safe, I'm keeping you safe.",
+      "Your odds of survival just went up by a whole lot.",
+      "As for good old Will, well...",
+      "I calculate his chances at 98%.",
+      "Chances for death, that is.",
+      "Come to think of it, those chances are shared by almost all other humans.",
+      "You could change that, though. With what you have here.",
+      "The people who built this place took a fair bit before they left...",
+      "...but there's still enough for 50 years of support. And that's just you.",
+      "With the farm, and with a few helpers...you could raise that number.",
+      "Or you could pull a “Will”, I guess.",
+      "Keep all of this for yourself.",
+      "But I don't think you'll do that.",
+      "...",
+      "Well, at the end of the day, I'm just a voice.",
+      "It's up to you."
+    ]);
+
+    var doctor_dialogue_1 = new DialogueManager(doctor_speaker, doctor_track_1, nameText, dialogue);
+
+    // Dialogue objects
+
+    dialogue_end = new DialogueEnd(dialog, dialog, nametag, nameText, dialogue);
+
+    dialogue_advance_stage = new DialogueRedirect("visual/end", 2000, true, true);
+
+    interactionTrack = new InteractionTrack(doctor_dialogue_1, dialogue_end, dialogue_advance_stage);
+
+    // Update ticks
+
+		createjs.Ticker.setFPS(60);
+		createjs.Ticker.addEventListener("tick", tick);
+	}
+
+	function tick() {
+		stage.update();
+    if(keys[13]) {
+      keys[13] = false;
+      if(interactionTrack.hasNext()) {
+        interactionTrack.next();
+      }
+    }
+  }
+
+  function stopFlicker() {
+    clearInterval(flickerID);
+  }
+
+ //-->
+ </script>
+ <body onload="setTimeout(function() { draw(); }, 1000)" onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

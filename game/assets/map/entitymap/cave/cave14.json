@@ -1,0 +1,110 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/cave/cave14.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "240",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "There is an empty notebook sitting here.",
+      "x": "250",
+      "y": "275",
+      "l": "35",
+      "h": "35"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "240",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "400",
+      "y": "0",
+      "l": "240",
+      "h": "320"
+    },
+    {
+      "id": "top wall left side",
+      "x": "240",
+      "y": "0",
+      "l": "40",
+      "h": "15"
+    },
+    {
+      "id": "top wall right side",
+      "x": "360",
+      "y": "0",
+      "l": "40",
+      "h": "15"
+    },
+    {
+      "id": "top right rock",
+      "x": "365",
+      "y": "55",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "bottom right rock",
+      "x": "350",
+      "y": "215",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "top left rock",
+      "x": "270",
+      "y": "145",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "bttom left rock",
+      "x": "255",
+      "y": "280",
+      "l": "25",
+      "h": "25"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cave/cave13.html?x=305&y=30",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/cavelab/cavelab10.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "310",
+      "y": "0",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 280
+  }
+}

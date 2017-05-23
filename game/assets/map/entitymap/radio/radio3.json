@@ -1,0 +1,110 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/radio/radio3.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "0",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "What does this sign mean?",
+      "x": "60",
+      "y": "70",
+      "l": "35",
+      "h": "70"
+    },
+    {
+      "flavor": "This sign looks beat up. ",
+      "x": "220",
+      "y": "70",
+      "l": "35",
+      "h": "70"
+    },
+    {
+      "flavor": "This sign looks brand new. ",
+      "x": "385",
+      "y": "70",
+      "l": "35",
+      "h": "70"
+    },
+    {
+      "flavor": "Looks like there is something behind it. ",
+      "x": "540",
+      "y": "70",
+      "l": "35",
+      "h": "70"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "30"
+    },
+    {
+      "id": "first jut",
+      "x": "20",
+      "y": "30",
+      "l": "120",
+      "h": "95"
+    },
+    {
+      "id": "second jut",
+      "x": "185",
+      "y": "30",
+      "l": "120",
+      "h": "95"
+    },
+    {
+      "id": "third jut",
+      "x": "340",
+      "y": "30",
+      "l": "120",
+      "h": "95"
+    },
+    {
+      "id": "fourth jut",
+      "x": "500",
+      "y": "30",
+      "l": "120",
+      "h": "95"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/radio/radio4.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "610",
+      "y": "175",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/radio/radio2.html?x=430&y=160",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "0",
+      "y": "175",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 0,
+    "y": 175
+  }
+}

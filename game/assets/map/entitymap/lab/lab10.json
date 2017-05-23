@@ -1,0 +1,124 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab10.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "159",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "\"Boxes are full of surprises.\"",
+      "x": "280",
+      "y": "105",
+      "l": "25",
+      "h": "80"
+    },
+    {
+      "flavor": "\"Einstein would be proud!\"",
+      "x": "410",
+      "y": "165",
+      "l": "25",
+      "h": "60"
+    },
+    {
+      "flavor": "Just an ordinary cardboard box.",
+      "x": "243",
+      "y": "125",
+      "l": "30",
+      "h": "50"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "159",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "481",
+      "y": "0",
+      "l": "159",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "35"
+    },
+    {
+      "id": "left boxes",
+      "x": "150",
+      "y": "55",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "left jutting post ",
+      "x": "240",
+      "y": "35",
+      "l": "35",
+      "h": "125"
+    },
+    {
+      "id": "second jutting ",
+      "x": "275",
+      "y": "35",
+      "l": "30",
+      "h": "120"
+    },
+    {
+      "id": "third jutting ",
+      "x": "305",
+      "y": "35",
+      "l": "35",
+      "h": "150"
+    },
+    {
+      "id": "last big jutting",
+      "x": "340",
+      "y": "35",
+      "l": "140",
+      "h": "170"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab9.html?x=310&y=290",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "185",
+      "y": "20",
+      "l": "30",
+      "h": "50"
+    },
+    {
+      "url": "/game/level/stage/lab/lab11.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "450",
+      "y": "260",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 185,
+    "y": 30
+  }
+}

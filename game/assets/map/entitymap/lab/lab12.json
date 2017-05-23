@@ -1,0 +1,117 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab12.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "159",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "\"We're beneath everyone else!\"",
+      "x": "410",
+      "y": "190",
+      "l": "20",
+      "h": "60"
+    },
+    {
+      "flavor": "So sour you can almost smell the yellow.",
+      "x": "218",
+      "y": "123",
+      "l": "20",
+      "h": "40"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "159",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "481",
+      "y": "0",
+      "l": "159",
+      "h": "320"
+    },
+    {
+      "id": "top wall ",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "35"
+    },
+    {
+      "id": "jutting left side",
+      "x": "160",
+      "y": "35",
+      "l": "110",
+      "h": "100"
+    },
+    {
+      "id": "jutting right side",
+      "x": "370",
+      "y": "35",
+      "l": "110",
+      "h": "200"
+    },
+    {
+      "id": "lab table 1",
+      "x": "160",
+      "y": "140",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "lab table 2",
+      "x": "225",
+      "y": "140",
+      "l": "35",
+      "h": "15"
+    },
+    {
+      "id": "lab table 3",
+      "x": "460",
+      "y": "265",
+      "l": "20",
+      "h": "35"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab11.html?x=495&y=185",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "160",
+      "y": "210",
+      "l": "20",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/lab/lab13.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "310",
+      "y": "20",
+      "l": "25",
+      "h": "50"
+    }
+  ],
+  "spawn": {
+    "x": 160,
+    "y": 210
+  }
+}

@@ -1,0 +1,302 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Bridgeram, Lucer, LexLuther">
+  <title>WAKE</title>
+ </head>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/canvasfx.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <script src="/js/phaser.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+
+  var disableMove = false;
+
+	// Initialize canvas values and functions
+  var game = new Phaser.Game(640, 320, Phaser.AUTO, "", { preload: preload, create: create, update: update }, false, false);
+
+  function preload() {
+
+    window.parent.soundfx = new Howl({
+      urls: ['/game/assets/sound/107145__bubaproducer__button-26.wav']
+    });
+
+    game.load.json("entitymap", getJSONPath(window.location.href));
+    game.load.bitmapFont("VT323", "/game/assets/font/VT323-Regular_0.png", "/game/assets/font/VT323-Regular.xml");
+    game.load.image("black", "/game/assets/img/black.png");
+    game.load.image("background", "/game/assets/img/dirt_fill.png");
+    game.load.image("level", "/game/assets/map/stage/wakewalk.png");
+    game.load.image("invisible", "/game/assets/img/fill.png");
+    game.load.image("debug", "/game/assets/img/fill_debug.png");
+    game.load.image("flavor", "/game/assets/img/fill_flavor.png");
+    game.load.image("dialog", "/game/assets/img/dialog.png");
+    game.load.spritesheet("player", "/game/assets/sprites/sprite-sheet-player-unhatted.png", 32, 42);
+
+    game.stage.smoothed = false;
+
+  }
+
+  function create() {
+
+    boxMode = "invisible";
+
+    entitymap = game.cache.getJSON("entitymap");
+
+    game.stage.backgroundColor = "#111111";
+
+    idle = 8;
+
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    black = game.add.sprite(0, 0, "black");
+    black.scale.setTo(640, 320);
+
+    dirtBG = game.add.tileSprite(0, 0, 640, 320, "background");
+
+    background = game.add.sprite(240, 0, "level");
+
+    player = game.add.sprite(entitymap.spawn.x, entitymap.spawn.y, "player");
+
+    game.physics.enable(player, Phaser.Physics.ARCADE);
+
+    player.body.collideWorldBounds = true;
+
+    player.animations.add("right", [0, 1, 2, 3], 10, true);
+    player.animations.add("left", [4, 5, 6, 7], 10, true);
+    player.animations.add("down", [8, 9, 10], 10, true);
+    player.animations.add("up", [12, 13, 14], 10, true);
+
+    if(entitymap.hitboxes.length > 0) {
+
+      hitboxes = game.add.group();
+      hitboxes.enableBody = true;
+
+      for(var i = 0; i < entitymap.hitboxes.length; i++) {
+
+        var hitboxData = entitymap.hitboxes[i];
+
+        var box = hitboxes.create(Number(hitboxData.x), Number(hitboxData.y), boxMode);
+        box.scale.setTo(Number(hitboxData.l), Number(hitboxData.h));
+        box.body.immovable = true;
+
+      }
+
+    }
+
+    if(entitymap.flavors.length > 0) {
+
+      flavors = game.add.group();
+
+      for(var i = 0; i < entitymap.flavors.length; i++) {
+
+        var flavorData = entitymap.flavors[i];
+
+        var flavor = flavors.create(Number(flavorData.x), Number(flavorData.y), boxMode);
+        flavor.scale.setTo(Number(flavorData.l), Number(flavorData.h));
+        flavor.flavor = flavorData.flavor;
+
+      }
+
+      popup = game.add.group();
+
+      dialog = popup.create(170, 10, "dialog");
+      dialog.scale.setTo(0.5, 0.6);
+
+      nametag = popup.create(182, 4, "dialog");
+      nametag.scale.setTo(0.06, 0.19);
+      nametag.visible = false;
+
+      text = game.add.bitmapText(185, 20, "VT323", "", 15, popup);
+
+      nametext = game.add.bitmapText(185, 5, "VT323", "Will", 12, popup);
+      nametext.visible = false;
+
+      popup.x = -180;
+      popup.scale.setTo(1.5, 1.5);
+      popup.visible = false;
+
+    }
+
+    if(entitymap.redirects.length > 0) {
+
+      redirects = game.add.group();
+
+      for(var i = 0; i < entitymap.redirects.length; i++) {
+
+        var redirectData = entitymap.redirects[i];
+
+        var redirect = redirects.create(Number(redirectData.x), Number(redirectData.y), boxMode);
+        redirect.scale.setTo(Number(redirectData.l), Number(redirectData.h));
+        redirect.url = redirectData.url;
+        redirect.timeout = redirectData.timeout;
+        redirect.deny = redirectData.deny;
+        redirect.entered = redirectData.entered;
+
+      }
+
+    }
+
+    black.bringToTop();
+    game.add.tween(black).to({ alpha: 0 }, 2300).start();
+
+    cursors = game.input.keyboard.createCursorKeys();
+    enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+
+  }
+
+  function update() {
+
+    dirtBG.tilePosition.x = 0.5;
+
+    game.physics.arcade.collide(player, hitboxes);
+
+    player.body.velocity.x = 0;
+    player.body.velocity.y = 0;
+
+    var enterDowned = enterKey.justDown;
+
+    if(typeof popup != "undefined") {
+      if(hasIntersection(player, redirects)) {
+        var intersection = getIntersection(player, redirects);
+        if((enterDowned && intersection.entered) || !intersection.entered) {
+          var elapsed = game.time.now;
+          if(elapsed >= intersection.timeout) {
+            window.parent.soundfx.play();
+            popup.visible = false;
+            game.add.tween(black).to({ alpha: 1 }).start();
+            setTimeout(function() {
+              window.location = intersection.url;
+            }, 1000);
+          } else {
+            if(enterDowned) {
+              window.parent.soundfx.play();
+              text.text = intersection.deny;
+              popup.visible = (popup.visible) ? false : true;
+            }
+          }
+        }
+      }
+
+      if(hasIntersection(player, flavors) && !hasIntersection(player, redirects) && enterDowned) {
+        window.parent.soundfx.play();
+        var currentFloat = getIntersection(player, flavors);
+        text.text = currentFloat.flavor;
+        popup.visible = (popup.visible) ? false : true;
+        disableMove = false;
+      }
+
+      if(popup.visible && disableMove && enterDowned) {
+        disableMove = false;
+        nametag.visible = false;
+        nametext.visible = false;
+        hidePhaserDialog();
+      }
+
+      if(!hasIntersection(player, flavors) && !hasIntersection(player, redirects) && !enterDowned && !disableMove) {
+          popup.visible = false;
+      }
+    }
+
+    if(!disableMove) {
+
+      if(cursors.left.isDown) {
+        idle = 7;
+        player.body.velocity.x = -150;
+        player.animations.play("left");
+      }
+
+      else if(cursors.right.isDown) {
+        idle = 0;
+        player.body.velocity.x = 150;
+        player.animations.play("right");
+      }
+
+      else if(cursors.up.isDown) {
+        idle = 12;
+        player.body.velocity.y = -150;
+        player.animations.play("up");
+      }
+
+      else if(cursors.down.isDown) {
+        idle = 8;
+        player.body.velocity.y = 150;
+        player.animations.play("down");
+      }
+
+      else if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown) {
+        player.animations.stop();
+
+        player.frame = idle;
+      }
+
+    } else {
+      player.animations.stop();
+
+      player.frame = idle;
+    }
+
+  }
+
+  function getIntersection(sprite, group) {
+    if(group.children.length == 0) return null;
+    for(var i = 0; i < group.children.length; i++) {
+      if(sprite.getBounds().intersects(group.children[i].getBounds())) {
+        return group.children[i];
+      }
+    }
+    return null;
+  }
+
+  function hasIntersection(sprite, group) {
+    return getIntersection(sprite, group) != null;
+  }
+
+  // Dialog messages.
+
+  setTimeout(function() {
+    setDialogSpeaker("Will");
+    setDialogMessage("Hey, can you come out here?");
+    disableMove = true;
+    popup.visible = false;
+    showPhaserDialog();
+  }, 15050);
+
+  setTimeout(function() {
+    setDialogSpeaker("Will");
+    setDialogMessage("Hey, can you come out here?");
+    disableMove = true;
+    popup.visible = false;
+    showPhaserDialog();
+  }, 90050);
+
+ //-->
+ </script>
+ <body onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

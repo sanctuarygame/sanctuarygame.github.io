@@ -1,0 +1,199 @@
+<html>
+<head>
+  <title>Test AI</title>
+</head>
+<script src="/js/easystar/easystar-0.3.0.min.js"></script>
+<script src="/js/phaser.min.js"></script>
+<script>
+
+  var game = new Phaser.Game(640, 320, Phaser.AUTO, "gameboard", { preload: preload, create: create, update: update }, false, false);
+
+  var easystar = new EasyStar.js();
+
+  var gamegrid = [
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ];
+
+  easystar.setGrid(gamegrid);
+  easystar.setAcceptableTiles([0]);
+
+  easystar.enableSync();
+
+  function preload() {
+    game.load.image("obstacle", "plain_floor_unmarked.png");
+    game.load.image("grid", "gridsquare.png");
+    game.load.image("placeholder", "placeholder.png");
+    game.load.spritesheet("turret", "/game/assets/sprites/turret/turret-sprites.png", 32, 32);
+  }
+
+  function create() {
+    game.stage.backgroundColor = "#ffffff";
+
+    obstacles = game.add.group();
+    obstacles.enableBody = true;
+
+    obstacle = obstacles.create(32, 0, "obstacle");
+    obstacle.body.immovable = true;
+
+    obstacle = obstacles.create(32, 32, "obstacle");
+    obstacle.body.immovable = true;
+
+    obstacle = obstacles.create(160, 96, "obstacle");
+    obstacle.body.immovable = true;
+
+    obstacle = obstacles.create(160, 128, "obstacle");
+    obstacle.body.immovable = true;
+
+    obstacle = obstacles.create(160, 160, "obstacle");
+    obstacle.body.immovable = true;
+
+    obstacle = obstacles.create(160, 192, "obstacle");
+    obstacle.body.immovable = true;
+
+    obstacle = obstacles.create(160, 224, "obstacle");
+    obstacle.body.immovable = true;
+
+    obstacle = obstacles.create(160, 256, "obstacle");
+    obstacle.body.immovable = true;
+
+    obstacle = obstacles.create(160, 288, "obstacle");
+    obstacle.body.immovable = true;
+
+    mobs = game.add.group();
+
+    mob = mobs.create(320, 256, "turret");
+    mob.animations.add("right", [0, 1, 2, 3], 10, true);
+    mob.animations.add("left", [4, 5, 6, 7], 10, true);
+
+    target = game.add.sprite(64, 224, "placeholder");
+
+    game.physics.enable(target, Phaser.Physics.ARCADE);
+
+    target.body.collideWorldBounds = true;
+
+    // game.add.tileSprite(0, 0, 640, 320, "grid");
+
+    currentcoords = { x: getCoordinates(target).x, y: getCoordinates(target).y };
+
+    cursors = game.input.keyboard.createCursorKeys();
+
+  }
+
+  function update() {
+
+    game.physics.arcade.collide(target, obstacles);
+
+    target.body.velocity.x = 0;
+    target.body.velocity.y = 0;
+
+    if(cursors.left.isDown) {
+      target.body.velocity.x = -150;
+    }
+
+    else if(cursors.right.isDown) {
+      target.body.velocity.x = 150;
+    }
+
+    else if(cursors.up.isDown) {
+      target.body.velocity.y = -150;
+    }
+
+    else if(cursors.down.isDown) {
+      target.body.velocity.y = 150;
+    }
+
+    if(mobs.children.length > 0) {
+      for(var i = 0; i < mobs.children.length; i++) {
+
+        var mobchild = mobs.children[i];
+
+        if(game.tweens.isTweening(mobchild)) {
+          if(target.x <= mobchild.x) {
+            mobchild.animations.play("left");
+          } else {
+            mobchild.animations.play("right");
+          }
+        } else {
+          mobchild.animations.stop();
+        }
+
+      }
+    }
+
+  }
+
+  function getCoordinates(sprite) {
+    return { x: Math.floor(sprite.x / 32), y: Math.floor(sprite.y / 32) };
+  }
+
+  function animateMob() {
+    if(mobs.children.length > 0) {
+      for(var i = 0; i < mobs.children.length; i++) {
+        var mobchild = mobs.children[i];
+
+        console.log("Pathfinding started for mob at index " + i);
+
+        var mobcoords = getCoordinates(mobchild);
+        var targetcoords = getCoordinates(target);
+
+        easystar.findPath(mobcoords.x, mobcoords.y, targetcoords.x, targetcoords.y, function(path) {
+          moveMob(mobchild, path);
+        });
+
+        easystar.calculate();
+      }
+    }
+  }
+
+  function moveMob(sprite, foundPath) {
+    if(typeof foundPath != "undefined" && foundPath != null) {
+      console.log(foundPath);
+      game.tweens.removeFrom(sprite);
+
+      var mobtween = game.add.tween(sprite);
+
+      for(var i = 0; i < foundPath.length; i++) {
+        var point_x = foundPath[i].x * 32;
+        var point_y = foundPath[i].y * 32;
+        var distanceTo = game.physics.arcade.distanceToXY(sprite, point_x, point_y);
+        if(distanceTo > 32) {
+          mobtween.to({ x: point_x, y: point_y });
+        }
+      }
+
+      mobtween.timeScale = 2;
+      mobtween.start();
+    }
+  }
+
+  setInterval(function() {
+    if(playerHasMoved()) {
+      animateMob();
+    }
+  }, 1000);
+
+  function playerHasMoved() {
+    if(typeof target != "undefined") {
+      var playercoords = getCoordinates(target);
+      if(currentcoords.x - playercoords.x != 0 || currentcoords.y - playercoords.y != 0) {
+        currentcoords.x = playercoords.x;
+        currentcoords.y = playercoords.y;
+        return true;
+      }
+    }
+    return false;
+  }
+
+</script>
+<body style="background-color: black">
+</body>
+</html>

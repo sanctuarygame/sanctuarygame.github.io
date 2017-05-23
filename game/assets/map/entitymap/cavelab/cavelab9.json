@@ -1,0 +1,110 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/cavelab/cavelab9.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "175",
+      "y": "63"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Why so many cones and restricted areas?",
+      "x": "275",
+      "y": "125",
+      "l": "80",
+      "h": "50"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "175",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "110"
+    },
+    {
+      "id": "right wall",
+      "x": "465",
+      "y": "0",
+      "l": "175",
+      "h": "320"
+    },
+    {
+      "id": "bottom wall",
+      "x": "0",
+      "y": "258",
+      "l": "640",
+      "h": "50"
+    },
+    {
+      "id": "blocked off path",
+      "x": "290",
+      "y": "110",
+      "l": "50",
+      "h": "45"
+    },
+    {
+      "id": "cones",
+      "x": "275",
+      "y": "140",
+      "l": "80",
+      "h": "10"
+    },
+    {
+      "id": "left rock",
+      "x": "355",
+      "y": "150",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "right rock",
+      "x": "435",
+      "y": "180",
+      "l": "30",
+      "h": "15"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cavelab/cavelab8.html?x=440&y=240",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "175",
+      "y": "170",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/cave/cave1.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "225",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 175,
+    "y": 165
+  }
+}

@@ -1,0 +1,7 @@
+{
+	"path": "/game/assets/",
+	"manifest": [{
+    "src": "img/bg/armory_bright.png",
+    "id": "ARMORY_BRIGHT"
+  }]
+}

@@ -1,0 +1,120 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Jonathan Lin, Preston Lai, Eric Yan, Alex Chen">
+  <title>UPWARDS</title>
+ </head>
+ <script src="/js/easel/lib/easeljs-0.8.2.min.js"></script>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/GameDialogue.js"></script>
+ <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
+ <script src="/js/canvasfx.js"></script>
+ <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <script src="/js/phaser.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	// Initialize canvas values and functions
+  var game = new Phaser.Game(640, 320, Phaser.AUTO, "", { preload: preload, create: create, update: update }, false, false);
+
+  function preload() {
+
+    window.parent.soundfx = new Howl({
+      urls: ['/game/assets/sound/107145__bubaproducer__button-26.wav']
+    });
+
+    game.load.image("black", "/game/assets/img/black.png");
+    game.load.image("level", "/game/assets/map/stage/downwards.png");
+    game.load.image("elevator", "/game/assets/img/elevatorinterior.png");
+    game.load.spritesheet("player", "/game/assets/sprites/sprite-sheet-player.png", 32, 42);
+
+    game.stage.smoothed = false;
+
+  }
+
+  function create() {
+
+    idle = 8;
+
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    black = game.add.sprite(0, 0, "black");
+    black.scale.setTo(640, 320);
+
+    background = game.add.sprite(240, 0, "level");
+
+    descending = game.add.group();
+
+    elevator = game.add.sprite(254, 400, "elevator");
+
+    player = game.add.sprite(272, 414, "player");
+
+    descending.addMultiple([elevator, player]);
+
+    black.bringToTop();
+    game.add.tween(black).to({ alpha: 0 }, 800).start();
+
+  }
+
+  var endedUp = false;
+  var canFall = false;
+
+  function update() {
+
+    player.frame = idle;
+
+    if(descending.y > -300) {
+      descending.y -= 3;
+    } else {
+      if(!endedUp) {
+        endedUp = true;
+        game.camera.shake(0.004, 1000, true);
+        setTimeout(function() {
+          canFall = true;
+        }, 1050);
+        setTimeout(function () {
+          var fadeToBlack = game.add.tween(black).to({ alpha: 1 }, 800);
+          fadeToBlack.onComplete.add(function() {
+            window.location = hashToURL("menu/loading");
+          });
+          fadeToBlack.start();
+        }, 2000);
+      }
+    }
+
+    if(canFall) {
+      descending.y += 9;
+    }
+
+  }
+
+ //-->
+ </script>
+ <body onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

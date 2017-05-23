@@ -1,0 +1,117 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/cavelab/cavelab8.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "167",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "These rooms are degrading so much.",
+      "x": "170",
+      "y": "35",
+      "l": "250",
+      "h": "250"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "167",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "35"
+    },
+    {
+      "id": "right wall",
+      "x": "473",
+      "y": "0",
+      "l": "167",
+      "h": "320"
+    },
+    {
+      "id": "jut 1",
+      "x": "285",
+      "y": "35",
+      "l": "15",
+      "h": "100"
+    },
+    {
+      "id": "jut 2",
+      "x": "305",
+      "y": "35",
+      "l": "20",
+      "h": "120"
+    },
+    {
+      "id": "jut 3",
+      "x": "330",
+      "y": "35",
+      "l": "140",
+      "h": "140"
+    },
+    {
+      "id": "rock 1",
+      "x": "170",
+      "y": "225",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "rock 2",
+      "x": "255",
+      "y": "275",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "rock 3",
+      "x": "385",
+      "y": "210",
+      "l": "30",
+      "h": "15"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cavelab/cavelab7.html?x=310&y=290",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "215",
+      "y": "20",
+      "l": "30",
+      "h": "45"
+    },
+    {
+      "url": "/game/level/stage/cavelab/cavelab9.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "440",
+      "y": "240",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 215,
+    "y": 40
+  }
+}

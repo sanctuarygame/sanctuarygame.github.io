@@ -1,0 +1,96 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab4.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "199",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "\"Sinks are work's foundation!\"",
+      "x": "300",
+      "y": "10",
+      "l": "35",
+      "h": "60"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "199",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "441",
+      "y": "0",
+      "l": "199",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "199",
+      "y": "0",
+      "l": "242",
+      "h": "30"
+    },
+    {
+      "id": "first lab table",
+      "x": "420",
+      "y": "75",
+      "l": "20",
+      "h": "25"
+    },
+    {
+      "id": "second lab table",
+      "x": "420",
+      "y": "170",
+      "l": "20",
+      "h": "25"
+    },
+    {
+      "id": "third lab table",
+      "x": "420",
+      "y": "265",
+      "l": "20",
+      "h": "40"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab3.html?x=610&y=180",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "200",
+      "y": "170",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/lab/lab5.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "315",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 200,
+    "y": 165
+  }
+}

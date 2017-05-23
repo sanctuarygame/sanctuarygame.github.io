@@ -1,0 +1,110 @@
+{
+  "assets": {
+    "keys": [
+      "layer0",
+      "layer1"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab2/lab2-1.png",
+      "/game/assets/map/stage/lab/lab2/lab2-2.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "0",
+      "y": "0"
+    },
+    {
+      "key": "layer1",
+      "x": "0",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "\"Life is good.\"",
+      "x": "580",
+      "y": "20",
+      "l": "20",
+      "h": "30"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "50"
+    },
+    {
+      "id": "left wall barrier ",
+      "x": "0",
+      "y": "30",
+      "l": "120",
+      "h": "100"
+    },
+    {
+      "id": "left wall barrier bottom",
+      "x": "0",
+      "y": "230",
+      "l": "170",
+      "h": "90"
+    },
+    {
+      "id": "middle median wall",
+      "x": "435",
+      "y": "120",
+      "l": "125",
+      "h": "140"
+    },
+    {
+      "id": "lab sink left",
+      "x": "215",
+      "y": "45",
+      "l": "120",
+      "h": "10"
+    },
+    {
+      "id": "lab sink right",
+      "x": "455",
+      "y": "40",
+      "l": "80",
+      "h": "10"
+    },
+    {
+      "id": "lab sink bottom",
+      "x": "180",
+      "y": "235",
+      "l": "20",
+      "h": "25"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab3.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "610",
+      "y": "165",
+      "l": "30",
+      "h": "50"
+    },
+    {
+      "url": "/game/level/stage/lab/lab1.html?x=610&y=195",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "0",
+      "y": "165",
+      "l": "30",
+      "h": "50"
+    }
+  ],
+  "spawn": {
+    "x": 0,
+    "y": 175
+  }
+}

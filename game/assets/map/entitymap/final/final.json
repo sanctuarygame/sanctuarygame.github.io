@@ -1,0 +1,183 @@
+{
+  "assets": {
+    "keys": [
+      "layer0",
+      "layer1"
+    ],
+    "urls": [
+      "/game/assets/map/stage/final/final-1.png",
+      "/game/assets/map/stage/final/final-2.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "160",
+      "y": "0"
+    },
+    {
+      "key": "layer1",
+      "x": "160",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Something deep in the wall shifts.",
+      "x": "264",
+      "y": "31",
+      "l": "10",
+      "h": "20"
+    },
+    {
+      "flavor": "radiomessage",
+      "x": "260",
+      "y": "113",
+      "l": "220",
+      "h": "35"
+    },
+    {
+      "flavor": "Oh, lucky guess!",
+      "x": "400",
+      "y": "41",
+      "l": "80",
+      "h": "20"
+    },
+    {
+      "flavor": "That's just nasty.",
+      "x": "380",
+      "y": "158",
+      "l": "50",
+      "h": "50"
+    },
+    {
+      "flavor": "...that's just a floor.",
+      "x": "185",
+      "y": "187",
+      "l": "90",
+      "h": "50"
+    },
+    {
+      "flavor": "Funny idea, but no.",
+      "x": "288",
+      "y": "50",
+      "l": "50",
+      "h": "10"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left",
+      "x": "0",
+      "y": "0",
+      "l": "160",
+      "h": "320"
+    },
+    {
+      "id": "right",
+      "x": "480",
+      "y": "0",
+      "l": "160",
+      "h": "320"
+    },
+    {
+      "id": "bottom",
+      "x": "162",
+      "y": "249",
+      "l": "320",
+      "h": "158"
+    },
+    {
+      "id": "column",
+      "x": "162",
+      "y": "2",
+      "l": "88",
+      "h": "140"
+    },
+    {
+      "id": "elev left",
+      "x": "252",
+      "y": "2",
+      "l": "45",
+      "h": "40"
+    },
+    {
+      "id": "shelf right",
+      "x": "474",
+      "y": "0",
+      "l": "40",
+      "h": "40"
+    },
+    {
+      "id": "elev right",
+      "x": "336",
+      "y": "2",
+      "l": "71",
+      "h": "40"
+    },
+    {
+      "id": "elev top",
+      "x": "293",
+      "y": "4",
+      "l": "64",
+      "h": "13"
+    },
+    {
+      "id": "bookshelf",
+      "x": "410",
+      "y": "5",
+      "l": "60",
+      "h": "45"
+    },
+    {
+      "id": "elevator",
+      "x": "296",
+      "y": "16",
+      "l": "30",
+      "h": "40"
+    },
+    {
+      "id": "project",
+      "x": "186",
+      "y": "139",
+      "l": "35",
+      "h": "20"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/upwards.html",
+      "timeout": "1000000000000000",
+      "deny": "The buttons don't seem to be working.",
+      "entered": false,
+      "x": "296",
+      "y": "17",
+      "l": "40",
+      "h": "20"
+    },
+    {
+      "url": "/game/level/menu/loading.html",
+      "timeout": "10000000000000000",
+      "deny": "How'd you even get here?",
+      "entered": false,
+      "x": "409",
+      "y": "3",
+      "l": "55",
+      "h": "3"
+    },
+    {
+      "url": "/game/level/stage/final/baws.html?x=1215&y=296",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "156",
+      "y": "162",
+      "l": "4",
+      "h": "100"
+    }
+  ],
+  "spawn": {
+    "x": 176,
+    "y": 189
+  }
+}

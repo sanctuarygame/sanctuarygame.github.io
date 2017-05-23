@@ -1,0 +1,110 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab6.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "183",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "\"Take a break and we'll break YOU!\"",
+      "x": "345",
+      "y": "115",
+      "l": "20",
+      "h": "60"
+    },
+    {
+      "flavor": "\"Boredom: man's best friend.\"",
+      "x": "385",
+      "y": "115",
+      "l": "20",
+      "h": "60"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "183",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "457",
+      "y": "0",
+      "l": "183",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "35"
+    },
+    {
+      "id": "jutting top wall",
+      "x": "315",
+      "y": "0",
+      "l": "140",
+      "h": "155"
+    },
+    {
+      "id": "top box",
+      "x": "295",
+      "y": "55",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "left bottom box",
+      "x": "185",
+      "y": "275",
+      "l": "30",
+      "h": "80"
+    },
+    {
+      "id": "bottom right box",
+      "x": "430",
+      "y": "175",
+      "l": "30",
+      "h": "15"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab5.html?x=305&y=290",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "235",
+      "y": "20",
+      "l": "30",
+      "h": "40"
+    },
+    {
+      "url": "/game/level/stage/lab/lab7.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "425",
+      "y": "240",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 235,
+    "y": 35
+  }
+}

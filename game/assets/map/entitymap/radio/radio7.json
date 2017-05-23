@@ -1,0 +1,117 @@
+{
+  "assets": {
+    "keys": [
+      "layer0",
+      "layer1"
+    ],
+    "urls": [
+      "/game/assets/map/stage/radio/radio7/radio7-1.png",
+      "/game/assets/map/stage/radio/radio7/radio7-2.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "151",
+      "y": "0"
+    },
+    {
+      "key": "layer1",
+      "x": "151",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "What are these green things?",
+      "x": "180",
+      "y": "60",
+      "l": "280",
+      "h": "40"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "151",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "489",
+      "y": "0",
+      "l": "151",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "151",
+      "y": "0",
+      "l": "338",
+      "h": "50"
+    },
+    {
+      "id": "jutting out wall",
+      "x": "250",
+      "y": "145",
+      "l": "240",
+      "h": "150"
+    },
+    {
+      "id": "first neon lantern",
+      "x": "190",
+      "y": "65",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "second neon lantern",
+      "x": "275",
+      "y": "65",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "third lantern",
+      "x": "355",
+      "y": "65",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "fourth neon lanter",
+      "x": "435",
+      "y": "65",
+      "l": "15",
+      "h": "15"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/radio/radio8.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "460",
+      "y": "100",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/radio/radio6.html?x=540&y=130",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "190",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 185,
+    "y": 280
+  }
+}

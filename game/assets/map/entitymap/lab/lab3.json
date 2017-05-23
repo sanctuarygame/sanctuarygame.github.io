@@ -1,0 +1,134 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab3_new.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "0",
+      "y": "47.5"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "BEWARE: dihydrogen monoxide leak.",
+      "x": "396",
+      "y": "130",
+      "l": "20",
+      "h": "70"
+    },
+    {
+      "flavor": "Whatever's down there, it's bubbling.",
+      "x": "42",
+      "y": "171",
+      "l": "50",
+      "h": "50"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "top",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "90"
+    },
+    {
+      "id": "left",
+      "x": "181",
+      "y": "51",
+      "l": "123",
+      "h": "130"
+    },
+    {
+      "id": "right",
+      "x": "374",
+      "y": "51",
+      "l": "123",
+      "h": "130"
+    },
+    {
+      "id": "bottom",
+      "x": "0",
+      "y": "273",
+      "l": "640",
+      "h": "45"
+    },
+    {
+      "id": "boxes",
+      "x": "352",
+      "y": "107",
+      "l": "20",
+      "h": "20"
+    },
+    {
+      "id": "boxes bottom",
+      "x": "366",
+      "y": "127",
+      "l": "30",
+      "h": "10"
+    },
+    {
+      "id": "boxes and table",
+      "x": "68",
+      "y": "107",
+      "l": "130",
+      "h": "15"
+    },
+    {
+      "id": "boxes left",
+      "x": "0",
+      "y": "105",
+      "l": "20",
+      "h": "20"
+    },
+    {
+      "id": "boxes and desks",
+      "x": "499",
+      "y": "107",
+      "l": "120",
+      "h": "15"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab3a.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "319",
+      "y": "65",
+      "l": "40",
+      "h": "40"
+    },
+    {
+      "url": "/game/level/stage/lab/lab2.html?x=610&y=160",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "0",
+      "y": "143",
+      "l": "2",
+      "h": "120"
+    },
+    {
+      "url": "/game/level/stage/lab/lab4.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "638",
+      "y": "120",
+      "l": "2",
+      "h": "147"
+    }
+  ],
+  "spawn": {
+    "x": 6,
+    "y": 177
+  }
+}

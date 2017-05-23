@@ -1,0 +1,131 @@
+{
+  "assets": {
+    "keys": [
+      "layer0",
+      "layer1",
+      "layer2"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/elevator/elevator-room-2/elevator-room-2-1.png",
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/elevator/elevator-room-2/elevator-room-2-2.png",
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/elevator/elevator-room-2/elevator-room-2-3.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "200",
+      "y": "0"
+    },
+    {
+      "key": "layer1",
+      "x": "200",
+      "y": "0"
+    },
+    {
+      "key": "layer2",
+      "x": "200",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Better to keep your boots dry.",
+      "x": "380",
+      "y": "235",
+      "l": "53",
+      "h": "23"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "wall_left",
+      "x": "0",
+      "y": "0",
+      "l": "200",
+      "h": "320"
+    },
+    {
+      "id": "wall_right",
+      "x": "440",
+      "y": "0",
+      "l": "200",
+      "h": "320"
+    },
+    {
+      "id": "wall_top_left",
+      "x": "202",
+      "y": "2",
+      "l": "83",
+      "h": "30"
+    },
+    {
+      "id": "wall top right",
+      "x": "366",
+      "y": "2",
+      "l": "90",
+      "h": "30"
+    },
+    {
+      "id": "top left stalag",
+      "x": "233",
+      "y": "59",
+      "l": "25",
+      "h": "5"
+    },
+    {
+      "id": "bottom left pebbles",
+      "x": "205",
+      "y": "290",
+      "l": "20",
+      "h": "20"
+    },
+    {
+      "id": "top right pebbles",
+      "x": "406",
+      "y": "164",
+      "l": "25",
+      "h": "5"
+    },
+    {
+      "id": "bottom stalag",
+      "x": "358",
+      "y": "288",
+      "l": "25",
+      "h": "5"
+    },
+    {
+      "id": "water",
+      "x": "380",
+      "y": "237",
+      "l": "50",
+      "h": "20"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/elevator/elevator1.html?x=309&y=273",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "298",
+      "y": "0",
+      "l": "60",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/elevator/elevator3.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "312",
+      "y": "296",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 313,
+    "y": 9
+  }
+}

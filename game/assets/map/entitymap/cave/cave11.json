@@ -1,0 +1,117 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/cave/cave11.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "70",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "It's dark, maybe you shouldn't stay here. ",
+      "x": "500",
+      "y": "250",
+      "l": "60",
+      "h": "60"
+    },
+    {
+      "flavor": "This looks like a burial for a big animal. ",
+      "x": "290",
+      "y": "110",
+      "l": "160",
+      "h": "70"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "70",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "570",
+      "y": "0",
+      "l": "70",
+      "h": "320"
+    },
+    {
+      "id": "top wall left side",
+      "x": "70",
+      "y": "0",
+      "l": "190",
+      "h": "20"
+    },
+    {
+      "id": "top wall right side",
+      "x": "365",
+      "y": "0",
+      "l": "200",
+      "h": "20"
+    },
+    {
+      "id": "pool and ribs ",
+      "x": "300",
+      "y": "120",
+      "l": "90",
+      "h": "20"
+    },
+    {
+      "id": "bottom right corner bones",
+      "x": "520",
+      "y": "260",
+      "l": "40",
+      "h": "40"
+    },
+    {
+      "id": "small pool top ",
+      "x": "150",
+      "y": "125",
+      "l": "40",
+      "h": "10"
+    },
+    {
+      "id": "small pool bottom",
+      "x": "130",
+      "y": "250",
+      "l": "40",
+      "h": "10"
+    }
+  ],
+  "redirects": [
+      {
+        "url": "/game/level/stage/cave/cave12.html",
+        "timeout": "0",
+        "deny": "",
+        "entered": false,
+        "x": "300",
+        "y": "0",
+        "l": "30",
+        "h": "30"
+      },
+      {
+        "url": "/game/level/stage/cave/cave10.html?x=310&y=5",
+        "timeout": "0",
+        "deny": "",
+        "entered": false,
+        "x": "300",
+        "y": "285",
+        "l": "30",
+        "h": "30"
+      }
+    ],
+  "spawn": {
+    "x": 300,
+    "y": 280
+  }
+}

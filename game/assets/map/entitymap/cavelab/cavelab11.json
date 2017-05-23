@@ -1,0 +1,117 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/cavelab/cavelab11.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "190",
+      "y": "35"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "It's nice to see tiles again. ",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "320"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "190",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "45"
+    },
+    {
+      "id": "right wall",
+      "x": "450",
+      "y": "0",
+      "l": "190",
+      "h": "320"
+    },
+    {
+      "id": "bottom wall",
+      "x": "0",
+      "y": "285",
+      "l": "640",
+      "h": "35"
+    },
+    {
+      "id": "top left rock",
+      "x": "210",
+      "y": "70",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "top right rock",
+      "x": "405",
+      "y": "85",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "center rock",
+      "x": "310",
+      "y": "150",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "bottom left rock",
+      "x": "255",
+      "y": "220",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "bottom right rock",
+      "x": "390",
+      "y": "195",
+      "l": "30",
+      "h": "15"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cavelab/cavelab10.html?x=305&y=10",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "255",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/cavelab/cavelab12.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "420",
+      "y": "155",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 240
+  }
+}

@@ -1,0 +1,28 @@
+{
+	"path": "/game/assets/",
+	"manifest": [{
+		"src": "img/bg/snowopening.png",
+		"id": "SNOWOPENING"
+	}, {
+		"src": "img/bg/faceopening.png",
+		"id": "FACEOPENING"
+	}, {
+		"src": "img/bg/medlab.png",
+		"id": "MEDLAB"
+	}, {
+		"src": "img/doctor.png",
+		"id": "DOCTOR"
+	}, {
+		"src": "img/dialog.png",
+		"id": "DIALOG"
+	}, {
+		"src": "map/stage/wakewalk.png",
+		"id": "WAKEWALK"
+	}, {
+		"src": "sound/opening_wind_sample.wav",
+		"id": "OPENING_WIND"
+	}, {
+		"src": "sound/Immersed.mp3",
+		"id": "BG_MUSIC"
+	}]
+}

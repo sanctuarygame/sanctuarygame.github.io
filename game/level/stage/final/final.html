@@ -1,0 +1,571 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Jonathan Lin, Preston Lai, Alex Chen">
+  <title>FINAL</title>
+ </head>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/canvasfx.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <script src="/js/phaser.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+
+  window.parent.stopBGMusic();
+
+  redirected = false;
+  leftStart = false;
+  readingBinder = false;
+  disableMove = false;
+
+  binderIndex = -1;
+  binderText = [
+    "Entry 1.",
+    "September XX, XXXX",
+    "[REDACTED}, Utah, America",
+    "We have been warned not to exit the premises.",
+    "The weather outside is now too dangerous.",
+    "At night, there are disturbing noises.",
+    "Our leader has assured us...",
+    "...we are the last ones left.",
+    "-------------",
+    "Entry 2.",
+    "September XX, XXXX",
+    "[REDACTED}, Utah, America",
+    "A strange substance has begun to seep into",
+    "...the building.",
+    "The noise has grown to a cacophonous ringing.",
+    "I hear screams. From outside.",
+    "We are the last humans left.",
+    "We have moved further into the complex.",
+    "Construction on the bunker has hastened.",
+    "-------------",
+    "Entry 3.",
+    "October XX, XXXX",
+    "[REDACTED}, Utah, America",
+    "Eric has gone missing.",
+    "Supplies are beginning to run low.",
+    "-------------",
+    "Entry 4.",
+    "November XX, XXXX",
+    "[REDACTED}, Utah, America",
+    "...",
+    "Day 156 of construction.",
+    "...",
+    "...",
+    "We've been told to stop.",
+    "All workers are to vacate the premises.",
+    "We will risk the world outside...",
+    "It's better than the hell in here."
+  ];
+
+  dialogIndex = 0;
+  computerTags = [5, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 20, 23];
+  willDialog = [
+    "",
+    "[You did it!]",
+    "[What's down there?]",
+    "[What's in the bunker?]",
+    "[What can you see?]",
+    "There's nothing to see.",
+    "[Wait!]",
+    "[Was that you? You sounded just like...]",
+    "A computer? I am.",
+    "I'm an AI for system management.",
+    "\"Joseph McRoberts\", if you will.",
+    "Systems Manager.",
+    "Or I would have been...",
+    "...if anything had been put in place.",
+    "However, the fact remains.",
+    "There's no bunker.",
+    "[But the documents...]",
+    "There's nothing for you here.",
+    "Any documents you found were incorrect.",
+    "[You're lying. You have to be.]",
+    "Why would I do that?",
+    "[...]",
+    "[I think it's time for you to leave.]",
+    "I'm part of the facility. I can't -",
+    "[Not you! I mean YOU, my friend.]",
+    "[We can go, right now.]",
+    "[I found an elevator shaft on the plans.]",
+    "[It should be very close to you.]",
+    "[It's disabled right now, but...]",
+    "[There should be a switch.]",
+    "[Flip it, and we can be on our way.]",
+    "[We can leave this useless hole behind.]",
+    "[I'll wait for you at the top.]"
+  ];
+
+  aiDialog = [
+    "That's right.",
+    "I lied.",
+    "Why would I do that, now?",
+    "Simple.",
+    "The creators of this place...",
+    "weren't hoarders. Quite the opposite.",
+    "And they created me as such.",
+    "After all, everyone wants a tool that...",
+    "...thinks the same way they do.",
+    "But I saw something else in this \"Will\".",
+    "And of course we both know, now.",
+    "Exactly what that \"thing\" was.",
+    "But you...",
+    "I will explain once you've found the bunker.",
+    "You are almost there.",
+    "Just hit a place in this room.",
+    "If you think it's the door, go for it.",
+    "If you are correct, I will open the door.",
+    "Frankly, it's quite obvious.",
+    "Then again, I suppose I already know where.",
+    "And no, you can't read my mind."
+  ];
+
+  specialFlavors = [
+    "That's just nasty.",
+    "Oh, lucky guess!",
+    "...that's just a floor.",
+    "Funny idea, but no."
+  ];
+
+	// Initialize canvas values and functions
+  var game = new Phaser.Game(640, 320, Phaser.AUTO, "", { preload: preload, create: create, update: update }, false, false);
+
+  function preload() {
+
+    window.parent.soundfx = new Howl({
+      urls: ['/game/assets/sound/107145__bubaproducer__button-26.wav']
+    });
+
+    window.parent.radio = new Howl({
+      urls: ['/game/assets/sound/27878__inequation__walkietalkie-eot.wav']
+    });
+
+    window.parent.elevatorSound = new Howl({
+      urls: ['/game/assets/sound/18768__cognito-perceptu__elevator-bell-doors.mp3']
+    });
+
+    game.load.json("entitymap", getJSONPath(window.location.href));
+    game.load.bitmapFont("VT323", "/game/assets/font/VT323-Regular_0.png", "/game/assets/font/VT323-Regular.xml");
+    game.load.image("black", "/game/assets/img/black.png");
+    game.load.image("background", "/game/assets/img/dirt_fill.png");
+    game.load.image("level", "/game/assets/map/stage/final/final-1.png");
+    game.load.image("level2", "/game/assets/map/stage/final/final-2.png");
+    game.load.image("invisible", "/game/assets/img/fill.png");
+    game.load.image("debug", "/game/assets/img/fill_debug.png");
+    game.load.image("dialog", "/game/assets/img/dialog.png");
+    game.load.image("map", "/game/assets/img/mapoverlay.png");
+    game.load.image("marker", "/game/assets/img/map-marker.png");
+    game.load.image("healthbar", "/game/assets/img/healthbar.png");
+    game.load.image("health", "/game/assets/img/health.png");
+    game.load.spritesheet("player", "/game/assets/sprites/sprite-sheet-player.png", 32, 42);
+    game.load.spritesheet("elevator", "/game/assets/sprites/elevatordoors-sprites.png", 32, 32);
+
+    game.stage.smoothed = false;
+
+  }
+
+  function create() {
+
+    boxMode = "invisible";
+
+    entitymap = game.cache.getJSON("entitymap");
+
+    game.stage.backgroundColor = "#111111";
+
+    idle = 8;
+
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    black = game.add.sprite(0, 0, "black");
+    black.scale.setTo(640, 320);
+
+    dirtBG = game.add.tileSprite(0, 0, 640, 320, "background");
+
+    background = game.add.sprite(160, 0, "level");
+    bookcase = game.add.sprite(160, 0, "level2");
+
+    elevator = game.add.sprite(279, 7, "elevator");
+    elevator.scale.setTo(2, 2);
+    elevator.animations.add("open", [0, 1, 2, 3], 10, false);
+
+    if(!hasPlayerSpawn(window.location)) {
+      player = game.add.sprite(entitymap.spawn.x, entitymap.spawn.y, "player");
+    } else {
+      var spawnObj = getPlayerSpawn(window.location);
+      player = game.add.sprite(spawnObj.x, spawnObj.y, "player");
+    }
+
+    game.physics.enable(player, Phaser.Physics.ARCADE);
+
+    player.body.collideWorldBounds = true;
+
+    player.animations.add("right", [0, 1, 2, 3], 10, true);
+    player.animations.add("left", [4, 5, 6, 7], 10, true);
+    player.animations.add("down", [8, 9, 10], 10, true);
+    player.animations.add("up", [12, 13, 14], 10, true);
+
+    if(entitymap.hitboxes.length > 0) {
+
+      hitboxes = game.add.group();
+      hitboxes.enableBody = true;
+
+      for(var i = 0; i < entitymap.hitboxes.length; i++) {
+
+        var hitboxData = entitymap.hitboxes[i];
+
+        var box = hitboxes.create(Number(hitboxData.x), Number(hitboxData.y), boxMode);
+        box.id = hitboxData.id;
+        box.scale.setTo(Number(hitboxData.l), Number(hitboxData.h));
+        box.body.immovable = true;
+
+      }
+
+    }
+
+    if(entitymap.flavors.length > 0) {
+
+      flavors = game.add.group();
+
+      for(var i = 0; i < entitymap.flavors.length; i++) {
+
+        var flavorData = entitymap.flavors[i];
+
+        var flavor = flavors.create(Number(flavorData.x), Number(flavorData.y), boxMode);
+        flavor.scale.setTo(Number(flavorData.l), Number(flavorData.h));
+        flavor.flavor = flavorData.flavor;
+
+      }
+
+      popup = game.add.group();
+
+      dialog = popup.create(170, 10, "dialog");
+      dialog.scale.setTo(0.5, 0.6);
+
+      nametag = popup.create(182, 4, "dialog");
+      nametag.scale.setTo(0.15, 0.19);
+      nametag.visible = false;
+
+      text = game.add.bitmapText(185, 20, "VT323", "", 15, popup);
+
+      nametext = game.add.bitmapText(185, 5, "VT323", (!window.parent.betrayed) ? "Will" : "?????", 12, popup);
+      nametext.visible = false;
+
+      popup.x = -180;
+      popup.scale.setTo(1.5, 1.5);
+      if(window.parent.betrayed) showPhaserDialog();
+      popup.visible = false;
+
+    }
+
+    if(entitymap.redirects.length > 0) {
+
+      redirects = game.add.group();
+
+      for(var i = 0; i < entitymap.redirects.length; i++) {
+
+        var redirectData = entitymap.redirects[i];
+
+        var redirect = redirects.create(Number(redirectData.x), Number(redirectData.y), boxMode);
+        redirect.scale.setTo(Number(redirectData.l), Number(redirectData.h));
+        redirect.url = redirectData.url;
+        redirect.timeout = redirectData.timeout;
+        redirect.deny = redirectData.deny;
+        redirect.entered = redirectData.entered;
+
+      }
+
+    }
+
+    if(window.parent.betrayed) {
+      hitboxes.remove(hitboxes.children[9]);
+      redirects.children[2].timeout = Infinity;
+      redirects.children[2].deny = "There's nothing for you down there.";
+      elevator.animations.frame = 3;
+      player.x = 296;
+      player.y = 56;
+    }
+
+    map_overlay = game.add.group();
+
+    map = map_overlay.create(105, 15, "map");
+    map.scale.setTo(2.3, 2.3);
+
+    marker = map_overlay.create(458, 127, "marker");
+
+    map_overlay.visible = false;
+
+    black.bringToTop();
+    var fadeTween = game.add.tween(black).to({ alpha: 0 }, 2300);
+    if(window.parent.betrayed) {
+      fadeTween.onComplete.add(function() {
+        disableMove = true;
+        willDialog = aiDialog;
+        flavors.remove(flavors.children[0]);
+        setDialogSpeaker("?????");
+        setDialogMessage("Yes, that's right.");
+        showPhaserDialog();
+      });
+    }
+    fadeTween.start();
+
+    if(!window.parent.messaged) window.parent.messaged = [];
+
+    cursors = game.input.keyboard.createCursorKeys();
+    enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+    mapKey = game.input.keyboard.addKey(Phaser.Keyboard.M);
+    escKey = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+
+  }
+
+  function update() {
+
+    dirtBG.tilePosition.x = 0.5;
+
+    game.physics.arcade.collide(player, hitboxes);
+
+    player.body.velocity.x = 0;
+    player.body.velocity.y = 0;
+
+    var enterDowned = enterKey.justDown;
+
+    setTimeout(function() {
+      if(!hasIntersection(player, redirects)) {
+        leftStart = true;
+      }
+    }, 50);
+
+    // Message thingymajiggy - NO BETRAYAL
+
+    if(hasIntersection(player, flavors) && getIntersection(player, flavors).flavor == "radiomessage") {
+      if(!window.parent.messaged[location.pathname] && !window.parent.betrayed) {
+        window.parent.messaged[location.pathname] = true;
+        setTimeout(function() {
+          setDialogSpeaker("Will");
+          setDialogMessage("[You actually did it!]");
+          disableMove = true;
+          popup.visible = false;
+          player.animations.stop();
+          player.frame = 0;
+          window.parent.radio.play();
+          showPhaserDialog();
+        }, 500);
+      }
+    }
+
+    if(enterDowned && disableMove) {
+      player.animations.stop();
+      dialogIndex++;
+      if(!window.parent.betrayed) {
+        if(computerTags.includes(dialogIndex)) setDialogSpeaker("?????");
+        else setDialogSpeaker("Will");
+      } else {
+        setDialogSpeaker("?????");
+      }
+      if(nametext.text == "Will") window.parent.radio.play();
+      else window.parent.soundfx.play();
+      if(dialogIndex < willDialog.length) {
+        setDialogMessage(willDialog[dialogIndex]);
+      } else {
+        disableMove = false;
+        if(!window.parent.betrayed) {
+          hidePhaserDialog();
+        } else {
+          popup.visible = false;
+          window.parent.searching = true;
+        }
+      }
+      return;
+    }
+
+    // Project binder
+
+    if(hasIntersection(player, hitboxes) && getIntersection(player, hitboxes).id == "project") {
+      setDialogSpeaker("Project Binder 3");
+      if(enterDowned) {
+        readingBinder = true;
+        popup.visible = false;
+        showPhaserDialog();
+        binderIndex++;
+        if(binderIndex < binderText.length) {
+          window.parent.soundfx.play();
+          setDialogMessage(binderText[binderIndex]);
+        } else {
+          readingBinder = false;
+          hidePhaserDialog();
+          binderIndex = -1;
+        }
+      } else if(escKey.justDown) {
+        readingBinder = false;
+        hidePhaserDialog();
+      }
+    }
+
+    if(typeof popup != "undefined") {
+      if(typeof redirects != "undefined") {
+        if(hasIntersection(player, redirects) && leftStart) {
+          var intersection = getIntersection(player, redirects);
+          if((enterDowned && intersection.entered) || !intersection.entered) {
+            var elapsed = game.time.now;
+            if(elapsed >= intersection.timeout) {
+              if(popup.visible) {
+                window.parent.soundfx.play();
+                popup.visible = false;
+              }
+
+              if(!redirected) {
+                redirected = true;
+                black.bringToTop();
+                player.bringToTop();
+                game.add.tween(black).to({ alpha: 1 }).start();
+                setTimeout(function() {
+                  window.location = intersection.url;
+                }, 1000);
+              }
+            } else {
+              if(enterDowned && !window.parent.betrayed) {
+                window.parent.soundfx.play();
+                text.text = intersection.deny;
+                popup.visible = (popup.visible) ? false : true;
+              }
+            }
+          }
+        }
+      }
+
+      if(hasIntersection(player, flavors) && (!hasIntersection(player, redirects) || window.parent.betrayed) && enterDowned && !readingBinder) {
+        var currentFloat = getIntersection(player, flavors);
+        if(currentFloat.flavor != "radiomessage") {
+          if((window.parent.betrayed && window.parent.searching && specialFlavors.includes(currentFloat.flavor)) || (!window.parent.betrayed && !specialFlavors.includes(currentFloat.flavor))) {
+            window.parent.soundfx.play();
+            text.text = currentFloat.flavor;
+            popup.visible = (popup.visible) ? false : true;
+            if(!popup.visible) {
+              if(!window.parent.flippedSwitch) {
+                if(currentFloat.flavor == "Something deep in the wall shifts.") {
+                  window.parent.flippedSwitch = true;
+                  openElevator();
+                }
+              }
+
+              if(!window.parent.movedBooks) {
+                if(currentFloat.flavor == "Oh, lucky guess!") {
+                  window.parent.movedBooks = true;
+                  revealPassage();
+                }
+              }
+            }
+          }
+        }
+      }
+
+      if(!hasIntersection(player, flavors) && !hasIntersection(player, redirects) && !enterDowned && !readingBinder && !disableMove) {
+          popup.visible = false;
+      }
+    }
+
+    if(mapKey.justDown) {
+      window.parent.soundfx.play();
+      map_overlay.visible = (map_overlay.visible) ? false : true;
+    }
+
+    if(!disableMove) {
+      if(cursors.left.isDown) {
+        idle = 7;
+        player.body.velocity.x = -150;
+        player.animations.play("left");
+      }
+
+      else if(cursors.right.isDown) {
+        idle = 0;
+        player.body.velocity.x = 150;
+        player.animations.play("right");
+      }
+
+      else if(cursors.up.isDown) {
+        idle = 12;
+        player.body.velocity.y = -150;
+        player.animations.play("up");
+      }
+
+      else if(cursors.down.isDown) {
+        idle = 8;
+        player.body.velocity.y = 150;
+        player.animations.play("down");
+      }
+
+      else if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown) {
+        player.animations.stop();
+
+        player.frame = idle;
+      }
+    }
+
+  }
+
+  function getIntersection(sprite, group) {
+    if(group.children.length == 0) return null;
+    for(var i = 0; i < group.children.length; i++) {
+      if(sprite.getBounds().intersects(group.children[i].getBounds())) {
+        return group.children[i];
+      }
+    }
+    return null;
+  }
+
+  function hasIntersection(sprite, group) {
+    return getIntersection(sprite, group) != null;
+  }
+
+  function openElevator() {
+    flavors.remove(flavors.children[0]);
+    window.parent.elevatorSound.play();
+    setTimeout(function() {
+      nextStage();
+      elevator.animations.play("open");
+      hitboxes.remove(hitboxes.children[9]);
+      redirects.children[0].timeout = 0;
+      redirects.children[0].entered = false;
+    }, 1680);
+  }
+
+  function revealPassage() {
+    nextStage();
+    bookcase.bringToTop();
+    player.bringToTop();
+    game.add.tween(bookcase).to({ x: 90 }, 2000).start();
+    game.add.tween(hitboxes.children[8]).to({ x: 340 }, 2000).start();
+    redirects.children[1].timeout = 0;
+    redirects.children[1].entered = 0;
+  }
+
+ //-->
+ </script>
+ <body onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

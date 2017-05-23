@@ -1,0 +1,96 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/cavelab/cavelab7.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "247",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "You wonder why the water hasn't drained?",
+      "x": "280",
+      "y": "150",
+      "l": "50",
+      "h": "50"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "247",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "35"
+    },
+    {
+      "id": "right wall",
+      "x": "393",
+      "y": "0",
+      "l": "247",
+      "h": "320"
+    },
+    {
+      "id": "top rock",
+      "x": "365",
+      "y": "70",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "left rock",
+      "x": "250",
+      "y": "215",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "right rock",
+      "x": "330",
+      "y": "195",
+      "l": "30",
+      "h": "15"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cavelab/cavelab6.html?x=310&y=290",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "310",
+      "y": "20",
+      "l": "25",
+      "h": "50"
+    },
+    {
+      "url": "/game/level/stage/cavelab/cavelab8.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "310",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 30
+  }
+}

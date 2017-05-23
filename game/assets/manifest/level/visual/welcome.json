@@ -1,0 +1,14 @@
+{
+	"path": "/game/assets/",
+	"manifest": [{
+    "src": "img/bg/bunkerview.png",
+    "id": "BUNKERVIEW"
+  },
+  {
+		"src": "img/dialog.png",
+		"id": "DIALOG"
+	}, {
+		"src": "sound/Sleep_and_Then.mp3",
+		"id": "FINAL"
+	}]
+}

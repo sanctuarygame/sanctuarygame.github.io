@@ -1,0 +1,96 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab13.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "240",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "",
+      "x": "0",
+      "y": "0",
+      "l": "1",
+      "h": "1"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left",
+      "x": "0",
+      "y": "0",
+      "l": "240",
+      "h": "320"
+    },
+    {
+      "id": "right",
+      "x": "400",
+      "y": "0",
+      "l": "240",
+      "h": "320"
+    },
+    {
+      "id": "computer",
+      "x": "290",
+      "y": "0",
+      "l": "110",
+      "h": "75"
+    },
+    {
+      "id": "vault",
+      "x": "242",
+      "y": "0",
+      "l": "40",
+      "h": "30"
+    },
+    {
+      "id": "left left",
+      "x": "241",
+      "y": "127",
+      "l": "30",
+      "h": "200"
+    },
+    {
+      "id": "right right",
+      "x": "371",
+      "y": "127",
+      "l": "30",
+      "h": "200"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab12.html?x=310&y=30",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "276",
+      "y": "306",
+      "l": "85",
+      "h": "20"
+    },
+    {
+      "url": "/game/level/stage/corridor/corridor1.html",
+      "timeout": "Infinity",
+      "deny": "It's locked. You can't vault over it either.",
+      "entered": true,
+      "x": "242",
+      "y": "53",
+      "l": "50",
+      "h": "10"
+    }
+  ],
+  "spawn": {
+    "x": 308,
+    "y": 276
+  }
+}

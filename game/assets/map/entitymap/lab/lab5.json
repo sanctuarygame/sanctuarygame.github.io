@@ -1,0 +1,117 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab5.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "143",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "\"What a sciency room!\"",
+      "x": "143",
+      "y": "35",
+      "l": "354",
+      "h": "295"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "143",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "497",
+      "y": "0",
+      "l": "143",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "35"
+    },
+    {
+      "id": "lab table 1L",
+      "x": "165",
+      "y": "55",
+      "l": "70",
+      "h": "15"
+    },
+    {
+      "id": "lab table 2L",
+      "x": "165",
+      "y": "150",
+      "l": "70",
+      "h": "15"
+    },
+    {
+      "id": "lab table 3L",
+      "x": "165",
+      "y": "250",
+      "l": "70",
+      "h": "15"
+    },
+    {
+      "id": "lab table 1R",
+      "x": "405",
+      "y": "55",
+      "l": "70",
+      "h": "15"
+    },
+    {
+      "id": "lab table 2R",
+      "x": "405",
+      "y": "150",
+      "l": "70",
+      "h": "15"
+    },
+    {
+      "id": "lab table 3R",
+      "x": "405",
+      "y": "250",
+      "l": "70",
+      "h": "15"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab4.html?x=320&y=290",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "310",
+      "y": "20",
+      "l": "25",
+      "h": "40"
+    },
+    {
+      "url": "/game/level/stage/lab/lab6.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 30
+  }
+}

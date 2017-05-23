@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Jonathan Lin, Preston Lai, Eric Yan, Alex Chen">
+  <title>MAPROOM</title>
+ </head>
+ <script src="/js/easel/lib/easeljs-0.8.2.min.js"></script>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/GameDialogue.js"></script>
+ <script src="/js/tween/lib/tweenjs-0.6.2.min.js"></script>
+ <script src="/js/canvasfx.js"></script>
+ <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	// Initialize canvas values and functions
+
+	var stage;
+	var keys = [];
+  var interactionTrack, dialog, dialogue, nameText;
+
+	document.onkeydown = function(event) {
+		keys[event.keyCode] = true;
+	};
+	document.onkeyup = function(event) {
+		keys[event.keyCode] = false;
+	};
+
+	function draw() {
+    window.parent.stopBGMusic();
+    window.parent.playBGMusic();
+
+    // Loading and drawing
+
+		stage = new createjs.Stage("gameboard");
+
+    // Backgrounds
+
+    var maproom = new createjs.Bitmap(window.parent.fileQueue.getResult("MAPROOM"));
+    maproom.x = 0;
+    maproom.y = 0;
+    maproom.alpha = 0;
+
+    var mapclose = new createjs.Bitmap(window.parent.fileQueue.getResult("MAPCLOSE"));
+    mapclose.x = 0;
+    mapclose.y = 0;
+    mapclose.alpha = 0;
+
+    var ruins_1 = new createjs.Bitmap(window.parent.fileQueue.getResult("RUINS_1"));
+    ruins_1.x = 0;
+    ruins_1.y = 0;
+    ruins_1.alpha = 0;
+
+    var ruins_2 = new createjs.Bitmap(window.parent.fileQueue.getResult("RUINS_2"));
+    ruins_2.x = 0;
+    ruins_2.y = 0;
+    ruins_2.alpha = 0;
+
+    var ruins_3 = new createjs.Bitmap(window.parent.fileQueue.getResult("RUINS_3"));
+    ruins_3.x = 0;
+    ruins_3.y = 0;
+    ruins_3.alpha = 0;
+
+    var abandonedwarehouse = new createjs.Bitmap(window.parent.fileQueue.getResult("ABANDONED_WAREHOUSE"));
+    abandonedwarehouse.x = 0;
+    abandonedwarehouse.y = 0;
+    abandonedwarehouse.alpha = 0;
+
+    var founddocuments = new createjs.Bitmap(window.parent.fileQueue.getResult("FOUND_DOCUMENTS"));
+    founddocuments.x = 0;
+    founddocuments.y = 0;
+    founddocuments.alpha = 0;
+
+    var bunkerview = new createjs.Bitmap(window.parent.fileQueue.getResult("BUNKER_VIEW"));
+    bunkerview.x = 0;
+    bunkerview.y = 0;
+    bunkerview.alpha = 0;
+
+    // Characters
+
+    var doctor = new createjs.Bitmap(window.parent.fileQueue.getResult("DOCTOR"));
+    doctor.x = 365;
+    doctor.y = 1000;
+    doctor.alpha = 1;
+
+    // Dialog objects
+
+    dialog = new createjs.Bitmap(window.parent.fileQueue.getResult("DIALOG"));
+    dialog.x = 20;
+    dialog.y = 228;
+    dialog.alpha = 0;
+
+    nametag = new createjs.Bitmap(window.parent.fileQueue.getResult("DIALOG"));
+    nametag.x = 40;
+    nametag.y = 215;
+    nametag.scaleX = 0.2;
+    nametag.scaleY = 0.4;
+    nametag.alpha = 0;
+
+    // Text
+
+    textshadow = new createjs.Shadow("#000000", 2, 2, 1);
+
+    nameText = new createjs.Text("Will", "23px VT323", "white");
+    nameText.x = 50;
+    nameText.y = 230;
+    nameText.alpha = 0;
+    nameText.textAlign = "left";
+    nameText.textBaseline = "middle";
+    nameText.shadow = textshadow;
+
+    dialogue = new createjs.Text(" ", "20px VT323", "white");
+    dialogue.x = 47;
+    dialogue.y = 262;
+    dialogue.alpha = 0;
+    dialogue.textAlign = "left";
+    dialogue.textBaseline = "middle";
+    dialogue.lineWidth = 550;
+    dialogue.lineHeight = 20;
+    dialogue.shadow = textshadow;
+
+    // Adding elements to stage
+
+    stage.addChild(maproom, mapclose, ruins_1, ruins_2, ruins_3, abandonedwarehouse, founddocuments, bunkerview, doctor, dialog, nametag, nameText, dialogue);
+
+    // Actual animation
+
+    setTimeout(function() {
+      GameGraphics.fade(maproom, 1, 2500);
+    }, 500); // 3000
+
+    setTimeout(function() {
+      GameGraphics.slideTo(doctor, doctor.x, MIDDLE_Y / 3.15, 570);
+      setTimeout(function() {
+        dialog.alpha = 1;
+        dialogue.alpha = 1;
+        nametag.alpha = 1;
+        GameGraphics.show(nameText, 50);
+        GameGraphics.typeText(dialogue, "Could be better, I know. Just look at the board.", 30, "CHAR", "/game/assets/sound/text_type.wav", function() { ; });
+      }, 700);
+      setTimeout(function() {
+        interactionTrack.start();
+      }, 750);
+    }, 6070); // 7440
+
+    // Track objects
+
+    var doctor_speaker = new DialogueSpeaker("Will");
+
+    var doctor_track_1 = new DialogueTrack([
+      "",
+      "This is a map of what our...key...looks like.",
+      "It's a bit patchy, I know, but we're working on that.",
+      "You'll get a copy of this map, of course. I wouldn't leave you to wander blindly.",
+      "But first, let me tell you what you'll be wandering through...and why.",
+      "You know what it’s like out there now.",
+      "Heck, you were stumbling around in the thick of it before you found us, and we’re not much better off.",
+      "But there’s something that could change that—and it’s literally right under our noses.",
+      "A few years ago, I decided to leave my camp. Try my luck, you know?",
+      "Haha...I barely made it alive the first week.",
+      "One day, I got lucky. I found something...some sort of cave or warehouse. Still don't know.",
+      "I also found some papers—maps and things. They talked about something I found very interesting.",
+      "A bunker. Something for whoever made it to cozy up in before the world screwed itself, I guess.",
+      "There was an exact location on the list, and not just that—there was a description of this bunker too. A very exact description.",
+      "It described farms, huge underground towers of food. There was security, layers of armor to protect anyone from anything.",
+      "In a place like that...just think about it.",
+      "No more scraping. No more scrounging. No more—well, no more struggling through snowstorms looking for a place to live.",
+      "Problem is, this place is surrounded by a maze, almost. There are miles of tunnels and small laboratories all around.",
+      "One day, though, we'll find what we're looking for. And when we do...",
+      "Anyone who helped us find it will get rewarded, in the only way that matters now.",
+      "I can see that you're interested. No surprise there, I guess.",
+      "Let me show you what we have, and then we can get started."
+    ]);
+
+    var doctor_dialogue_1 = new DialogueManager(doctor_speaker, doctor_track_1, nameText, dialogue);
+
+    // Index-bound animation
+
+    var MOVED_BOX = false;
+    var UP_BY = 200;
+    var SLIDE_DURATION = 20;
+
+    doctor_dialogue_1.bindFunction(0, function() {
+      GameGraphics.fade(maproom, 0, 500);
+      GameGraphics.fade(doctor, 0, 500);
+      setTimeout(function() {
+        GameGraphics.fade(mapclose, 1, 500);
+      }, 500);
+      GameGraphics.hide(dialog, 0);
+      GameGraphics.hide(nametag, 0);
+      GameGraphics.hide(textshadow, 0);
+      GameGraphics.hide(nameText, 0);
+      GameGraphics.hide(dialogue, 0);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(1, function() {
+      GameGraphics.show(dialog, 0);
+      GameGraphics.show(nametag, 0);
+      GameGraphics.show(textshadow, 0);
+      GameGraphics.show(nameText, 0);
+      GameGraphics.show(dialogue, 0);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(5, function() {
+      GameGraphics.fade(mapclose, 0, 500);
+      GameGraphics.fade(ruins_1, 1, 250);
+      // Variables: dialog, nametag, textshadow, nameText, dialogue
+      if(!MOVED_BOX) {
+        GameGraphics.slideTo(dialog, dialog.x, dialog.y - UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(nametag, nametag.x, nametag.y - UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(textshadow, textshadow.x, textshadow.y - UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(nameText, nameText.x, nameText.y - UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(dialogue, dialogue.x, dialogue.y - UP_BY, SLIDE_DURATION);
+        MOVED_BOX = true;
+      }
+    }, null);
+
+    doctor_dialogue_1.bindFunction(6, function() {
+      MOVED_BOX = false;
+      GameGraphics.fade(ruins_1, 0, 250);
+      GameGraphics.fade(ruins_2, 1, 250);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(7, function() {
+      GameGraphics.fade(ruins_2, 0, 250);
+      GameGraphics.fade(ruins_3, 1, 250);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(10, function() {
+      if(!MOVED_BOX) {
+        GameGraphics.slideTo(dialog, dialog.x, dialog.y + UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(nametag, nametag.x, nametag.y + UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(textshadow, textshadow.x, textshadow.y + UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(nameText, nameText.x, nameText.y + UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(dialogue, dialogue.x, dialogue.y + UP_BY, SLIDE_DURATION);
+        MOVED_BOX = true;
+      }
+      GameGraphics.fade(ruins_3, 0, 250);
+      GameGraphics.fade(abandonedwarehouse, 1, 310);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(11, function() {
+      GameGraphics.fade(abandonedwarehouse, 0, 310);
+      GameGraphics.fade(founddocuments, 1, 300);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(14, function() {
+      GameGraphics.fade(founddocuments, 0, 300);
+      GameGraphics.fade(bunkerview, 1, 300);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(17, function() {
+      GameGraphics.fade(bunkerview, 0, 300);
+      GameGraphics.fade(mapclose, 1, 300);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(20, function() {
+      GameGraphics.fade(mapclose, 0, 300);
+      GameGraphics.fade(maproom, 1, 450);
+      GameGraphics.fade(doctor, 1, 450);
+    }, null);
+
+    dialogue_end = new DialogueEnd(doctor, dialog, nametag, nameText, dialogue);
+
+    dialogue_advance_stage = new DialogueAdvanceStage(500, false);
+
+    interactionTrack = new InteractionTrack(doctor_dialogue_1, dialogue_end, dialogue_advance_stage);
+
+    // Update ticks
+
+		createjs.Ticker.setFPS(60);
+		createjs.Ticker.addEventListener("tick", tick);
+	}
+
+	function tick() {
+		stage.update();
+    if(keys[13]) {
+      keys[13] = false;
+      if(interactionTrack.hasNext()) {
+        interactionTrack.next();
+      }
+    }
+  }
+
+ //-->
+ </script>
+ <body onload="setTimeout(function() { draw(); }, 1000)" onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>State Test</title>
+</head>
+<style>
+  iframe {
+    border: none;
+    position: absolute;
+    margin: auto;
+    top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+    z-index: 100;
+  }
+</style>
+<script src="/js/GameData.js"></script>
+<script src="/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="/js/easel/lib/easeljs-0.8.2.min.js"></script>
+<script src="/js/preload/lib/preloadjs-0.6.2.min.js"></script>
+<script>
+  window.parent.hasPick = false;
+
+  $(document).ready(function() {
+    $("html").click(function() {
+      $("iframe").contents().find("body").click();
+    });
+  });
+</script>
+<body>
+  <iframe src="/game/level/stage/elevator/elevator1.html" width="640" height="320" onload="this.contentWindow.focus()"></iframe>
+</body>
+</html>

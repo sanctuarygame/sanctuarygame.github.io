@@ -1,0 +1,159 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/cave/cave5.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "120",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "The walls are cracking...what's behind it?",
+      "x": "120",
+      "y": "0",
+      "l": "245",
+      "h": "25"
+    },
+    {
+      "flavor": "There are chunks of rock missing. ",
+      "x": "420",
+      "y": "0",
+      "l": "100",
+      "h": "25"
+    },
+    {
+      "flavor": "There's a dime at the bottom. Can you get it?",
+      "x": "295",
+      "y": "155",
+      "l": "50",
+      "h": "20"
+    },
+    {
+      "flavor": "There is a big deep crack in the middle. ",
+      "x": "185",
+      "y": "180",
+      "l": "35",
+      "h": "20"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "120",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "520",
+      "y": "0",
+      "l": "120",
+      "h": "320"
+    },
+    {
+      "id": "top wall left side",
+      "x": "120",
+      "y": "0",
+      "l": "240",
+      "h": "20"
+    },
+    {
+      "id": "top wall right side",
+      "x": "430",
+      "y": "0",
+      "l": "100",
+      "h": "20"
+    },
+    {
+      "id": "left rock 1",
+      "x": "155",
+      "y": "65",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "left rock 2",
+      "x": "190",
+      "y": "185",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "left rock 3",
+      "x": "210",
+      "y": "275",
+      "l": "25",
+      "h": "25"
+    },
+    {
+      "id": "pool",
+      "x": "300",
+      "y": "160",
+      "l": "40",
+      "h": "10"
+    },
+    {
+      "id": "right rock 1",
+      "x": "485",
+      "y": "40",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "right rock 2",
+      "x": "435",
+      "y": "120",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "right rock 3",
+      "x": "450",
+      "y": "200",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "right rock 4",
+      "x": "400",
+      "y": "290",
+      "l": "25",
+      "h": "25"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cave/cave4.html?x=615&y=142",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "121",
+      "y": "144",
+      "l": "20",
+      "h": "50"
+    },
+    {
+      "url": "/game/level/stage/cave/cave6.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "373",
+      "y": "0",
+      "l": "50",
+      "h": "20"
+    }
+  ],
+  "spawn": {
+    "x": 120,
+    "y": 140
+  }
+}

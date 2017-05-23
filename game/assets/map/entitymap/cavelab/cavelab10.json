@@ -1,0 +1,110 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/cavelab/cavelab10.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "240",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "All these long halls...",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "320"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "240",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "400",
+      "y": "0",
+      "l": "240",
+      "h": "320"
+    },
+    {
+      "id": "top left wall",
+      "x": "240",
+      "y": "0",
+      "l": "50",
+      "h": "15"
+    },
+    {
+      "id": "top right wall",
+      "x": "350",
+      "y": "0",
+      "l": "50",
+      "h": "15"
+    },
+    {
+      "id": "boxes",
+      "x": "375",
+      "y": "20",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "rock 1",
+      "x": "245",
+      "y": "90",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "rock 2",
+      "x": "310",
+      "y": "145",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "rock 3",
+      "x": "340",
+      "y": "185",
+      "l": "30",
+      "h": "15"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cave/cave14.html?x=305&y=0",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/cavelab/cavelab11.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "0",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 270
+  }
+}

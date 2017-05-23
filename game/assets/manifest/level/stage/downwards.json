@@ -1,0 +1,22 @@
+{
+	"path": "/game/assets/",
+	"manifest": [{
+		"src": "sound/Local_Forecast_Elevator.mp3",
+		"id": "ELEVATOR"
+	}, {
+    "src": "sound/Chee_Zee_Lab.mp3",
+    "id": "LAB"
+  }, {
+		"src": "sound/Dama-May.mp3",
+		"id": "CAVE"
+	}, {
+		"src": "sound/Gathering_Darkness.mp3",
+		"id": "CAVELAB"
+	}, {
+		"src": "sound/The_Lift.mp3",
+		"id": "RADIO"
+	}, {
+		"src": "sound/Exit_the_Premises.mp3",
+		"id": "BAWS"
+	}]
+}

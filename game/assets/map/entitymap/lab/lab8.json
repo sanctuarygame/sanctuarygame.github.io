@@ -1,0 +1,89 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab8/lab8_1.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "215",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "\"Free stainless cardboard scissors!\"",
+      "x": "290",
+      "y": "15",
+      "l": "30",
+      "h": "40"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "215",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "425",
+      "y": "0",
+      "l": "215",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "35"
+    },
+    {
+      "id": "boxes",
+      "x": "400",
+      "y": "55",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "jutting wall",
+      "x": "215",
+      "y": "110",
+      "l": "140",
+      "h": "200"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab7.html?x=610&y=185",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "215",
+      "y": "70",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/lab/lab9.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "375",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 215,
+    "y": 70
+  }
+}

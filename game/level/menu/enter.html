@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Jonathan Lin, Preston Lai, Eric Yan, Alex Chen">
+  <title>ENTER</title>
+ </head>
+ <script src="/js/easel/lib/easeljs-0.8.2.min.js"></script>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/tween/lib/tweenjs-0.6.2.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	// Initialize canvas values and functions
+
+	var stage;
+	var keys = [];
+	var text;
+
+	document.onkeydown = function(event) {
+		keys[event.keyCode] = true;
+	};
+	document.onkeyup = function(event) {
+		keys[event.keyCode] = false;
+	};
+
+	function draw() {
+		stage = new createjs.Stage("gameboard");
+
+		text = new createjs.Text("Press [ENTER] to begin.", "20px VT323", "white");
+		text.x = MIDDLE_X;
+		text.y = MIDDLE_Y;
+		text.alpha = 0;
+		text.textAlign = "center";
+		text.textBaseline = "middle";
+		stage.addChild(text);
+
+		createjs.Tween.get(text, { loop: false })
+			.to({ alpha: 1 }, 500);
+
+		createjs.Ticker.setFPS(60);
+		createjs.Ticker.addEventListener("tick", tick);
+	}
+
+	function tick() {
+		if(keys[13]) {
+			keys[13] = false;
+			createjs.Tween.get(text, { loop: false })
+				.to({ alpha: 0 }, 600);
+			setTimeout(function() {
+				nextStage();
+				window.location = hashToURL(path[getStage()]);
+			}, 700);
+		}
+		stage.update();
+	}
+
+ //-->
+ </script>
+ <body onload="setTimeout(function() { draw(); }, 1000)" onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

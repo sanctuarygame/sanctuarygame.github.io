@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Jonathan Lin, Preston Lai, Eric Yan, Alex Chen">
+  <title>WAKE</title>
+ </head>
+ <script src="/js/easel/lib/easeljs-0.8.2.min.js"></script>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/GameDialogue.js"></script>
+ <script src="/js/tween/lib/tweenjs-0.6.2.min.js"></script>
+ <script src="/js/canvasfx.js"></script>
+ <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	// Initialize canvas values and functions
+
+	var stage;
+	var keys = [];
+  var interactionTrack, doctor_dialogue_1, doctor_decision, doctor_dialogue_2, doctor_dialogue_3_1, doctor_dialogue_3_2, dialogue_end, dialogue_advance_stage;
+
+	document.onkeydown = function(event) {
+		keys[event.keyCode] = true;
+	};
+	document.onkeyup = function(event) {
+		keys[event.keyCode] = false;
+	};
+
+	function draw() {
+    window.parent.stopBGMusic();
+
+    window.parent.soundfx = new Howl({
+      urls: ['/game/assets/sound/107145__bubaproducer__button-26.wav']
+    });
+
+    // Loading and drawing
+
+		stage = new createjs.Stage("gameboard");
+
+		var snowopening = new createjs.Bitmap(window.parent.fileQueue.getResult("SNOWOPENING"));
+    snowopening.x = 0;
+    snowopening.y = 0;
+    snowopening.alpha = 0;
+
+    var faceopening = new createjs.Bitmap(window.parent.fileQueue.getResult("FACEOPENING"));
+    faceopening.x = 0;
+    faceopening.y = 0;
+    faceopening.alpha = 0;
+
+    var awake = new createjs.Text(" ", "30px VT323", "white");
+    awake.x = MIDDLE_X;
+    awake.y = MIDDLE_Y;
+    awake.alpha = 1;
+    awake.textAlign = "center";
+    awake.textBaseline = "middle";
+
+    var medlab = new createjs.Bitmap(window.parent.fileQueue.getResult("MEDLAB"));
+    medlab.x = 0;
+    medlab.y = 0;
+    medlab.alpha = 0;
+
+    var doctor = new createjs.Bitmap(window.parent.fileQueue.getResult("DOCTOR"));
+    doctor.x = 5;
+    doctor.y = 1000;
+    doctor.alpha = 1;
+
+    // Dialog objects
+
+    var dialog = new createjs.Bitmap(window.parent.fileQueue.getResult("DIALOG"));
+    dialog.x = 20;
+    dialog.y = 228;
+    dialog.alpha = 0;
+
+    var nametag = new createjs.Bitmap(window.parent.fileQueue.getResult("DIALOG"));
+    nametag.x = 40;
+    nametag.y = 215;
+    nametag.scaleX = 0.2;
+    nametag.scaleY = 0.4;
+    nametag.alpha = 0;
+
+    // Text
+
+    var textshadow = new createjs.Shadow("#000000", 2, 2, 1);
+
+    var nameText = new createjs.Text("????", "23px VT323", "white");
+    nameText.x = 50;
+    nameText.y = 230;
+    nameText.alpha = 0;
+    nameText.textAlign = "left";
+    nameText.textBaseline = "middle";
+    nameText.shadow = textshadow;
+
+    var dialogue = new createjs.Text(" ", "20px VT323", "white");
+    dialogue.x = 47;
+    dialogue.y = 262;
+    dialogue.alpha = 0;
+    dialogue.textAlign = "left";
+    dialogue.textBaseline = "middle";
+    dialogue.lineWidth = 575;
+    dialogue.lineHeight = 20;
+    dialogue.shadow = textshadow;
+
+    var nod = new createjs.Text("Nod", "20px VT323", "white");
+    nod.x = MIDDLE_X - 70;
+    nod.y = 270;
+    nod.alpha = 0;
+    nod.textAlign = "center";
+    nod.textBaseline = "middle";
+    nod.shadow = textshadow;
+
+    var shake = new createjs.Text("Shake", "20px VT323", "white");
+    shake.x = MIDDLE_X + 70;
+    shake.y = 270;
+    shake.alpha = 0;
+    shake.textAlign = "center";
+    shake.textBaseline = "middle";
+    shake.shadow = textshadow;
+
+    // Track objects
+
+    var doctor_speaker = new DialogueSpeaker("????");
+
+    var doctor_track_1 = new DialogueTrack([
+      "Good, good! Have some water.",
+      "That’s better, isn’t it? So, tell me a little about yourself!",
+      "...",
+      "(You try to speak, but no words come out.)",
+      "Something wrong?",
+      "Oh well. Nothing wrong with being a bit quiet, I guess. My name is Will.",
+      "Anyways, my friend, you’ve been out for quite a while.",
+      "You didn’t have anyone else in that snowstorm with you, did you?"
+    ]);
+
+    var doctor_track_2 = new DialogueTrack([
+      "Er...that aside.",
+      "There’s something we need to talk to you about, but I understand if you’re not feeling up to it.",
+      "Why don’t you rest a bit for now? I’ll come get you later...",
+      "Feel free to look around."
+    ]);
+
+    doctor_decision = new DecisionMenu(["Nod","Shake"],[nod, shake]);
+
+    var doctor_track_3_1 = new DialogueTrack([
+      "Oh...oh, I see. I’m sorry, then.",
+      "The only one we found...",
+      "...was you."
+    ]);
+
+    var doctor_track_3_2 = new DialogueTrack([
+      "That’s a relief—we thought we’d missed someone when we found you."
+    ])
+
+    doctor_dialogue_1 = new DialogueManager(doctor_speaker, doctor_track_1, nameText, dialogue);
+    doctor_dialogue_1.bindValue(6, "targetName", "Will");
+
+    doctor_dialogue_2 = new DialogueManager(doctor_speaker, doctor_track_2, nameText, dialogue);
+    doctor_dialogue_3_1 = new DialogueManager(doctor_speaker, doctor_track_3_1, nameText, dialogue);
+    doctor_dialogue_3_2 = new DialogueManager(doctor_speaker, doctor_track_3_2, nameText, dialogue);
+
+    dialogue_end = new DialogueEnd(doctor, dialog, nametag, nameText, dialogue, nod, shake);
+
+    dialogue_advance_stage = new DialogueRedirect("stage/wakewalk", 100, true, true);
+
+    interactionTrack = new InteractionTrack(doctor_dialogue_1, doctor_decision, doctor_dialogue_2, dialogue_end, dialogue_advance_stage);
+
+    // Adding elements to stage
+
+    stage.addChild(snowopening, faceopening, awake, medlab, doctor, dialog, nametag, nameText, dialogue, nod, shake);
+
+    // Actual animation
+
+    setTimeout(function() {
+      GameGraphics.fade(snowopening, 1, 2000);
+    }, 600) // 2600
+
+    setTimeout(function() {
+      GameGraphics.fade(snowopening, 0, 1000);
+    }, 6600) // 7600
+
+    setTimeout(function() {
+      GameGraphics.fade(faceopening, 1, 1000);
+    }, 8100); // 9100
+
+    setTimeout(function() {
+      GameGraphics.fade(awake, 1, 400);
+    }, 8800); // 9200
+
+    setTimeout(function() {
+      GameGraphics.fade(faceopening, 0, 1000);
+      GameGraphics.typeText(awake, "Hey! Can you hear me? Hey—", [10, 410, 510, 610, 710, 1500], "WORD", "/game/assets/sound/text_type.wav", function() {
+        GameGraphics.fade(awake, 0, 980);
+      });
+    }, 11200); // 12200
+
+    setTimeout(function() {
+      GameGraphics.fade(medlab, 1, 4000).call(window.parent.playBGMusic, []);
+    }, 15400); // 19200
+
+    setTimeout(function() {
+      GameGraphics.slideTo(doctor, 5, MIDDLE_Y / 3.15, 570);
+      setTimeout(function() {
+        dialog.alpha = 1;
+        nametag.alpha = 1;
+        GameGraphics.show(nameText, 50);
+      }, 700);
+      setTimeout(function() {
+        dialogue.alpha = 1;
+        GameGraphics.typeText(dialogue, "Awake, are we?", 30, "CHAR", "/game/assets/sound/text_type.wav", function() { ; });
+        interactionTrack.start();
+      }, 1700);
+    }, 22000);
+
+    // Sound playing
+    var windSource = window.parent.audioCtx.createBufferSource();
+    var windGain = window.parent.audioCtx.createGain();
+    windGain.gain.value = 0.2;
+    windSource.buffer = window.parent.fileQueue.getResult("OPENING_WIND");
+    windSource.loop = false;
+    windSource.connect(windGain);
+    windGain.connect(window.parent.audioCtx.destination);
+    windSource.start(0);
+
+    // Update ticks
+
+		createjs.Ticker.setFPS(60);
+		createjs.Ticker.addEventListener("tick", tick);
+	}
+
+	function tick() {
+		stage.update();
+
+    if(keys[13]) {
+      keys[13] = false;
+      if(interactionTrack.hasNext()) {
+        if(interactionTrack.getCurrentType() == "DialogueManager") {
+          interactionTrack.next();
+        } else {
+          var choice = interactionTrack.getCurrent().getChoice();
+          interactionTrack.getCurrent().setChosen(true);
+
+          switch(choice.toLowerCase()) {
+            case "nod":
+              interactionTrack.setTrack(doctor_dialogue_1, doctor_decision, doctor_dialogue_3_1, doctor_dialogue_2, dialogue_end, dialogue_advance_stage);
+              break;
+            case "shake":
+              interactionTrack.setTrack(doctor_dialogue_1, doctor_decision, doctor_dialogue_3_2, doctor_dialogue_2, dialogue_end, dialogue_advance_stage);
+              break;
+            default:
+              break;
+          }
+
+          window.parent.soundfx.play();
+          interactionTrack.next();
+        }
+      }
+    }
+
+    if(keys[37]) {
+      keys[37] = false;
+      window.parent.soundfx.play();
+      if(interactionTrack.getCurrentType() == "DecisionMenu") {
+        interactionTrack.prev();
+      }
+    }
+
+    if(keys[39]) {
+      keys[39] = false;
+      window.parent.soundfx.play();
+      if(interactionTrack.getCurrentType() == "DecisionMenu") {
+        interactionTrack.next();
+      }
+    }
+
+	}
+
+ //-->
+ </script>
+ <body onload="setTimeout(function() { draw(); }, 1000)" onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

@@ -1,0 +1,110 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab1.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "0",
+      "y": "80"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "\"Work doesn't have to mean pay!\"",
+      "x": "48",
+      "y": "101",
+      "l": "15",
+      "h": "40"
+    },
+    {
+      "flavor": "It's locked.",
+      "x": "493",
+      "y": "98",
+      "l": "20",
+      "h": "50"
+    },
+    {
+      "flavor": "You get a sinking feeling.",
+      "x": "96",
+      "y": "125",
+      "l": "50",
+      "h": "20"
+    },
+    {
+      "flavor": "Amazingly, this is a floor.",
+      "x": "308",
+      "y": "175",
+      "l": "40",
+      "h": "40"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "wall top",
+      "x": "0",
+      "y": "80",
+      "l": "640",
+      "h": "45"
+    },
+    {
+      "id": "column",
+      "x": "552",
+      "y": "80",
+      "l": "128",
+      "h": "70"
+    },
+    {
+      "id": "wall bottom",
+      "x": "0",
+      "y": "240",
+      "l": "640",
+      "h": "80"
+    },
+    {
+      "id": "table left",
+      "x": "88",
+      "y": "123",
+      "l": "72",
+      "h": "5"
+    },
+    {
+      "id": "table right",
+      "x": "306",
+      "y": "124",
+      "l": "72",
+      "h": "5"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/elevator/elevator3.html?x=410&y=130",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "0",
+      "y": "151",
+      "l": "20",
+      "h": "80"
+    },
+    {
+      "url": "/game/level/stage/lab/lab2.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "610",
+      "y": "193",
+      "l": "20",
+      "h": "40"
+    }
+  ],
+  "spawn": {
+    "x": 7,
+    "y": 176
+  }
+}

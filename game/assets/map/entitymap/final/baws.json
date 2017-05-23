@@ -1,0 +1,145 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/radio/Boss/bossroom.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "0",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "There is a fire in the hole.",
+      "x": "761",
+      "y": "29",
+      "l": "70",
+      "h": "65"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "top left 1",
+      "x": "0",
+      "y": "0",
+      "l": "111",
+      "h": "150"
+    },
+    {
+      "id": "top left 2",
+      "x": "270",
+      "y": "0",
+      "l": "128",
+      "h": "150"
+    },
+    {
+      "id": "top 3",
+      "x": "577",
+      "y": "0",
+      "l": "128",
+      "h": "150"
+    },
+    {
+      "id": "top 4",
+      "x": "880",
+      "y": "0",
+      "l": "128",
+      "h": "150"
+    },
+    {
+      "id": "top 5",
+      "x": "1170",
+      "y": "0",
+      "l": "110",
+      "h": "150"
+    },
+    {
+      "id": "bottom 1",
+      "x": "0",
+      "y": "513",
+      "l": "110",
+      "h": "188"
+    },
+    {
+      "id": "bottom 2",
+      "x": "270",
+      "y": "511",
+      "l": "128",
+      "h": "189"
+    },
+    {
+      "id": "bottom 3",
+      "x": "578",
+      "y": "511",
+      "l": "128",
+      "h": "189"
+    },
+    {
+      "id": "bottom 4",
+      "x": "880",
+      "y": "511",
+      "l": "129",
+      "h": "189"
+    },
+    {
+      "id": "bottom 5",
+      "x": "1172",
+      "y": "511",
+      "l": "108",
+      "h": "189"
+    },
+    {
+      "id": "top canisters",
+      "x": "109",
+      "y": "47",
+      "l": "1173",
+      "h": "26"
+    },
+    {
+      "id": "canister",
+      "x": "833",
+      "y": "98",
+      "l": "46",
+      "h": "37"
+    },
+    {
+      "id": "canister bottom",
+      "x": "0",
+      "y": "607",
+      "l": "1280",
+      "h": "33"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/radio/radio13.html",
+      "timeout": "Infinity",
+      "deny": "You can't leave...yet.",
+      "entered": false,
+      "x": "0",
+      "y": "172",
+      "l": "2",
+      "h": "276"
+    },
+    {
+      "url": "/game/level/stage/final/final.html",
+      "timeout": "Infinity",
+      "deny": "You can't go on...yet.",
+      "entered": false,
+      "x": "1280",
+      "y": "163",
+      "l": "2",
+      "h": "276"
+    }
+  ],
+  "spawn": {
+    "x": 13,
+    "y": 269
+  }
+}

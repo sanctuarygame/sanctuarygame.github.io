@@ -1,0 +1,79 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab3a.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "240",
+      "y": "160"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "\"Claustrophobia? What's that?\"",
+      "x": "310",
+      "y": "179",
+      "l": "20",
+      "h": "40"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "top",
+      "x": "0",
+      "y": "0",
+      "l": "273",
+      "h": "320"
+    },
+    {
+      "id": "right",
+      "x": "366",
+      "y": "0",
+      "l": "274",
+      "h": "320"
+    },
+    {
+      "id": "top",
+      "x": "272",
+      "y": "0",
+      "l": "100",
+      "h": "205"
+    },
+    {
+      "id": "wall left",
+      "x": "274",
+      "y": "263",
+      "l": "23",
+      "h": "100"
+    },
+    {
+      "id": "wall right",
+      "x": "344",
+      "y": "263",
+      "l": "23",
+      "h": "100"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab3.html?x=320&y=90",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "299",
+      "y": "299",
+      "l": "50",
+      "h": "50"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 276
+  }
+}

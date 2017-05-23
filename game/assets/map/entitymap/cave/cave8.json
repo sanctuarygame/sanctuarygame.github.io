@@ -1,0 +1,145 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/cave/cave8.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "70",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Seems magical. ",
+      "x": "210",
+      "y": "80",
+      "l": "180",
+      "h": "160"
+    },
+    {
+      "flavor": "Looks like there are animal scratches. ",
+      "x": "70",
+      "y": "0",
+      "l": "175",
+      "h": "25"
+    },
+    {
+      "flavor": "This wall seems synthetic. ",
+      "x": "350",
+      "y": "0",
+      "l": "220",
+      "h": "25"
+    },
+    {
+      "flavor": "This smells funny.",
+      "x": "485",
+      "y": "175",
+      "l": "100",
+      "h": "120"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "70",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "570",
+      "y": "0",
+      "l": "70",
+      "h": "320"
+    },
+    {
+      "id": "top wall left side",
+      "x": "70",
+      "y": "0",
+      "l": "170",
+      "h": "20"
+    },
+    {
+      "id": "top wall right side",
+      "x": "365",
+      "y": "0",
+      "l": "220",
+      "h": "20"
+    },
+    {
+      "id": "fiary ring horizontal rectangle",
+      "x": "215",
+      "y": "130",
+      "l": "170",
+      "h": "60"
+    },
+    {
+      "id": "fairy ring vertical rectangle",
+      "x": "265",
+      "y": "90",
+      "l": "60",
+      "h": "140"
+    },
+    {
+      "id": "fairy ring top left box",
+      "x": "240",
+      "y": "100",
+      "l": "25",
+      "h": "30"
+    },
+    {
+      "id": "fairy ring top right box",
+      "x": "325",
+      "y": "105",
+      "l": "35",
+      "h": "25"
+    },
+    {
+      "id": "fairy ring bottom left box",
+      "x": "240",
+      "y": "190",
+      "l": "25",
+      "h": "25"
+    },
+    {
+      "id": "fairy ring bottom right box",
+      "x": "325",
+      "y": "190",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "redirects": [
+      {
+        "url": "/game/level/stage/cave/cave9.html",
+        "timeout": "0",
+        "deny": "Can't pass just yet. ",
+        "entered": false,
+        "x": "290",
+        "y": "0",
+        "l": "30",
+        "h": "30"
+      },
+      {
+        "url": "/game/level/stage/cave/cave7.html?x=610&y=130",
+        "timeout": "0",
+        "deny": "",
+        "entered": false,
+        "x": "70",
+        "y": "160",
+        "l": "30",
+        "h": "30"
+      }
+    ],
+  "spawn": {
+    "x": 60,
+    "y": 150
+  }
+}

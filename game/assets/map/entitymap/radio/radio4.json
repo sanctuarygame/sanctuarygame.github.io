@@ -1,0 +1,103 @@
+{
+  "assets": {
+    "keys": [
+      "layer0",
+      "layer1"
+    ],
+    "urls": [
+      "/game/assets/map/stage/radio/radio4/radio4-1.png",
+      "/game/assets/map/stage/radio/radio4/radio4-2.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "31",
+      "y": "0"
+    },
+    {
+      "key": "layer1",
+      "x": "31",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Where does this lead to?",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "320"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "31",
+      "h": "320"
+    },
+    {
+      "id": "right ",
+      "x": "610",
+      "y": "0",
+      "l": "31",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "31",
+      "y": "0",
+      "l": "578",
+      "h": "35"
+    },
+    {
+      "id": "first jut",
+      "x": "80",
+      "y": "35",
+      "l": "130",
+      "h": "190"
+    },
+    {
+      "id": "third jut",
+      "x": "435",
+      "y": "35",
+      "l": "130",
+      "h": "185"
+    },
+    {
+      "id": "middle ",
+      "x": "255",
+      "y": "95",
+      "l": "130",
+      "h": "240"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/radio/radio3.html?x=610&y=175",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "35",
+      "y": "175",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/radio/radio5.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "580",
+      "y": "160",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 30,
+    "y": 175
+  }
+}

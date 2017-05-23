@@ -1,0 +1,89 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/radio/radio13.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "0",
+      "y": "79"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "You feel a weird rumbling. ",
+      "x": "0",
+      "y": "0",
+      "l": "320",
+      "h": "320"
+    },
+    {
+      "flavor": "You get a bad feeling in your stomach. ",
+      "x": "480",
+      "y": "0",
+      "l": "160",
+      "h": "320"
+    },
+    {
+      "flavor": "Pieces of scrap metal float in the muck.",
+      "x": "360",
+      "y": "130",
+      "l": "110",
+      "h": "70"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "114"
+    },
+    {
+      "id": "bottom wall",
+      "x": "0",
+      "y": "241",
+      "l": "640",
+      "h": "79"
+    },
+    {
+      "id": "pool",
+      "x": "365",
+      "y": "140",
+      "l": "100",
+      "h": "25"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/radio/radio12.html?x=465&y=255",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "0",
+      "y": "175",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/final/baws.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "610",
+      "y": "175",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 0,
+    "y": 160
+  }
+}

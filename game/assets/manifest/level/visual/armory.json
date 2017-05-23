@@ -1,0 +1,25 @@
+{
+	"path": "/game/assets/",
+	"manifest": [{
+    "src": "img/bg/armory_bright.png",
+    "id": "ARMORY_BRIGHT"
+  }, {
+    "src": "img/bg/helmet.png",
+    "id": "HELMET"
+  }, {
+    "src": "img/bg/crowbar.png",
+    "id": "CROWBAR"
+  }, {
+		"src": "img/bg/waterpistol.png",
+		"id": "WATERPISTOL"
+	}, {
+		"src": "sound/Blue_Feather.mp3",
+		"id": "BG_MUSIC"
+	}, {
+		"src": "img/doctor.png",
+		"id": "DOCTOR"
+	}, {
+		"src": "img/dialog.png",
+		"id": "DIALOG"
+	}]
+}

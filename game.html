@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Bridgeram, Lucer, LexLuther">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="A game created for the 2016 National Stem Video Game Challenge.">
+  <title>Sanctuary</title>
+ </head>
+ <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+ <script src="/js/easel/lib/easeljs-0.8.2.min.js"></script>
+ <script src="/js/tween/lib/tweenjs-0.6.2.min.js"></script>
+ <script src="/js/preload/lib/preloadjs-0.6.2.min.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/GameDialogue.js"></script>
+ <script type="text/javascript">
+ <!--
+
+   window.onbeforeunload = function (e) {
+     var message = "You're about to leave the page! Are you really done?",
+     e = e || window.event;
+
+     if (e) {
+       e.returnValue = message;
+     }
+
+     return message;
+   };
+
+  // Destination variables
+  window.parent.gameStage = 0;
+  window.parent.soundQueue;
+
+  // Sound variables
+  window.parent.audioCtx = new AudioContext();
+  window.parent.bgMusicPlaying = false;
+  window.parent.source;
+  window.parent.soundfx;
+  window.parent.currentKey = "";
+
+  // Dialogue
+  window.parent.dialogueManager;
+
+  // Loading systems
+  window.parent.fileQueue;
+  window.parent.manifest = [
+    { id: MENU_MUSIC.id, src: MENU_MUSIC.url },
+    { id: SOMBRE_1.id, src: SOMBRE_1.url }
+  ];
+
+	WebFontConfig = {
+		google: { families: [ 'VT323::latin' ] }
+	};
+
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})();
+
+	$(document).ready(function() {
+    bgMusicPlaying = false;
+		$("html").click(function() {
+			$("iframe").contents().find("body").click();
+		});
+	});
+
+  function playBGMusic(key, loop) {
+    source = audioCtx.createBufferSource();
+    if(!key) {
+      source.buffer = fileQueue.getResult("BG_MUSIC");
+    } else {
+      source.buffer = fileQueue.getResult(key);
+    }
+    source.loop = (typeof loop == "undefined" || loop);
+    source.connect(audioCtx.destination);
+    source.start();
+    bgMusicPlaying = true;
+    window.parent.currentKey = key;
+  }
+
+  function stopBGMusic() {
+    bgMusicPlaying = false;
+    source.stop();
+  }
+ //-->
+ </script>
+ <style>
+	body {
+		background-color: black;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	iframe {
+		border: none;
+		position: absolute;
+		margin: auto;
+		top: 0; left: 0; right: 0; bottom: 0;
+		overflow: hidden;
+		z-index: 100;
+	}
+
+	div#back {
+		width: 640px;
+		height: 320px;
+		background-color: #111;
+		position: absolute;
+		margin: auto;
+		top: 0; left: 0; right: 0; bottom: 0;
+		z-index: -1;
+	}
+ </style>
+ <body>
+	<div id="back"></div>
+	<iframe src="/game/level/menu/loading.html" width="640" height="320" onload="this.contentWindow.focus()">
+		Uh-oh! It seems that your browser is outdated. It is recommended that you switch to a modern browser such as Google Chrome to enjoy this game fully.
+	</iframe>
+ </body>
+</html>

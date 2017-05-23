@@ -1,0 +1,82 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/radio/radio2.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "175",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "This doesn't look good. ",
+      "x": "300",
+      "y": "70",
+      "l": "35",
+      "h": "80"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "175",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "465",
+      "y": "0",
+      "l": "175",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "175",
+      "y": "0",
+      "l": "290",
+      "h": "40"
+    },
+    {
+      "id": "box jutting out",
+      "x": "260",
+      "y": "40",
+      "l": "120",
+      "h": "90"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/radio/radio1.html?x=310&y=30",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/radio/radio3.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "435",
+      "y": "145",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 280
+  }
+}

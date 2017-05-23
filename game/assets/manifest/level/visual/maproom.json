@@ -1,0 +1,40 @@
+{
+	"path": "/game/assets/",
+	"manifest": [{
+    "src": "img/bg/maproom.png",
+    "id": "MAPROOM"
+  }, {
+    "src": "img/bg/mapclose.png",
+    "id": "MAPCLOSE"
+  }, {
+    "src": "img/bg/ruins_1.png",
+    "id": "RUINS_1"
+  }, {
+    "src": "img/bg/ruins_2.png",
+    "id": "RUINS_2"
+  }, {
+    "src": "img/bg/ruins_3.png",
+    "id": "RUINS_3"
+  }, {
+    "src": "img/bg/founddocuments.png",
+    "id": "FOUND_DOCUMENTS"
+  }, {
+    "src": "img/bg/abandonedwarehouse.png",
+    "id": "ABANDONED_WAREHOUSE"
+  }, {
+    "src": "img/bg/bunkerview.png",
+    "id": "BUNKER_VIEW"
+  }, {
+		"src": "img/doctor.png",
+		"id": "DOCTOR"
+	}, {
+		"src": "img/dialog.png",
+		"id": "DIALOG"
+	}, {
+		"src": "img/radio.png",
+		"id": "RADIO"
+	}, {
+		"src": "sound/Blue_Feather.mp3",
+		"id": "BG_MUSIC"
+	}]
+}

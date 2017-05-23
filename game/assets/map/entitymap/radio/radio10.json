@@ -1,0 +1,159 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/radio/radio10.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "255",
+      "y": "15"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Why are there so many neon things?",
+      "x": "255",
+      "y": "45",
+      "l": "130",
+      "h": "250"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "255",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "15"
+    },
+    {
+      "id": "right wall",
+      "x": "385",
+      "y": "0",
+      "l": "255",
+      "h": "320"
+    },
+    {
+      "id": "bottom wall",
+      "x": "0",
+      "y": "305",
+      "l": "640",
+      "h": "15"
+    },
+    {
+      "id": "inside room wall",
+      "x": "255",
+      "y": "15",
+      "l": "130",
+      "h": "30"
+    },
+    {
+      "id": "neon light 1L",
+      "x": "265",
+      "y": "80",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "neon light 2L",
+      "x": "265",
+      "y": "130",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "neon light 3L",
+      "x": "265",
+      "y": "180",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "neon light 4L",
+      "x": "265",
+      "y": "225",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "neon light 5L",
+      "x": "265",
+      "y": "275",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "neon light 1R",
+      "x": "360",
+      "y": "80",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "neon light 2R",
+      "x": "360",
+      "y": "130",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "neon light 3R",
+      "x": "360",
+      "y": "180",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "neon light 4R",
+      "x": "360",
+      "y": "225",
+      "l": "15",
+      "h": "15"
+    },
+    {
+      "id": "neon light 5R",
+      "x": "360",
+      "y": "275",
+      "l": "15",
+      "h": "15"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/radio/radio9.html?x=305&y=270",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "300",
+      "y": "45",
+      "l": "40",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/radio/radio11.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "270",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 50
+  }
+}

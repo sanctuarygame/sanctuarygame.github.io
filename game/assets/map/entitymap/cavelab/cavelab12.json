@@ -1,0 +1,96 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/cavelab/cavelab13.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "0",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "hi",
+      "x": "1",
+      "y": "320",
+      "l": "1",
+      "h": "1"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "wall left",
+      "x": "0",
+      "y": "87",
+      "l": "40",
+      "h": "233"
+    },
+    {
+      "id": "stalagmite",
+      "x": "6",
+      "y": "52",
+      "l": "20",
+      "h": "20"
+    },
+    {
+      "id": "hub",
+      "x": "211",
+      "y": "0",
+      "l": "365",
+      "h": "187"
+    },
+    {
+      "id": "stalagamite",
+      "x": "242",
+      "y": "207",
+      "l": "20",
+      "h": "20"
+    },
+    {
+      "id": "vault wall",
+      "x": "577",
+      "y": "0",
+      "l": "70",
+      "h": "43"
+    },
+    {
+      "id": "computer",
+      "x": "350",
+      "y": "139",
+      "l": "70",
+      "h": "70"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cavelab/cavelab11.html?x=420&y=155",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "0",
+      "y": "0",
+      "l": "50",
+      "h": "50"
+    },
+    {
+      "url": "/game/level/stage/corridor/corridor2.html",
+      "timeout": "Infinity",
+      "deny": "Locked. You can't vault over it either.",
+      "entered": false,
+      "x": "581",
+      "y": "34",
+      "l": "60",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 8,
+    "y": 10
+  }
+}

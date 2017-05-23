@@ -1,0 +1,110 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/cavelab/cavelab6.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "198.5",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Something's moving down that way.",
+      "x": "350",
+      "y": "250",
+      "l": "70",
+      "h": "70"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "198.5",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "40"
+    },
+    {
+      "id": "right wall",
+      "x": "442.5",
+      "y": "0",
+      "l": "198",
+      "h": "320"
+    },
+    {
+      "id": "first jut",
+      "x": "296",
+      "y": "40",
+      "l": "15",
+      "h": "70"
+    },
+    {
+      "id": "second jut",
+      "x": "311",
+      "y": "40",
+      "l": "20",
+      "h": "110"
+    },
+    {
+      "id": "third jut",
+      "x": "330",
+      "y": "40",
+      "l": "15",
+      "h": "130"
+    },
+    {
+      "id": "fourth jut",
+      "x": "345",
+      "y": "40",
+      "l": "15",
+      "h": "150"
+    },
+    {
+      "id": "fifth jut",
+      "x": "360",
+      "y": "40",
+      "l": "80",
+      "h": "300"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cavelab/cavelab5.html?x=450&y=185",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "200",
+      "y": "160",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/cavelab/cavelab7.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "198.5",
+      "y": "290",
+      "l": "100",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 200,
+    "y": 150
+  }
+}

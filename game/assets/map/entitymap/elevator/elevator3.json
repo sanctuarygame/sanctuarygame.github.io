@@ -1,0 +1,166 @@
+{
+  "assets": {
+    "keys": [
+      "layer0",
+      "layer1",
+      "layer2"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/elevator/elevator-room-3/elevator-room-3-1.png",
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/elevator/elevator-room-3/elevator-room-3-2.png",
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/elevator/elevator-room-3/elevator-room-3-3.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer_1",
+      "x": "200",
+      "y": "0"
+    },
+    {
+      "key": "layer_2",
+      "x": "200",
+      "y": "0"
+    },
+    {
+      "key": "layer_3",
+      "x": "200",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "There are a lot of dead moths stuck here.",
+      "x": "370",
+      "y": "0",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "flavor": "This rock seems worn down by water.",
+      "x": "325",
+      "y": "0",
+      "l": "40",
+      "h": "30"
+    },
+    {
+      "flavor": "Look, a fish! Too bad it's dead. ",
+      "x": "315",
+      "y": "55",
+      "l": "90",
+      "h": "40"
+    },
+    {
+      "flavor": "Weird row of cave ornaments. ",
+      "x": "300",
+      "y": "235",
+      "l": "180",
+      "h": "35"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "200",
+      "h": "320"
+    },
+    {
+      "id": "First rectangle wall",
+      "x": "200",
+      "y": "175",
+      "l": "32",
+      "h": "160"
+    },
+    {
+      "id": "second rectangle wall",
+      "x": "232",
+      "y": "205",
+      "l": "32",
+      "h": "120"
+    },
+    {
+      "id": "third rectangle wall ",
+      "x": "264",
+      "y": "240",
+      "l": "32",
+      "h": "90"
+    },
+    {
+      "id": "right wall",
+      "x": "440",
+      "y": "0",
+      "l": "200",
+      "h": "320"
+    },
+    {
+      "id": "top rock wall",
+      "x": "330",
+      "y": "0",
+      "l": "140",
+      "h": "15"
+    },
+    {
+      "id": "rock left 1",
+      "x": "200",
+      "y": "145",
+      "l": "32",
+      "h": "32"
+    },
+    {
+      "id": "rock left 2",
+      "x": "230",
+      "y": "175",
+      "l": "32",
+      "h": "32"
+    },
+    {
+      "id": "rock left 3",
+      "x": "265",
+      "y": "210",
+      "l": "32",
+      "h": "32"
+    },
+    {
+      "id": "4 rocks in a row bottom",
+      "x": "300",
+      "y": "245",
+      "l": "130",
+      "h": "32"
+    },
+    {
+      "id": "pool",
+      "x": "320",
+      "y": "70",
+      "l": "80",
+      "h": "20"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/elevator/elevator2.html?x=313&y=277",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "246",
+      "y": "0",
+      "l": "40",
+      "h": "20"
+    },
+    {
+      "url": "/game/level/stage/lab/lab1.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "422",
+      "y": "132",
+      "l": "20",
+      "h": "50"
+    }
+  ],
+  "spawn": {
+    "x": 250,
+    "y": 0
+  }
+}

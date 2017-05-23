@@ -1,0 +1,10 @@
+{
+	"path": "/game/assets/",
+	"manifest": [{
+		"src": "img/dialog.png",
+		"id": "DIALOG"
+	}, {
+		"src": "img/radio.png",
+		"id": "RADIO"
+	}]
+}

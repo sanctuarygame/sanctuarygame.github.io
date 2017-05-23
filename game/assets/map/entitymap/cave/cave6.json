@@ -1,0 +1,124 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/cave/cave6.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "70",
+      "y": "85"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "There is some fungal bloom in the water. ",
+      "x": "340",
+      "y": "135",
+      "l": "50",
+      "h": "25"
+    },
+    {
+      "flavor": "Some pebbles have been crushed into powder. ",
+      "x": "545",
+      "y": "210",
+      "l": "25",
+      "h": "25"
+    },
+    {
+      "flavor": "This rock looks like a bear. ",
+      "x": "100",
+      "y": "190",
+      "l": "35",
+      "h": "35"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "70",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "570",
+      "y": "0",
+      "l": "70",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "70",
+      "y": "0",
+      "l": "500",
+      "h": "100"
+    },
+    {
+      "id": "bottom wall",
+      "x": "70",
+      "y": "235",
+      "l": "500",
+      "h": "85"
+    },
+    {
+      "id": "left most rock",
+      "x": "105",
+      "y": "195",
+      "l": "25",
+      "h": "25"
+    },
+    {
+      "id": "second rock from the left",
+      "x": "190",
+      "y": "125",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "pool",
+      "x": "345",
+      "y": "145",
+      "l": "40",
+      "h": "10"
+    },
+    {
+      "id": "third rock",
+      "x": "520",
+      "y": "150",
+      "l": "25",
+      "h": "10"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cave/cave5.html?x=381&y=0",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "142",
+      "y": "210",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/cave/cave7.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "541",
+      "y": "189",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 150,
+    "y": 190
+  }
+}

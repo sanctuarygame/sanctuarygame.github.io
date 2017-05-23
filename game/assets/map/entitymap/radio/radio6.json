@@ -1,0 +1,96 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/radio/radio6.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "0",
+      "y": "95"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "This door is locked.",
+      "x": "0",
+      "y": "115",
+      "l": "525",
+      "h": "20"
+    },
+    {
+      "flavor": "This door is open",
+      "x": "525",
+      "y": "115",
+      "l": "40",
+      "h": "60"
+    },
+    {
+      "flavor": "This one looks too boring to open.",
+      "x": "565",
+      "y": "115",
+      "l": "80",
+      "h": "20"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "100"
+    },
+    {
+      "id": "door blocks left side",
+      "x": "0",
+      "y": "100",
+      "l": "530",
+      "h": "25"
+    },
+    {
+      "id": "door block right side ",
+      "x": "560",
+      "y": "100",
+      "l": "80",
+      "h": "25"
+    },
+    {
+      "id": "bottom wall",
+      "x": "0",
+      "y": "225",
+      "l": "640",
+      "h": "95"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/radio/radio5.html?x=450&y=200",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "0",
+      "y": "160",
+      "l": "30",
+      "h": "50"
+    },
+    {
+      "url": "/game/level/stage/radio/radio7.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "530",
+      "y": "100",
+      "l": "30",
+      "h": "50"
+    }
+  ],
+  "spawn": {
+    "x": 0,
+    "y": 160
+  }
+}

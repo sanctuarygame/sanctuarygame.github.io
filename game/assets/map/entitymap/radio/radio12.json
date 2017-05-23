@@ -1,0 +1,124 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/radio/radio12.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "143",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "The sight gives you a bad feeling.",
+      "x": "143",
+      "y": "30",
+      "l": "354",
+      "h": "290"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "143",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "497",
+      "y": "0",
+      "l": "143",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "143",
+      "y": "0",
+      "l": "230",
+      "h": "30"
+    },
+    {
+      "id": "jutting wall",
+      "x": "373",
+      "y": "0",
+      "l": "125",
+      "h": "190"
+    },
+    {
+      "id": "container 1L",
+      "x": "172",
+      "y": "70",
+      "l": "40",
+      "h": "55"
+    },
+    {
+      "id": "container 2L",
+      "x": "172",
+      "y": "160",
+      "l": "25",
+      "h": "20"
+    },
+    {
+      "id": "container 3L",
+      "x": "172",
+      "y": "260",
+      "l": "25",
+      "h": "20"
+    },
+    {
+      "id": "container 1R",
+      "x": "307",
+      "y": "70",
+      "l": "25",
+      "h": "20"
+    },
+    {
+      "id": "container 2R",
+      "x": "317",
+      "y": "160",
+      "l": "25",
+      "h": "20"
+    },
+    {
+      "id": "container 3R",
+      "x": "297",
+      "y": "260",
+      "l": "40",
+      "h": "55"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/radio/radio11.html?x=305&y=290",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "235",
+      "y": "20",
+      "l": "40",
+      "h": "40"
+    },
+    {
+      "url": "/game/level/stage/radio/radio13.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "465",
+      "y": "255",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 240,
+    "y": 40
+  }
+}

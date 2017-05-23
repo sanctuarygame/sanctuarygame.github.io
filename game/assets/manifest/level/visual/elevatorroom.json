@@ -1,0 +1,16 @@
+{
+	"path": "/game/assets/",
+	"manifest": [{
+    "src": "img/bg/elevatorroom.png",
+    "id": "ELEVATORROOM"
+  }, {
+		"src": "sound/Blue_Feather.mp3",
+		"id": "BG_MUSIC"
+	}, {
+		"src": "img/doctor.png",
+		"id": "DOCTOR"
+	}, {
+		"src": "img/dialog.png",
+		"id": "DIALOG"
+	}]
+}

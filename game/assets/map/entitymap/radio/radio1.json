@@ -1,0 +1,75 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/radio/radio1.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "287",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "There is a weird musty odor. ",
+      "x": "287",
+      "y": "0",
+      "l": "66",
+      "h": "320"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "287",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "353",
+      "y": "0",
+      "l": "287",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "287",
+      "y": "0",
+      "l": "66",
+      "h": "25"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/corridor/corridor2.html?x=615&y=145",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/radio/radio2.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "310",
+      "y": "20",
+      "l": "25",
+      "h": "40"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 280
+  }
+}

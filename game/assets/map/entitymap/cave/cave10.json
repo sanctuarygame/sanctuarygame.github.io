@@ -1,0 +1,103 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/cave/cave10.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "220",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Are these human bones?",
+      "x": "360",
+      "y": "60",
+      "l": "50",
+      "h": "200"
+    },
+    {
+      "flavor": "Looks like an alien's bones. ",
+      "x": "240",
+      "y": "280",
+      "l": "40",
+      "h": "40"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "220",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "420",
+      "y": "0",
+      "l": "220",
+      "h": "320"
+    },
+    {
+      "id": "top wall left side",
+      "x": "220",
+      "y": "0",
+      "l": "70",
+      "h": "20"
+    },
+    {
+      "id": "top wall right side",
+      "x": "350",
+      "y": "0",
+      "l": "70",
+      "h": "20"
+    },
+    {
+      "id": "left rock",
+      "x": "230",
+      "y": "185",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "right rock",
+      "x": "385",
+      "y": "285",
+      "l": "25",
+      "h": "10"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cave/cave11.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "305",
+      "y": "0",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/cave/cave9.html?x=310&y=0",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "310",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 280
+  }
+}

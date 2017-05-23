@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Bridgeram, Lucer, LexLuther">
+  <title>START</title>
+ </head>
+ <script src="/js/easel/lib/easeljs-0.8.2.min.js"></script>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <script src="/js/tween/lib/tweenjs-0.6.2.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	// Initialize canvas values and functions
+
+	var stage;
+	var keys = [];
+	var text, text1, text2, text3;
+	var menu;
+	var menuIndex;
+	var choices;
+
+  window.parent.soundfx = new Howl({
+    urls: ['/game/assets/sound/107145__bubaproducer__button-26.wav']
+  });
+
+	document.onkeydown = function(event) {
+		keys[event.keyCode] = true;
+	};
+	document.onkeyup = function(event) {
+		keys[event.keyCode] = false;
+	};
+
+	function draw() {
+    if(!window.parent.bgMusicPlaying) {
+      window.parent.playBGMusic();
+    }
+
+		menuIndex = 0;
+
+    stage = new createjs.Stage("gameboard");
+
+    var bgImg = new createjs.Bitmap(window.parent.fileQueue.getResult("BG_IMG"));
+    bgImg.x = 0;
+    bgImg.y = 0;
+
+		text = new createjs.Text("SANCTUARY", "70px VT323", "white");
+		text.x = MIDDLE_X;
+		text.y = MIDDLE_Y / 2;
+		text.textAlign = "center";
+		text.textBaseline = "middle";
+
+		text1 = new createjs.Text("Start", "20px VT323", "white");
+		text1.x = STAGE_WIDTH / 8;
+		text1.y = MIDDLE_Y * 1.5;
+		text1.textAlign = "center";
+		text1.textBaseline = "middle";
+
+		text2 = new createjs.Text("Controls", "20px VT323", "white");
+		text2.x = MIDDLE_X;
+		text2.y = MIDDLE_Y * 1.5;
+		text2.textAlign = "center";
+		text2.textBaseline = "middle";
+
+		text3 = new createjs.Text("Credits", "20px VT323", "white");
+		text3.x = STAGE_WIDTH * 0.875;
+		text3.y = MIDDLE_Y * 1.5;
+		text3.textAlign = "center";
+		text3.textBaseline = "middle";
+
+		stage.addChild(bgImg, text, text1, text2, text3);
+
+		menu = [text1, text2, text3];
+		choices = ["menu/loading", "menu/controls", "menu/credits"];
+
+		createjs.Tween.get(text1, { loop: false })
+			.to({ scaleX: 1.5, scaleY: 1.5 }, 200);
+
+		createjs.Ticker.setFPS(60);
+		createjs.Ticker.addEventListener("tick", tick);
+	}
+
+	function tick() {
+		if(keys[37]) {
+			keys[37] = false;
+
+			createjs.Tween.get(menu[menuIndex], { loop: false })
+				.to({ scaleX: 1, scaleY: 1 }, 200);
+
+			if(menuIndex == 0) {
+				menuIndex = 2;
+			} else {
+				menuIndex--;
+			}
+
+			createjs.Tween.get(menu[menuIndex], { loop: false })
+				.to({ scaleX: 1.5, scaleY: 1.5 }, 200);
+		}
+
+		if(keys[13]) {
+      keys[13] = false;
+
+      window.parent.soundfx.play();
+			createjs.Tween.get(stage, { loop: false })
+				.to({ alpha: 0 }, 600);
+
+      if(menuIndex == 0) {
+        nextStage();
+        window.parent.stopBGMusic();
+      }
+
+			setTimeout(function() {
+				window.location = hashToURL(choices[menuIndex]);
+			}, 700);
+		}
+
+		if(keys[39]) {
+			keys[39] = false;
+
+			createjs.Tween.get(menu[menuIndex], { loop: false })
+				.to({ scaleX: 1, scaleY: 1 }, 200);
+
+			if(menuIndex == 2) {
+				menuIndex = 0;
+			} else {
+				menuIndex++;
+			}
+
+			createjs.Tween.get(menu[menuIndex], { loop: false })
+				.to({ scaleX: 1.5, scaleY: 1.5 }, 200);
+		}
+
+		stage.update();
+	}
+
+ //-->
+ </script>
+ <body onload="setTimeout(function() { draw(); }, 500);" onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

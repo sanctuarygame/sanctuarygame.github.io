@@ -1,0 +1,124 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/cave/cave2.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "170",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Why does this side smell like honey?",
+      "x": "375",
+      "y": "45",
+      "l": "80",
+      "h": "250"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "170",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "470",
+      "y": "0",
+      "l": "170",
+      "h": "320"
+    },
+    {
+      "id": "top wall left side",
+      "x": "170",
+      "y": "0",
+      "l": "100",
+      "h": "20"
+    },
+    {
+      "id": "top wall right side",
+      "x": "365",
+      "y": "0",
+      "l": "100",
+      "h": "20"
+    },
+    {
+      "id": "pool",
+      "x": "275",
+      "y": "145",
+      "l": "60",
+      "h": "15"
+    },
+    {
+      "id": "rock 1 left",
+      "x": "220",
+      "y": "55",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "rock 2 left",
+      "x": "240",
+      "y": "210",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "rock 3 right",
+      "x": "425",
+      "y": "55",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "rock 2 right",
+      "x": "385",
+      "y": "185",
+      "l": "25",
+      "h": "10"
+    },
+    {
+      "id": "rock 3 right",
+      "x": "410",
+      "y": "275",
+      "l": "25",
+      "h": "10"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/cave/cave3.html",
+      "timeout": "10",
+      "deny": "Can't pass yet.",
+      "entered": false,
+      "x": "300",
+      "y": "297",
+      "l": "30",
+      "h": "30"
+    },
+    {
+      "url": "/game/level/stage/cave/cave1.html?x=332&y=277",
+      "timeout": "10",
+      "deny": "",
+      "entered": false,
+      "x": "280",
+      "y": "0",
+      "l": "70",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 300,
+    "y": 5
+  }
+}

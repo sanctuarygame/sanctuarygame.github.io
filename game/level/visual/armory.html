@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Jonathan Lin, Preston Lai, Eric Yan, Alex Chen">
+  <title>ARMORY</title>
+ </head>
+ <script src="/js/easel/lib/easeljs-0.8.2.min.js"></script>
+ <script src="/js/GameData.js"></script>
+ <script src="/js/GameDialogue.js"></script>
+ <script src="/js/tween/lib/tweenjs-0.6.2.min.js"></script>
+ <script src="/js/canvasfx.js"></script>
+ <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+ <script src="/js/howler/howler.min.js"></script>
+ <style>
+	@font-face {
+		font-family: "VT323";
+		src: url("/game/assets/VT323-Regular.ttf");
+	}
+
+	body {
+		background-color: #111;
+		margin: 0px;
+		padding: 0px;
+		font-family: "VT323";
+	}
+	canvas {
+		background-color: #111;
+		position: absolute;
+		top: 0; left: 0;
+		outline: none;
+	}
+ </style>
+ <script type="text/javascript">
+ <!--
+	// Initialize canvas values and functions
+
+	var stage;
+	var keys = [];
+  var interactionTrack, dialog, dialogue, nameText, flickerID;
+
+	document.onkeydown = function(event) {
+		keys[event.keyCode] = true;
+	};
+	document.onkeyup = function(event) {
+		keys[event.keyCode] = false;
+	};
+
+	function draw() {
+    window.parent.stopBGMusic();
+    window.parent.playBGMusic();
+
+    // Loading and drawing
+
+		stage = new createjs.Stage("gameboard");
+
+    // Backgrounds
+
+    var armory_bright = new createjs.Bitmap(window.parent.fileQueue.getResult("ARMORY_BRIGHT"));
+    armory_bright.x = 0;
+    armory_bright.y = 0;
+    armory_bright.alpha = 0;
+
+    var helmet = new createjs.Bitmap(window.parent.fileQueue.getResult("HELMET"));
+    helmet.x = 0;
+    helmet.y = 0;
+    helmet.alpha = 0;
+
+    var crowbar = new createjs.Bitmap(window.parent.fileQueue.getResult("CROWBAR"));
+    crowbar.x = 0;
+    crowbar.y = 0;
+    crowbar.alpha = 0;
+
+    var waterpistol = new createjs.Bitmap(window.parent.fileQueue.getResult("WATERPISTOL"));
+    waterpistol.x = 0;
+    waterpistol.y = 0;
+    waterpistol.alpha = 0;
+
+    // Characters
+
+    var doctor = new createjs.Bitmap(window.parent.fileQueue.getResult("DOCTOR"));
+    doctor.x = 365;
+    doctor.y = 1000;
+    doctor.alpha = 1;
+
+    // Dialog objects
+
+    dialog = new createjs.Bitmap(window.parent.fileQueue.getResult("DIALOG"));
+    dialog.x = 20;
+    dialog.y = 228;
+    dialog.alpha = 0;
+
+    nametag = new createjs.Bitmap(window.parent.fileQueue.getResult("DIALOG"));
+    nametag.x = 40;
+    nametag.y = 215;
+    nametag.scaleX = 0.2;
+    nametag.scaleY = 0.4;
+    nametag.alpha = 0;
+
+    // Text
+
+    textshadow = new createjs.Shadow("#000000", 2, 2, 1);
+
+    nameText = new createjs.Text("Will", "23px VT323", "white");
+    nameText.x = 50;
+    nameText.y = 230;
+    nameText.alpha = 0;
+    nameText.textAlign = "left";
+    nameText.textBaseline = "middle";
+    nameText.shadow = textshadow;
+
+    dialogue = new createjs.Text(" ", "20px VT323", "white");
+    dialogue.x = 47;
+    dialogue.y = 262;
+    dialogue.alpha = 0;
+    dialogue.textAlign = "left";
+    dialogue.textBaseline = "middle";
+    dialogue.lineWidth = 550;
+    dialogue.lineHeight = 20;
+    dialogue.shadow = textshadow;
+
+    // Adding elements to stage
+
+    stage.addChild(armory_bright, helmet, crowbar, waterpistol, doctor, dialog, nametag, nameText, dialogue);
+
+    // Actual animation
+
+    setTimeout(function() {
+      GameGraphics.fade(armory_bright, 1, 2500);
+    }, 500);
+
+    setTimeout(function() {
+      GameGraphics.slideTo(doctor, doctor.x, MIDDLE_Y / 3.15, 570);
+      setTimeout(function() {
+        dialog.alpha = 1;
+        dialogue.alpha = 1;
+        nametag.alpha = 1;
+        GameGraphics.show(nameText, 50);
+        GameGraphics.typeText(dialogue, "Welcome to our armory...such as it is.", 30, "CHAR", "/game/assets/sound/text_type.wav", function() { ; });
+      }, 700);
+      setTimeout(function() {
+        interactionTrack.start();
+      }, 750);
+    }, 6070); // 7440
+
+    // Track objects
+
+    var doctor_speaker = new DialogueSpeaker("Will");
+
+    var doctor_track_1 = new DialogueTrack([
+      "Let's take a look at what we have.",
+      "",
+      "I believe you know what this is. It's a respected method of protection, often used by...construction workers.",
+      "Won't protect you from a fall or a bullet, but at least you'll be ready if some of the ceiling falls down.",
+      "Always good, right?",
+      "",
+      "Next up is...well, we can call it the modern sword.",
+      "Here it is, the crowbar!",
+      "I'll explain what this is for later.",
+      "",
+      "And finally...",
+      "Don't get excited.",
+      "It's a water gun.",
+      "Okay, I can tell you might not be feeling the most confident right now...",
+      "But I promise that this will be enough for what we're asking you to do.",
+      "You know what? I've spent too much time playing show-and-tell.",
+      "Why don't I take you to where you'll be working, so you can begin? Come on."
+    ]);
+
+    var doctor_dialogue_1 = new DialogueManager(doctor_speaker, doctor_track_1, nameText, dialogue);
+
+    // Index-bound animation
+
+    var MOVED_BOX = false;
+    var UP_BY = 200;
+    var SLIDE_DURATION = 20;
+
+    doctor_dialogue_1.bindFunction(1, function() {
+      GameGraphics.fade(armory_bright, 0, 500);
+      GameGraphics.fade(helmet, 1, 500);
+      GameGraphics.fade(doctor, 0, 500);
+      GameGraphics.hide(dialog, 0);
+      GameGraphics.hide(dialogue, 0);
+      GameGraphics.hide(nameText, 0);
+      GameGraphics.hide(nametag, 0);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(2, function() {
+      GameGraphics.show(dialog, 0);
+      GameGraphics.show(dialogue, 0);
+      GameGraphics.show(nameText, 0);
+      GameGraphics.show(nametag, 0);
+      if(!MOVED_BOX) {
+        dialog.y -= UP_BY;
+        nametag.y -= UP_BY;
+        textshadow.y -= UP_BY;
+        nameText.y -= UP_BY;
+        dialogue.y -= UP_BY;
+        MOVED_BOX = true;
+      }
+    }, null);
+
+    doctor_dialogue_1.bindFunction(5, function() {
+      GameGraphics.fade(helmet, 0, 500);
+      GameGraphics.fade(doctor, 0, 500);
+      GameGraphics.fade(crowbar, 1, 500);
+      GameGraphics.hide(dialog, 0);
+      GameGraphics.hide(dialogue, 0);
+      GameGraphics.hide(nameText, 0);
+      GameGraphics.hide(nametag, 0);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(6, function() {
+      GameGraphics.show(dialog, 0);
+      GameGraphics.show(dialogue, 0);
+      GameGraphics.show(nameText, 0);
+      GameGraphics.show(nametag, 0);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(9, function() {
+      GameGraphics.fade(crowbar, 0, 500);
+      GameGraphics.fade(doctor, 0, 500);
+      GameGraphics.fade(waterpistol, 1, 500);
+      GameGraphics.hide(dialog, 0);
+      GameGraphics.hide(dialogue, 0);
+      GameGraphics.hide(nameText, 0);
+      GameGraphics.hide(nametag, 0);
+    }, null);
+
+    doctor_dialogue_1.bindFunction(10, function() {
+      GameGraphics.show(dialog, 0);
+      GameGraphics.show(dialogue, 0);
+      GameGraphics.show(nameText, 0);
+      GameGraphics.show(nametag, 0);
+      MOVED_BOX = false;
+    }, null);
+
+    doctor_dialogue_1.bindFunction(13, function() {
+      GameGraphics.fade(waterpistol, 0, 500);
+      GameGraphics.fade(armory_bright, 1, 500);
+      GameGraphics.fade(doctor, 1, 500);
+      if(!MOVED_BOX) {
+        GameGraphics.slideTo(dialog, dialog.x, dialog.y + UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(nametag, nametag.x, nametag.y + UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(textshadow, textshadow.x, textshadow.y + UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(nameText, nameText.x, nameText.y + UP_BY, SLIDE_DURATION);
+        GameGraphics.slideTo(dialogue, dialogue.x, dialogue.y + UP_BY, SLIDE_DURATION);
+        MOVED_BOX = true;
+      }
+    }, null);
+
+    // Dialogue objects
+
+    dialogue_end = new DialogueEnd(doctor, dialog, nametag, nameText, dialogue);
+
+    dialogue_advance_stage = new DialogueAdvanceStage(500, true);
+
+    interactionTrack = new InteractionTrack(doctor_dialogue_1, dialogue_end, dialogue_advance_stage);
+
+    // Update ticks
+
+		createjs.Ticker.setFPS(60);
+		createjs.Ticker.addEventListener("tick", tick);
+	}
+
+	function tick() {
+		stage.update();
+    if(keys[13]) {
+      keys[13] = false;
+      if(interactionTrack.hasNext()) {
+        interactionTrack.next();
+      }
+    }
+  }
+
+  function stopFlicker() {
+    clearInterval(flickerID);
+  }
+
+ //-->
+ </script>
+ <body onload="setTimeout(function() { draw(); }, 1000)" onclick="document.getElementById('gameboard').focus();">
+  <canvas id="gameboard" width="640" height="320" tabindex="1">
+	Sorry, but your browser doesn't support the HTML5 &lt;canvas&gt; element. Please update it to play this game.
+  </canvas>
+  .
+ </body>
+</html>

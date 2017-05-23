@@ -1,0 +1,134 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "http://invasiveasianstem.site88.net/game/assets/map/stage/wakewalk.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "240",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "There's a lot of Tylenol.",
+      "x": "320",
+      "y": "50",
+      "l": "80",
+      "h": "50"
+    },
+    {
+      "flavor": "It's empty.",
+      "x": "282",
+      "y": "235",
+      "l": "35",
+      "h": "85"
+    },
+    {
+      "flavor": "The blanket is made of green blueprints.",
+      "x": "339",
+      "y": "250",
+      "l": "61",
+      "h": "70"
+    },
+    {
+      "flavor": "Empty glass bottles and a broken syringe.",
+      "x": "240",
+      "y": "125",
+      "l": "35",
+      "h": "55"
+    },
+    {
+      "flavor": "Someone's been sitting awhile.",
+      "x": "370",
+      "y": "160",
+      "l": "30",
+      "h": "40"
+    },
+    {
+      "id": "exit",
+      "flavor": "It's locked, at least for now.",
+      "x": "280",
+      "y": "0",
+      "l": "27",
+      "h": "45"
+    }
+  ],
+  "hitboxes": [
+    {
+      "x": "0",
+      "y": "0",
+      "l": "240",
+      "h": "320"
+    },
+    {
+      "x": "400",
+      "y": "0",
+      "l": "240",
+      "h": "320"
+    },
+    {
+      "x": "240",
+      "y": "0",
+      "l": "160",
+      "h": "35"
+    },
+    {
+      "x": "245",
+      "y": "43",
+      "l": "15",
+      "h": "1"
+    },
+    {
+      "x": "305",
+      "y": "0",
+      "l": "95",
+      "h": "95"
+    },
+    {
+      "x": "380",
+      "y": "160",
+      "l": "20",
+      "h": "20"
+    },
+    {
+      "x": "340",
+      "y": "260",
+      "l": "60",
+      "h": "60"
+    },
+    {
+      "x": "245",
+      "y": "130",
+      "l": "20",
+      "h": "37"
+    },
+    {
+      "x": "287",
+      "y": "255",
+      "l": "20",
+      "h": "60"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/menu/loading.html",
+      "timeout": "15000",
+      "deny": "It's locked, at least for now.",
+      "entered": true,
+      "x": "278",
+      "y": "24",
+      "l": "30",
+      "h": "40"
+    }
+  ],
+  "spawn": {
+    "x": 335,
+    "y": 210
+  }
+}

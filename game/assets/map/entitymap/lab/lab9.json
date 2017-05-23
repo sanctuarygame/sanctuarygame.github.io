@@ -1,0 +1,110 @@
+{
+  "assets": {
+    "keys": [
+      "layer0"
+    ],
+    "urls": [
+      "/game/assets/map/stage/lab/lab9.png"
+    ]
+  },
+  "backgrounds": [
+    {
+      "key": "layer0",
+      "x": "271",
+      "y": "0"
+    }
+  ],
+  "flavors": [
+    {
+      "flavor": "Is this a storage room?",
+      "x": "271",
+      "y": "0",
+      "l": "98",
+      "h": "320"
+    }
+  ],
+  "hitboxes": [
+    {
+      "id": "left wall",
+      "x": "0",
+      "y": "0",
+      "l": "271",
+      "h": "320"
+    },
+    {
+      "id": "right wall",
+      "x": "370",
+      "y": "0",
+      "l": "271",
+      "h": "320"
+    },
+    {
+      "id": "top wall",
+      "x": "0",
+      "y": "0",
+      "l": "640",
+      "h": "35"
+    },
+    {
+      "id": "left top box",
+      "x": "275",
+      "y": "55",
+      "l": "30",
+      "h": "5"
+    },
+    {
+      "id": "top right box",
+      "x": "340",
+      "y": "55",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "first middle box",
+      "x": "290",
+      "y": "130",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "second middle box",
+      "x": "325",
+      "y": "215",
+      "l": "30",
+      "h": "15"
+    },
+    {
+      "id": "bottom box",
+      "x": "270",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "redirects": [
+    {
+      "url": "/game/level/stage/lab/lab8.html?x=380&y=290",
+      "timeout": "0",
+      "deny": "",
+      "entered": true,
+      "x": "310",
+      "y": "20",
+      "l": "25",
+      "h": "50"
+    },
+    {
+      "url": "/game/level/stage/lab/lab10.html",
+      "timeout": "0",
+      "deny": "",
+      "entered": false,
+      "x": "310",
+      "y": "290",
+      "l": "30",
+      "h": "30"
+    }
+  ],
+  "spawn": {
+    "x": 305,
+    "y": 30
+  }
+}
